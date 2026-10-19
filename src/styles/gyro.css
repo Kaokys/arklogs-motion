@@ -1,0 +1,8 @@
+@media (min-width: 761px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-screen .intro-panel,
+  .home-screen .route-node {
+    translate: var(--float-x, 0px) var(--float-y, 0px);
+    transition: translate 220ms cubic-bezier(.2, .8, .2, 1);
+    will-change: translate;
+  }
+}

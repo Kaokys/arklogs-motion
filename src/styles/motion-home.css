@@ -1,0 +1,68 @@
+/* Motion variant: a living archive board, with legible content above its graphics. */
+.home-screen { isolation: isolate; background: #dce5e9; }
+.home-screen::before { content: ''; position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse at 55% 38%, #f6f9f9 0, #d7e2e8 58%, #b9ccd6 100%); }
+.motion-stage { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; opacity: 0; }
+.motion-stage::before { content: ''; position: absolute; inset: -20%; background: repeating-linear-gradient(0deg, transparent 0 59px, #54748922 60px), repeating-linear-gradient(90deg, transparent 0 59px, #54748922 60px); transform: perspective(700px) rotateX(59deg) scale(1.4); transform-origin: 50% 70%; }
+.motion-orbit { position: absolute; left: 47%; top: 41%; width: 54vw; max-width: 820px; aspect-ratio: 1; border: 1px solid #476b8880; border-radius: 50%; transform: translate(-50%,-50%) rotateX(68deg) rotateZ(-20deg); }
+.orbit-two { width: 72vw; max-width: 1100px; border-style: dashed; opacity: .4; }
+.motion-scan { position: absolute; height: 1px; width: 100%; top: 45%; background: #173cc577; box-shadow: 0 0 24px #173cc544; animation: scan 9s ease-in-out infinite alternate; }
+.motion-cross { position: absolute; color: #173cc5; font: 400 35px/1 var(--heading-font); opacity: .5; }
+.cross-one { left: 30%; top: 13%; }.cross-two { right: 13%; bottom: 12%; }
+.motion-label { position: absolute; z-index: 0; left: 28%; top: 17%; display: flex; flex-direction: column; color: #203e57; opacity: 0; pointer-events: none; font: 700 clamp(110px, 17.5vw, 285px)/.7 var(--heading-font); letter-spacing: -.075em; text-transform: uppercase; text-shadow: 1px 1px #f7fafc; }
+.motion-label span:nth-child(2) { margin-left: 12vw; color: transparent; -webkit-text-stroke: 1px #274a64a8; }
+.home-screen .map-zone { background: #d4e1e88c; border-color: #9db2bf; box-shadow: inset 0 2px 0 #f9fcfc9c, inset 0 -7px 0 #879eab7a, 0 12px 22px #182b3d30; }
+.home-screen .map-zone::after { display: none; }
+.home-screen .map-grid { opacity: .55; }
+.home-screen .intro-panel { background: #f4f7f4f4; }
+.home-screen .route-node { background: #263740; }
+.home-screen .route-node:nth-child(5) { box-shadow: inset 2px 2px 0 #e9f5f7, inset -3px -3px 0 #16252d, 7px 9px 0 #173cc5, 18px 22px 20px #17263186; }
+.home-screen .route-node:hover, .home-screen .route-node:focus-visible { z-index: 9; border-color: #eef7fb; box-shadow: inset 2px 2px 0 #fff, inset -3px -3px 0 #15232b, 8px 10px 0 #173cc5, 22px 25px 23px #1225328c; }
+.home-screen .node-art img { transition: transform .5s ease, filter .4s ease; }
+.home-screen .route-node:hover .node-art img, .home-screen .route-node:focus-visible .node-art img { transform: scale(1.08); filter: grayscale(.1) contrast(1.13) brightness(.94); }
+.home-screen .route-node::after { content: ''; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #d7e9f675; opacity: 0; pointer-events: none; }
+.home-screen .route-node:hover::after { opacity: .5; animation: card-scan 1.6s ease-in-out infinite alternate; }
+.home-screen .map-trace path { stroke-dasharray: 9 6; animation: trace 22s linear infinite; }
+@keyframes scan { from { transform: translateY(-23vh); opacity: .1; } to { transform: translateY(31vh); opacity: .75; } }
+@keyframes card-scan { from { top: 25%; } to { top: 80%; } }
+@keyframes trace { to { stroke-dashoffset: -300; } }
+@media (max-width: 760px) { .motion-label { left: 3%; top: 24%; font-size: 25vw; opacity: .1 !important; }.motion-label span:nth-child(2) { margin-left: 14vw; }.motion-stage { opacity: .5 !important; }.home-screen .map-zone { background: #d4e1e8dc; }.home-screen .route-node { color: #f3f7f8; }.home-screen .node-title { color: #f3f7f8; font-size: 13px; }.home-screen .node-sub { color: #c2d1d7; font-size: 9px; }.home-screen .node-art { min-height: 0; }.home-screen .route-node:nth-child(5) { flex-basis: 57%; } }
+@media (prefers-reduced-motion: reduce) { .motion-stage, .motion-label { opacity: 1; }.motion-scan, .home-screen .map-trace path, .home-screen .route-node::after { animation: none; }.motion-scan { display: none; } }
+
+/* The selected record uses the browser's modal layer for focus and Escape handling. */
+.record-dialog { width: min(820px, calc(100vw - 36px)); max-width: none; max-height: min(620px, calc(100dvh - 36px)); padding: 0; border: 1px solid #d9e6ec; color: #f5f8f8; background: #21333f; box-shadow: 12px 15px 0 #1329398a, 0 36px 75px #0b2036ae; overflow: hidden; }
+.record-dialog::backdrop { background: #dce7ed52; backdrop-filter: blur(4px); }
+.record-dialog-shell { display: grid; grid-template-columns: 52% 48%; min-height: 440px; max-height: inherit; }
+.record-dialog-art { position: relative; min-height: 0; overflow: hidden; background: #b7c9d4; border-right: 1px solid #718998; }
+.record-dialog-art::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #0e253000 42%, #0e2530a3), repeating-linear-gradient(90deg, transparent 0 34px, #e0f1f00c 35px); }
+.record-dialog-art img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(.25) contrast(1.09); }
+.record-dialog-code { position: absolute; z-index: 1; left: 20px; bottom: 18px; font: 700 clamp(70px, 12vw, 150px)/.82 var(--heading-font); letter-spacing: -.07em; color: #fff; text-shadow: 4px 5px 0 #173cc5; }
+.record-dialog-body { min-width: 0; display: flex; flex-direction: column; }
+.record-dialog-top { height: 56px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-left: 25px; border-bottom: 1px solid #607684; color: #acc4cf; font: 600 14px/1 var(--heading-font); text-transform: uppercase; letter-spacing: .06em; }
+.record-dialog-close { align-self: stretch; width: 58px; border: 0; border-left: 1px solid #607684; background: #314957; color: #fff; cursor: pointer; font: 400 33px/1 var(--heading-font); }
+.record-dialog-close:hover, .record-dialog-close:focus-visible { background: #173cc5; }
+.record-dialog-copy { flex: 1; min-height: 0; overflow-y: auto; padding: 34px 28px 18px; }
+.record-dialog-kicker { display: block; color: #9db3e5; font: 600 13px/1.2 var(--heading-font); letter-spacing: .1em; }
+.record-dialog-copy h2 { margin: 16px 0 19px; font: 600 clamp(34px, 3.8vw, 56px)/.99 var(--heading-font); letter-spacing: -.035em; }
+.record-dialog-copy p { margin: 0 0 16px; color: #e3ebed; font-size: 16px; line-height: 1.5; }
+.record-dialog-copy .record-dialog-detail { color: #a9c0ca; font-size: 14px; }
+.record-dialog-actions { display: grid; grid-template-columns: 1fr; min-height: 62px; border-top: 1px solid #607684; }
+.record-dialog-read { display: flex; justify-content: space-between; align-items: center; padding: 0 24px; background: #173cc5; color: #fff; font: 600 17px/1 var(--heading-font); letter-spacing: .025em; }
+.record-dialog-read span { font-size: 27px; }
+.record-dialog-read:hover, .record-dialog-read:focus-visible { background: #0c2b99; }
+.record-dialog button:focus-visible, .record-dialog a:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+@media (max-width: 650px) {
+  .record-dialog { width: calc(100vw - 22px); max-height: calc(100dvh - 34px); }
+  .record-dialog-shell { display: flex; flex-direction: column; min-height: 0; height: min(580px, calc(100dvh - 34px)); }
+  .record-dialog-art { flex: 0 0 38%; border-right: 0; border-bottom: 1px solid #718998; }
+  .record-dialog-code { font-size: 78px; left: 15px; bottom: 13px; }
+  .record-dialog-body { flex: 1; min-height: 0; }
+  .record-dialog-top { height: 44px; padding-left: 18px; font-size: 13px; }
+  .record-dialog-close { position: absolute; top: 0; right: 0; z-index: 3; width: 48px; height: 45px; background: #21333fed; font-size: 28px; }
+  .record-dialog-copy { padding: 19px 19px 8px; }
+  .record-dialog-copy h2 { margin: 10px 0 12px; font-size: clamp(29px, 8vw, 42px); }
+  .record-dialog-copy p { font-size: 14px; margin-bottom: 9px; }
+  .record-dialog-copy .record-dialog-detail { font-size: 12px; }
+  .record-dialog-actions { flex: none; min-height: 53px; }
+  .record-dialog-read { padding: 0 17px; font-size: 15px; }
+}
+@media (max-width: 760px) { .motion-scan, .home-screen .map-trace path { animation: none; } }

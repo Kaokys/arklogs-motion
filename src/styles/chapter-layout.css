@@ -1,0 +1,40 @@
+@media (min-width: 761px) {
+  .home-screen { grid-template-columns: minmax(235px, 20%) minmax(0, 1fr) minmax(250px, 21%); }
+  .intro-main { padding-inline: clamp(17px, 1.8vw, 28px); }
+  .intro-main h1 { font-size: clamp(2.65rem, 3.35vw, 4.5rem); }
+  .intro-description { font-size: 15px; }
+  .map-zone:after { content: 'PROJECTS'; position: absolute; top: 5%; left: 2%; width: auto; height: auto; border: 0; border-radius: 0; font: 700 clamp(95px, 10vw, 185px)/1 'Oswald', sans-serif; letter-spacing: -.05em; color: #1740c1; opacity: .07; pointer-events: none; }
+  .route-track { justify-content: flex-start; gap: clamp(12px, 1.3vw, 22px); padding-inline: clamp(18px, 2vw, 32px); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x mandatory; }
+  .route-track::-webkit-scrollbar { display: none; }
+  .route-node { flex: 0 0 clamp(205px, 31%, 305px); height: clamp(280px, 50vh, 485px); padding: 8px; scroll-snap-align: center; }
+  .route-node:nth-child(even), .route-node:nth-child(3), .route-node.active:not(:nth-child(even)), .route-node.active:nth-child(even), .route-node.active:nth-child(3) { transform: none; }
+  .route-node.active { transform: translateY(-8px) !important; }
+  .node-art { margin-top: 5px; }
+  .node-art img { filter: grayscale(.45) contrast(1.04); opacity: .92; }
+  .node-art:after { background: linear-gradient(180deg, #fff3 0, transparent 40%, #132c6b70 100%); }
+  .node-chapter { position: absolute; top: -5px; right: 5px; z-index: 1; color: white; text-shadow: 1px 2px 8px #182538b0; font: 700 clamp(3.5rem, 5.3vw, 6.3rem)/1 'Oswald', sans-serif; letter-spacing: -.05em; }
+  .node-title { font-size: clamp(1.1rem, 1.4vw, 1.6rem); padding-top: 4px; }
+  .node-sub { display: flex; justify-content: space-between; font-size: 13px; padding: 0 1px 2px; }
+  .art-center { align-self: end; margin-bottom: 17px; background: #173cc5e5; font-size: clamp(1.5rem, 2.2vw, 2.5rem); padding: 3px 8px; }
+  .art-shape { width: 50%; }
+  .art-shape-b { width: 37%; }
+  .selection-visual { height: 42%; }
+  .selection-copy h2 { font-size: clamp(1.8rem, 2.2vw, 3rem); }
+}
+@media (min-width: 761px) and (max-height: 700px) {
+  .route-node { height: clamp(210px, 43vh, 335px); }
+  .selection-visual { height: 31%; }
+}
+@media (max-width: 760px) {
+  .node-chapter { position: absolute; top: 0; right: 3px; z-index: 1; color: white; text-shadow: 1px 1px 5px #182538af; font: 700 2.5rem/1 'Oswald', sans-serif; }
+}
+
+/* Keep the archive's drawn geometry without covering the images. */
+.route-node { box-shadow: 3px 4px 0 #6e839a18; }
+.route-node.active { box-shadow: 4px 5px 0 #173cc520; }
+.route-node:hover { border-color: #173cc5; }
+.node-art:after { opacity: .45; }
+.art-shape-a { width: 43%; border-color: #f8fbff9e; box-shadow: none; }
+.art-center { background: #173cc5e8; }
+.selection-visual:after { opacity: .45; }
+.visual-ring.ring-one { width: 40%; left: 30%; border-color: #fff9; }

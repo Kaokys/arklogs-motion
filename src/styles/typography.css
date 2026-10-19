@@ -1,0 +1,61 @@
+/* The named local families activate when licensed font files are installed. */
+:root { --body-font: 'Nuber Next', 'Noto Sans SC', Arial, sans-serif; --heading-font: 'Oswald', 'Noto Sans SC', sans-serif; --number-font: 'Novecento Sans Wide', 'Bender', 'Oswald', sans-serif; --serif-font: 'FZYaSong-H-GBK', Georgia, serif; --pixel-font: 'AddWBitmap09', 'Oswald', sans-serif; }
+body, button { font-family: var(--body-font); }
+h1, h2, .node-title, .archive-row strong, .wordmark { font-family: var(--heading-font); font-weight: 500; }
+.wordmark { font-size: 21px; letter-spacing: .015em; }
+.top-nav a { font-size: 14px; }
+.topbar-caption, .statusbar, .screen-heading, .node-index, .panel-id, .map-readout, .home-timeline { font-family: var(--number-font); }
+.topbar-caption, .screen-heading, .statusbar, .map-header, .map-foot, .node-index, .node-sub, .intro-top, .selection-head, .side-panel-top, .content-panel-top, .side-panel-bottom, .home-timeline { font-size: 13px; letter-spacing: .025em; }
+.intro-top { font-family: var(--serif-font); }
+.statusbar { font-family: var(--pixel-font); }
+.map-readout, .panel-id { font-family: 'Bender', 'Oswald', sans-serif; }
+.overline, .intro-bottom, .open-record, .panel-link { font-family: var(--number-font); font-size: 13px; letter-spacing: .045em; }
+.intro-main h1 { font-size: clamp(3.1rem, 4.1vw, 5.8rem); letter-spacing: -.035em; line-height: 1.03; }
+.intro-description { font-size: 16px; line-height: 1.5; }
+.node-title { font-size: clamp(15px, 1.15vw, 20px); letter-spacing: 0; }
+.node-sub { font-size: 12px; }
+.selection-copy h2 { font-size: clamp(2rem, 2.6vw, 3.6rem); letter-spacing: -.025em; }
+.selection-copy > p:last-child { font-size: 15px; line-height: 1.55; }
+.open-record { font-size: 14px; }
+.map-foot button { font-family: var(--number-font); font-size: 12px; }
+.side-panel-body h1 { letter-spacing: -.02em; }
+.side-panel-body > p, .record-text p, .prose { font-size: 16px; }
+.archive-row p { font-size: 14px; }
+.home-timeline > a { font-size: 12px; }
+.node-art img, .selection-visual img, .record-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.node-art img { position: absolute; inset: 0; filter: grayscale(1) contrast(1.08); opacity: .82; }
+.node-art:after { background: linear-gradient(145deg, #dce8f390, transparent 65%, #133dc57a); }
+.art-shape { border-color: #fff9; box-shadow: 0 0 3px #173cc5; }
+.art-shape-b { border-color: #173cc5; }
+.art-center { color: white; background: #173cc5dc; padding: 3px 6px; font-family: var(--number-font); font-size: clamp(18px, 2.2vw, 32px); letter-spacing: .02em; }
+.selection-visual img { position: absolute; inset: 0; filter: grayscale(1) contrast(1.1); opacity: .87; }
+.selection-visual:after { content: ''; position: absolute; inset: 0; background: linear-gradient(150deg, #dae7f052, transparent 50%, #153dc55c); pointer-events: none; }
+.visual-ring, .visual-axis { z-index: 1; }
+.visual-ring { border-color: #fff; }
+.ring-two { border-color: #173cc5; }
+.record-art { overflow: hidden; }
+.record-art img { filter: grayscale(1) contrast(1.08); }
+@media (max-width: 1050px) and (min-width: 761px) {
+  .intro-main h1 { font-size: clamp(2.6rem, 3.55vw, 4rem); }
+  .selection-copy h2 { font-size: clamp(1.75rem, 2.25vw, 2.7rem); }
+  .node-title { font-size: 14px; }
+}
+@media (max-width: 760px) {
+  .screen-heading { display: none; }
+  .home-screen { grid-template-rows: minmax(155px, 30%) minmax(0, 1fr) minmax(135px, 26%) 31px; }
+  .wordmark { font-size: 17px; }
+  .top-nav a { font-size: 12px; padding-inline: 6px; }
+  .screen-heading, .intro-top, .selection-head, .map-header, .map-foot, .node-index, .home-timeline, .statusbar { font-size: 11px; }
+  .intro-main h1 { font-size: clamp(1.9rem, 8vw, 3rem); line-height: .98; }
+  .intro-description { font-size: 12px; line-height: 1.3; }
+  .overline { font-size: 11px; }
+  .node-title { font-size: 13px; }
+  .node-sub { font-size: 11px; }
+  .art-center { font-size: 18px; }
+  .selection-copy h2 { font-size: 1.6rem; }
+  .selection-copy > p:last-child { font-size: 11px; line-height: 1.3; }
+  .open-record { font-size: 12px; }
+  .map-foot button { font-size: 10px; }
+  .side-panel-body > p, .archive-row p, .record-text p, .prose { font-size: 12px; }
+  .home-timeline > a { font-size: 10px; }
+}

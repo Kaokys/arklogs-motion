@@ -1,0 +1,87 @@
+/* A compact, layered console treatment. Type stays readable while panels gain depth. */
+@media (min-width: 761px) {
+  .home-screen {
+    grid-template-columns: minmax(220px, 20%) minmax(0, 1fr) minmax(235px, 21%);
+    column-gap: 8px;
+    padding: 16px 28px 10px;
+  }
+  .home-screen .intro-panel,
+  .home-screen .selection-panel { margin-block: 18px 23px; }
+  .home-screen .map-zone { margin-block: 8px 12px; }
+  .intro-main h1 { font-size: clamp(2.55rem, 2.9vw, 3.9rem); }
+  .selection-copy h2 { font-size: clamp(1.8rem, 1.95vw, 2.7rem); }
+  .map-zone::after { font-size: clamp(75px, 7.5vw, 130px); opacity: .055; }
+  .route-track { perspective: 1100px; gap: clamp(10px, 1.1vw, 16px); padding-inline: clamp(17px, 1.8vw, 27px); }
+  .route-node { flex: 0 0 clamp(168px, 24%, 232px); height: clamp(235px, 43vh, 382px); }
+  .route-node:nth-child(even) { transform: rotateY(-2deg) translateY(-8px) !important; }
+  .route-node:nth-child(odd) { transform: rotateY(2deg) translateY(8px) !important; }
+  .route-node.active { transform: translateY(-11px) rotateX(1deg) !important; }
+  .route-node:hover { transform: translateY(-13px) rotateX(1deg) !important; }
+  .node-title { font-size: clamp(17px, 1.25vw, 21px); }
+  .node-chapter { font-size: clamp(2.7rem, 3.5vw, 4.3rem); }
+  .selection-visual { height: 36%; }
+  .index-screen { padding: 18px 34px 12px; grid-template-rows: 29px minmax(0, 1fr) 38px; }
+  .board-intro h1,
+  .writing-intro h1 { font-size: clamp(2.5rem, 3.15vw, 3.8rem); }
+  .about-statement h1 { font-size: clamp(3rem, 3.8vw, 5.1rem); }
+  .note-title { font-size: clamp(3rem, 4.1vw, 5.2rem); }
+  .project-menu { display: flex; justify-content: center; align-items: center; gap: clamp(11px, 1.4vw, 22px); padding: clamp(25px, 3vw, 48px); perspective: 1200px; }
+  .project-tile, .project-tile-1, .project-tile-4 { flex: 1 1 0; min-width: 0; height: clamp(270px, 51vh, 435px); align-self: center; }
+  .project-tile:nth-child(odd) { transform: translateY(13px) rotateY(2deg); }
+  .project-tile:nth-child(even) { transform: translateY(-13px) rotateY(-2deg); }
+  .project-tile:hover, .project-tile:focus-visible { transform: translateY(-17px) rotateY(0deg); }
+  .tile-number { font-size: clamp(2.8rem, 3.5vw, 4.5rem); }
+  .featured-note { flex: 1 1 auto; width: min(100%, 730px); max-height: 480px; margin: auto; }
+  .writing-records { justify-content: center; }
+  .diagram-core { width: clamp(125px, 12vw, 185px); font-size: clamp(5rem, 8vw, 9rem); }
+}
+
+.home-screen .intro-panel,
+.home-screen .selection-panel,
+.project-board,
+.writing-board,
+.about-board {
+  box-shadow: inset 1px 1px 0 #fff, inset -2px -2px 0 #8ba0ad, 5px 7px 0 #8c9eaa, 12px 18px 22px #253d5024;
+}
+.home-screen .map-zone {
+  box-shadow: inset 0 2px 0 #fff, inset 0 -4px 0 #a5b7c2, 5px 9px 15px #263c4e1b;
+}
+.map-grid { transform: perspective(700px) rotateX(32deg) scale(1.22); transform-origin: bottom; opacity: .58; }
+.route-node,
+.project-tile {
+  box-shadow: inset 1px 1px 0 #fff, inset -2px -2px 0 #748a98, 5px 7px 0 #8296a2, 9px 12px 13px #263b4a30;
+  transition: transform .24s ease, box-shadow .24s ease, border-color .2s ease;
+  transform-style: preserve-3d;
+}
+.route-node.active,
+.route-node:hover,
+.project-tile:hover,
+.project-tile:focus-visible {
+  box-shadow: inset 1px 1px 0 #fff, inset -2px -2px 0 #4c66a5, 5px 8px 0 #7286b6, 12px 15px 17px #263b4a36;
+}
+.route-node:active,
+.project-tile:active { box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #708491, 2px 3px 0 #72849a; }
+.map-foot button:hover,
+.open-record:hover,
+.panel-link:hover { filter: brightness(1.08); }
+
+@media (max-width: 760px) {
+  .home-screen .intro-panel,
+  .home-screen .selection-panel,
+  .home-screen .map-zone,
+  .project-board,
+  .writing-board,
+  .about-board { box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #9aabb5, 2px 3px 0 #9aaab5; }
+  .route-node,
+  .route-node.active,
+  .project-tile { box-shadow: inset 1px 1px 0 #fff, 2px 3px 0 #8398a5; }
+  .project-menu { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; padding: 8px; gap: 7px; }
+  .project-tile, .project-tile-1, .project-tile-4 { height: auto; align-self: stretch; transform: none; }
+  .project-tile:hover, .project-tile:focus-visible { transform: translateY(-2px); }
+  .featured-note { max-height: none; margin-top: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-node,
+  .project-tile { transition: none; }
+}

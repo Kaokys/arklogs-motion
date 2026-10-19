@@ -1,0 +1,66 @@
+/* Technical registration marks and editorial collage, drawn as replaceable vectors. */
+.home-screen .map-zone { background-color: #dce6e9; background-image: url('/graphic-atlas.svg'), url('/archive-linework.svg'); background-position: center, center; background-size: cover, cover; background-repeat: no-repeat; }
+.home-screen .map-zone::before { border-color: #0b1edd5e; box-shadow: 0 0 0 21px #0b1edd0b, 0 0 0 23px #0b1edd32; }
+.home-screen .map-foot { border-top: 3px solid #0b1edd; }
+.project-menu { background-image: url('/graphic-atlas.svg'); background-position: center; background-size: cover; }
+.writing-records { background-image: url('/graphic-flight.svg'); background-position: center; background-size: cover; }
+.about-diagram { background-image: url('/graphic-flight.svg'), linear-gradient(#42658a15 1px, transparent 1px), linear-gradient(90deg, #42658a15 1px, transparent 1px); background-size: cover, 30px 30px, 30px 30px; background-position: center; }
+.about-diagram .diagram-core { border: 2px solid #0b1edd; box-shadow: 10px 10px 0 #0b1edd34; }
+.project-tile::after { content: ''; position: absolute; top: 0; left: 0; width: 28%; height: 4px; background: #0b1edd; pointer-events: none; }
+.project-tile { position: relative; }
+.featured-note::after { content: ''; position: absolute; right: 17px; bottom: 17px; width: 23px; height: 23px; pointer-events: none; opacity: .7; background: linear-gradient(#0b1edd, #0b1edd) center / 1px 100% no-repeat, linear-gradient(#0b1edd, #0b1edd) center / 100% 1px no-repeat; border: 1px solid #0b1edd; border-radius: 50%; }
+.record-dialog-art::before { content: ''; position: absolute; z-index: 2; top: 14px; left: 14px; width: 34px; height: 34px; pointer-events: none; background: linear-gradient(#0b1edd, #0b1edd) center / 1px 100% no-repeat, linear-gradient(#0b1edd, #0b1edd) center / 100% 1px no-repeat; border: 1px solid #0b1edd; border-radius: 50%; mix-blend-mode: multiply; }
+
+.signal-matrix { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 96px; aspect-ratio: 1; gap: 4px; flex: none; }
+.signal-cell { display: grid; place-items: center; min-width: 0; min-height: 0; border: 1px solid #0b1edd; background: #f7faf9d9; color: #0b1edd; overflow: hidden; }
+.signal-cell svg { width: 84%; height: 84%; }
+.signal-cell:nth-child(5) { background: #d8e1e7; }
+.signal-cell:nth-child(9) { background: #0b1edd; color: #fff; }
+.intro-bottom { position: relative; }
+.intro-bottom > .signal-matrix { position: absolute; right: 12px; top: 50%; width: 64px; transform: translateY(-50%); gap: 2px; }
+.intro-bottom > span:first-child, .intro-bottom > a { padding-right: 69px; }
+.writing-intro > .signal-matrix { width: 98px; margin-top: 29px; }
+
+.atlas-particles { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.atlas-particles span { position: absolute; left: var(--x); top: var(--y); width: var(--s); aspect-ratio: 1; border: 1px solid #0b1edd; background: #0b1eddb0; opacity: .48; rotate: var(--r); animation: atlas-drift var(--t) ease-in-out infinite alternate; }
+.atlas-particles span:nth-child(3n) { background: transparent; }
+.atlas-particles span:nth-child(4n) { background: #d3e9f0a6; }
+.atlas-particles span:nth-child(1) { --x: 15%; --y: 12%; --s: 13px; --r: 14deg; --t: 6s; }
+.atlas-particles span:nth-child(2) { --x: 27%; --y: 21%; --s: 8px; --r: -17deg; --t: 7s; }
+.atlas-particles span:nth-child(3) { --x: 35%; --y: 8%; --s: 18px; --r: 25deg; --t: 5s; }
+.atlas-particles span:nth-child(4) { --x: 43%; --y: 35%; --s: 7px; --r: -24deg; --t: 8s; }
+.atlas-particles span:nth-child(5) { --x: 59%; --y: 16%; --s: 14px; --r: 12deg; --t: 6s; }
+.atlas-particles span:nth-child(6) { --x: 71%; --y: 11%; --s: 8px; --r: -8deg; --t: 8s; }
+.atlas-particles span:nth-child(7) { --x: 87%; --y: 29%; --s: 14px; --r: 20deg; --t: 5s; }
+.atlas-particles span:nth-child(8) { --x: 94%; --y: 47%; --s: 7px; --r: -14deg; --t: 7s; }
+.atlas-particles span:nth-child(9) { --x: 9%; --y: 50%; --s: 12px; --r: 16deg; --t: 6s; }
+.atlas-particles span:nth-child(10) { --x: 25%; --y: 56%; --s: 7px; --r: -23deg; --t: 8s; }
+.atlas-particles span:nth-child(11) { --x: 39%; --y: 75%; --s: 15px; --r: 7deg; --t: 7s; }
+.atlas-particles span:nth-child(12) { --x: 53%; --y: 63%; --s: 10px; --r: -18deg; --t: 5s; }
+.atlas-particles span:nth-child(13) { --x: 67%; --y: 70%; --s: 16px; --r: 14deg; --t: 6s; }
+.atlas-particles span:nth-child(14) { --x: 79%; --y: 83%; --s: 7px; --r: -10deg; --t: 8s; }
+.atlas-particles span:nth-child(15) { --x: 91%; --y: 73%; --s: 13px; --r: 28deg; --t: 5s; }
+.atlas-particles span:nth-child(16) { --x: 31%; --y: 89%; --s: 8px; --r: -14deg; --t: 7s; }
+.atlas-particles span:nth-child(17) { --x: 6%; --y: 84%; --s: 16px; --r: 19deg; --t: 6s; }
+.atlas-particles span:nth-child(18) { --x: 63%; --y: 43%; --s: 9px; --r: -12deg; --t: 8s; }
+@keyframes atlas-drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(8px, -14px, 0); } }
+@keyframes graphic-pan { from { background-position: 50% 50%; } to { background-position: 53% 47%; } }
+@keyframes signal-draw { 0%, 12% { stroke-dashoffset: 96; } 55%, 100% { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .project-menu, .writing-records, .about-diagram { animation: graphic-pan 19s ease-in-out infinite alternate; }
+  .signal-cell:nth-child(2) path, .signal-cell:nth-child(6) path { stroke-dasharray: 96; animation: signal-draw 4.8s ease-in-out infinite; }
+  .signal-cell:nth-child(6) path { animation-delay: 1.1s; }
+  .about-diagram .diagram-core { animation: core-hover 5s ease-in-out infinite alternate; }
+}
+@keyframes core-hover { from { translate: 0 0; } to { translate: 0 -8px; } }
+
+@media (max-width: 760px) {
+  .home-screen .map-zone { background-size: auto 100%, auto 100%; }
+  .atlas-particles span { opacity: .28; animation: none; }
+  .intro-bottom { display: block; position: absolute; right: 9px; bottom: 8px; width: 36px; height: 36px; padding: 0; border: 0; background: transparent; }
+  .intro-bottom > span:first-child, .intro-bottom > a { display: none; }
+  .intro-bottom > .signal-matrix { top: 0; right: 0; width: 36px; transform: none; gap: 1px; }
+  .writing-intro > .signal-matrix { display: none; }
+  .record-dialog-art::before { width: 24px; height: 24px; top: 9px; left: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .atlas-particles span, .signal-cell path, .project-menu, .writing-records, .about-diagram, .about-diagram .diagram-core { animation: none; } }

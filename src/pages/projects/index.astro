@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { areas } from '../../data/content';
+---
+<BaseLayout title="Projects" description="Explore Arklogs project areas: ESP32 builds, security research, CTF writeups, and field notes.">
+  <div class="index-screen projects-screen">
+    <div class="index-kicker"><span>ARKLOGS / PROJECT DIRECTORY</span><span>01 — 04</span></div>
+    <div class="project-board">
+      <header class="board-intro">
+        <span class="board-label">THE WORK / 004</span>
+        <h1>Projects &<br /><em>investigations.</em></h1>
+        <p>Choose an area to explore builds, research, and writeups. Records will appear here as they are ready to share.</p>
+        <span class="board-footnote">SELECT AN AREA <span aria-hidden="true">↗</span></span>
+      </header>
+      <div class="project-menu" aria-label="Project areas">
+        {areas.map((area, index) => <a class:list={['project-tile', `project-tile-${index + 1}`]} href={`/projects/${area.id}/`}>
+          <span class="tile-image"><img src={area.image} alt="" loading="eager" /><span class="tile-number">{String(index + 1).padStart(2, '0')}</span></span>
+          <span class="tile-caption"><span><small>{area.code} / {area.status}</small><strong>{area.title}</strong></span><span class="tile-arrow" aria-hidden="true">↗</span></span>
+        </a>)}
+      </div>
+      <div class="board-rail"><span>BUILD</span><span>INVESTIGATE</span><span>DOCUMENT</span></div>
+    </div>
+    <div class="index-footer"><span>FOUR PATHS THROUGH THE ARCHIVE</span><a href="/writing/">GO TO FIELD NOTES <span aria-hidden="true">↗</span></a></div>
+  </div>
+</BaseLayout>

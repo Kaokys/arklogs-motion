@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() { const posts = await getCollection('posts', ({ data }) => !data.draft); return posts.map((post) => ({ params: { slug: post.id }, props: { post } })); }
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={post.data.title} description={post.data.description}><div class="inner-screen"><aside class="side-panel"><div class="side-panel-top"><span>FIELD NOTE</span><span>{post.data.category.toUpperCase()}</span></div><div class="side-panel-body"><p class="overline">{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p><h1>{post.data.title}</h1><p>{post.data.description}</p></div><div class="side-panel-bottom"><a href="/writing/">← ALL WRITING</a></div></aside><article class="content-panel"><div class="content-panel-top"><span>OPEN RECORD</span><span>ARKLOGS / WRITING</span></div><div class="content-panel-scroll"><div class="prose"><Content /></div></div></article></div></BaseLayout>

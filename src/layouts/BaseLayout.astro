@@ -1,0 +1,97 @@
+---
+import '@fontsource/oswald/latin-400.css';
+import '@fontsource/oswald/latin-500.css';
+import '@fontsource/oswald/latin-600.css';
+import '@fontsource/oswald/latin-700.css';
+import '@fontsource/noto-sans-sc/latin-400.css';
+import '@fontsource/noto-sans-sc/latin-700.css';
+import '@fontsource/noto-sans-sc/chinese-simplified-400.css';
+import '@fontsource/noto-sans-sc/chinese-simplified-700.css';
+import '../styles/global.css';
+import '../styles/screen.css';
+import '../styles/typography.css';
+import '../styles/chapter-layout.css';
+import '../styles/index-pages.css';
+import '../styles/depth-ui.css';
+import '../styles/stage-menu.css';
+import '../styles/gyro.css';
+import '../styles/brand-nav.css';
+import '../styles/motion-home.css';
+import '../styles/graphic-system.css';
+import { ClientRouter } from 'astro:transitions';
+import { fade } from 'astro:transitions';
+import { nav } from '../data/content';
+
+interface Props { title: string; description?: string; }
+const { title, description = 'Arklogs — projects, research, and field notes.' } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e6e9eb" />
+    <meta name="description" content={description} />
+    <title>{title} | Arklogs</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="wordmark" href="/" aria-label="Arklogs home"><span class="wordmark-glyph" aria-hidden="true">⌁</span> ARKLOGS<span class="wordmark-period">.</span></a>
+        <span class="topbar-caption">PERSONAL ARCHIVE <span>/</span> SYSTEM ONLINE</span>
+        <nav class="top-nav" aria-label="Main navigation">
+          {nav.map((item) => <a href={item.href} aria-current={pathname === item.href ? 'page' : undefined}><span>{item.label}</span></a>)}
+        </nav>
+        <span class="topbar-corner" aria-hidden="true">＋</span>
+      </header>
+      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/' }]} transition:animate={fade({ duration: '0.24s' })}><slot /></main>
+      <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
+    </div>
+    <script>
+      import gsap from 'gsap';
+      let pageMotion: gsap.core.Timeline | undefined;
+      const animateInnerPage = () => {
+        pageMotion?.kill();
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const panels = document.querySelectorAll('.inner-screen .side-panel, .inner-screen .content-panel, .index-screen .board-intro, .index-screen .project-tile, .index-screen .writing-intro, .index-screen .writing-records, .index-screen .about-intro, .index-screen .about-board');
+        if (!panels.length) return;
+        pageMotion = gsap.timeline().fromTo(panels, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, stagger: .1, duration: .58, ease: 'power2.out' });
+      };
+      document.addEventListener('astro:before-preparation', () => document.documentElement.classList.add('is-navigating'));
+      document.addEventListener('astro:page-load', () => {
+        window.setTimeout(() => document.documentElement.classList.remove('is-navigating'), 140);
+        animateInnerPage();
+      });
+      if (document.readyState !== 'loading') animateInnerPage();
+
+      if (!document.documentElement.dataset.gyroReady) {
+        document.documentElement.dataset.gyroReady = 'true';
+        const motion = window.matchMedia('(min-width: 761px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+        let frame = 0;
+        let tiltX = 0;
+        let tiltY = 0;
+        const applyTilt = () => {
+          document.documentElement.style.setProperty('--gyro-x', `${tiltX.toFixed(2)}deg`);
+          document.documentElement.style.setProperty('--gyro-y', `${tiltY.toFixed(2)}deg`);
+          document.documentElement.style.setProperty('--float-x', `${(tiltY * 3.2).toFixed(2)}px`);
+          document.documentElement.style.setProperty('--float-y', `${(-tiltX * 3).toFixed(2)}px`);
+          frame = 0;
+        };
+        const schedule = () => { if (!frame) frame = requestAnimationFrame(applyTilt); };
+        const reset = () => { tiltX = 0; tiltY = 0; schedule(); };
+        window.addEventListener('pointermove', (event) => {
+          if (!motion.matches) return;
+          tiltX = (0.5 - event.clientY / window.innerHeight) * 4;
+          tiltY = (event.clientX / window.innerWidth - 0.5) * 5;
+          schedule();
+        }, { passive: true });
+        window.addEventListener('pointerout', (event) => { if (!event.relatedTarget) reset(); });
+        window.addEventListener('blur', reset);
+        motion.addEventListener('change', reset);
+      }
+    </script>
+  </body>
+</html>
