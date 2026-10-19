@@ -13,10 +13,10 @@
   .map-zone::after { font-size: clamp(75px, 7.5vw, 130px); opacity: .055; }
   .route-track { perspective: 1100px; gap: clamp(10px, 1.1vw, 16px); padding-inline: clamp(17px, 1.8vw, 27px); }
   .route-node { flex: 0 0 clamp(168px, 24%, 232px); height: clamp(235px, 43vh, 382px); }
-  .route-node:nth-child(even) { transform: rotateY(-2deg) translateY(-8px) !important; }
-  .route-node:nth-child(odd) { transform: rotateY(2deg) translateY(8px) !important; }
-  .route-node.active { transform: translateY(-11px) rotateX(1deg) !important; }
-  .route-node:hover { transform: translateY(-13px) rotateX(1deg) !important; }
+  .route-node:nth-child(even) { transform: rotateY(-2deg) translateY(-8px); }
+  .route-node:nth-child(odd) { transform: rotateY(2deg) translateY(8px); }
+  .route-node.active { transform: translateY(-11px) rotateX(1deg); }
+  .route-node:hover { transform: translateY(-13px) rotateX(1deg); }
   .node-title { font-size: clamp(17px, 1.25vw, 21px); }
   .node-chapter { font-size: clamp(2.7rem, 3.5vw, 4.3rem); }
   .selection-visual { height: 36%; }

@@ -39,11 +39,11 @@
     box-shadow: inset 2px 2px 0 #dfe8ea, inset -3px -3px 0 #121e27, 6px 8px 0 #4d626f, 13px 17px 16px #17263175;
     transition: transform .26s ease, box-shadow .26s ease, border-color .2s ease;
   }
-  .route-node:nth-child(1) { left: 5%; top: 61%; width: 23%; height: 32%; transform: perspective(900px) rotateX(6deg) rotateY(8deg) rotateZ(-3deg); }
-  .route-node:nth-child(2) { left: 30%; top: 16%; width: 22%; height: 29%; transform: perspective(900px) rotateX(6deg) rotateY(-7deg) rotateZ(2deg); }
-  .route-node:nth-child(3) { right: 5%; top: 17%; width: 23%; height: 31%; transform: perspective(900px) rotateX(6deg) rotateY(-8deg) rotateZ(-2deg); }
-  .route-node:nth-child(4) { right: 5%; top: 54%; width: 24%; height: 30%; transform: perspective(900px) rotateX(7deg) rotateY(7deg) rotateZ(3deg); }
-  .route-node:nth-child(5) { left: 35%; top: 50%; width: 31%; height: 39%; z-index: 4; transform: perspective(900px) rotateX(6deg) rotateY(-3deg) rotateZ(-1deg); }
+  .route-node:nth-child(1) { left: 5%; top: 63%; width: 23%; height: 32%; transform: perspective(900px) rotateX(3deg) rotateY(11deg) rotateZ(-7deg); }
+  .route-node:nth-child(2) { left: 30%; top: 16%; width: 22%; height: 29%; transform: perspective(900px) rotateX(8deg) rotateY(-8deg) rotateZ(5deg); }
+  .route-node:nth-child(3) { right: 5%; top: 17%; width: 23%; height: 31%; transform: perspective(900px) rotateX(3deg) rotateY(-12deg) rotateZ(-6deg); }
+  .route-node:nth-child(4) { right: 5%; top: 58%; width: 24%; height: 30%; transform: perspective(900px) rotateX(9deg) rotateY(8deg) rotateZ(7deg); }
+  .route-node:nth-child(5) { left: 35%; top: 50%; width: 31%; height: 39%; z-index: 4; transform: perspective(900px) rotateX(5deg) rotateY(-5deg) rotateZ(-4deg); }
   .route-node.active,
   .route-node:hover,
   .route-node:nth-child(1).active,
@@ -53,11 +53,11 @@
     border-color: #e6f0f3;
     box-shadow: inset 2px 2px 0 #f8fbfb, inset -3px -3px 0 #172738, 6px 9px 0 #173cc5, 16px 20px 18px #17263181;
   }
-  .route-node:nth-child(1):hover,.route-node:nth-child(1).active { transform: perspective(900px) translateY(-8px) rotateX(3deg) rotateY(5deg) rotateZ(-2deg); }
-  .route-node:nth-child(2):hover,.route-node:nth-child(2).active { transform: perspective(900px) translateY(-8px) rotateX(3deg) rotateY(-5deg) rotateZ(1deg); }
-  .route-node:nth-child(3):hover,.route-node:nth-child(3).active { transform: perspective(900px) translateY(-8px) rotateX(3deg) rotateY(-6deg) rotateZ(-1deg); }
-  .route-node:nth-child(4):hover,.route-node:nth-child(4).active { transform: perspective(900px) translateY(-8px) rotateX(3deg) rotateY(5deg) rotateZ(2deg); }
-  .route-node:nth-child(5):hover { transform: perspective(900px) translateY(-8px) rotateX(3deg) rotateY(-2deg) rotateZ(0deg); }
+  .route-node:nth-child(1):hover,.route-node:nth-child(1).active { transform: perspective(900px) translateY(-8px) rotateX(2deg) rotateY(8deg) rotateZ(-6deg); }
+  .route-node:nth-child(2):hover,.route-node:nth-child(2).active { transform: perspective(900px) translateY(-8px) rotateX(5deg) rotateY(-6deg) rotateZ(4deg); }
+  .route-node:nth-child(3):hover,.route-node:nth-child(3).active { transform: perspective(900px) translateY(-8px) rotateX(2deg) rotateY(-9deg) rotateZ(-5deg); }
+  .route-node:nth-child(4):hover,.route-node:nth-child(4).active { transform: perspective(900px) translateY(-8px) rotateX(6deg) rotateY(6deg) rotateZ(6deg); }
+  .route-node:nth-child(5):hover { transform: perspective(900px) translateY(-8px) rotateX(3deg) rotateY(-4deg) rotateZ(-3deg); }
   .node-index { color: #b9cbd1; padding-inline: 4px; font-size: 12px; }
   .node-index i { background: #849ba7; }
   .route-node.active .node-index { color: #dce9ff; }
@@ -117,8 +117,8 @@
   .home-screen .selection-panel { top: 36%; height: 51%; }
   .intro-main h1 { font-size: clamp(1.75rem, 2.15vw, 2.6rem); }
   .intro-description { margin-top: 7px; }
-  .route-node:nth-child(1) { top: 65%; height: 25%; }
-  .route-node:nth-child(4) { top: 52%; }
+  .route-node:nth-child(1) { top: 67%; height: 25%; }
+  .route-node:nth-child(4) { top: 58%; }
 }
 
 @media (min-width: 761px) and (max-width: 1100px) {
@@ -127,7 +127,7 @@
   .intro-top .panel-id { font-size: 11px; }
   .intro-main h1 { font-size: clamp(1.6rem, 2.5vw, 2.1rem); }
   .intro-description { font-size: 12px; line-height: 1.3; }
-  .route-node:nth-child(1) { top: 66%; height: 24%; }
+  .route-node:nth-child(1) { top: 68%; height: 24%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
