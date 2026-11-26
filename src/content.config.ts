@@ -8,6 +8,9 @@ const posts = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     category: z.enum(['Field notes', 'CTF', 'Security', 'Hardware']),
+    archiveCategory: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    cover: z.string().optional(),
     draft: z.boolean().default(false)
   })
 });

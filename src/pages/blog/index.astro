@@ -1,22 +1,84 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SignalMatrix from '../../components/SignalMatrix.astro';
 import { getCollection } from 'astro:content';
-const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const [latest, ...older] = posts;
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const categories = [...new Set(posts.map(({ data }) => data.archiveCategory ?? data.category))].sort();
+const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
 ---
 <BaseLayout title="Blog" description="Build logs and write-ups from Kao’s workbench.">
-  <div class="index-screen writing-screen">
-    <div class="index-kicker"><span>ARKLOGS / FIELD NOTES</span><span>{String(posts.length).padStart(2, '0')} PUBLISHED</span></div>
-    <div class="writing-board">
-      <header class="writing-intro"><h1>Blog</h1><p>Build logs, CTF write-ups, and notes from my workbench.</p><SignalMatrix /></header>
-      <section class="writing-records" aria-label="Published writing">
-        <div class="records-heading"><span>PUBLISHED RECORDS</span><span>{String(posts.length).padStart(2, '0')} / OPEN</span></div>
-        {latest ? <a class="featured-note" href={`/blog/${latest.id}/`}><span class="note-upper"><span>01 / {latest.data.category}</span><time datetime={latest.data.date.toISOString()}>{latest.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></span><span class="note-title">{latest.data.title}</span><span class="note-description">{latest.data.description}</span><span class="note-open">READ THE NOTE <span aria-hidden="true">↗</span></span></a> : <div class="notes-empty"><strong>No notes published yet.</strong><p>New work will be listed here when it is ready to share.</p></div>}
-        {older.length > 0 && <div class="older-notes">{older.map((post, index) => <a href={`/blog/${post.id}/`}><span>{String(index + 2).padStart(2, '0')}</span><strong>{post.data.title}</strong><span aria-hidden="true">↗</span></a>)}</div>}
-        <div class="records-end"><span>FROM THE WORKBENCH</span><a href="/projects/">EXPLORE PROJECT AREAS <span aria-hidden="true">↗</span></a></div>
-      </section>
-    </div>
-    <div class="index-footer"><span>NOTES ARE PUBLISHED WHEN READY</span><a href="/about/">ABOUT ARKLOGS <span aria-hidden="true">↗</span></a></div>
+  <div class="blog-sheet">
+    <header class="blog-heading">
+      <div><h1>Blog</h1><p>Build logs, competition write-ups, and field notes.</p></div>
+      <a href="/rss.xml">RSS feed</a>
+    </header>
+    <section aria-label="Post archive" data-blog-archive>
+      <form class="archive-filters" hidden>
+        <label>Search <input type="search" name="q" placeholder="Search posts" /></label>
+        <label>Category <select name="category"><option value="">All categories</option>{categories.map((category) => <option>{category}</option>)}</select></label>
+        <label>Tag <select name="tag"><option value="">All tags</option>{tags.map((tag) => <option>{tag}</option>)}</select></label>
+        <button type="reset">Clear</button>
+      </form>
+      <p data-result-count aria-live="polite" hidden></p>
+      <ul class="blog-posts">
+        {posts.map(({ id, data }) => (
+          <li data-post data-category={data.archiveCategory ?? data.category} data-tags={JSON.stringify(data.tags)}>
+            <a class="blog-post" href={`/blog/${id}/`}>
+              {data.cover && <img src={data.cover} alt="" width="320" height="180" decoding="async" />}
+              <div>
+                <p class="blog-meta">{data.archiveCategory ?? data.category} · <time datetime={data.date.toISOString()}>{data.date.toLocaleDateString('en-GB', { dateStyle: 'medium', timeZone: 'UTC' })}</time></p>
+                <h2>{data.title}</h2>
+                <p>{data.description}</p>
+                {data.tags.length > 0 && <p class="blog-meta">{data.tags.join(' · ')}</p>}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   </div>
 </BaseLayout>
+
+<script>
+  function initArchive() {
+    const archive = document.querySelector('[data-blog-archive]');
+    const form = archive?.querySelector('form');
+    const count = archive?.querySelector<HTMLElement>('[data-result-count]');
+    if (!archive || !form || !count || !form.hidden) return;
+    const posts = [...archive.querySelectorAll<HTMLElement>('[data-post]')];
+    const search = form.querySelector<HTMLInputElement>('[name=q]')!;
+    const category = form.querySelector<HTMLSelectElement>('[name=category]')!;
+    const tag = form.querySelector<HTMLSelectElement>('[name=tag]')!;
+    const fields = [search, category, tag];
+    const update = () => {
+      const params = new URLSearchParams(location.search);
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      for (const post of posts) {
+        const tags: string[] = JSON.parse(post.dataset.tags ?? '[]');
+        post.hidden = !post.textContent?.toLowerCase().includes(query)
+          || Boolean(category.value && post.dataset.category !== category.value)
+          || Boolean(tag.value && !tags.includes(tag.value));
+        if (!post.hidden) visible++;
+      }
+      count.textContent = visible ? `${visible} ${visible === 1 ? 'post' : 'posts'}` : 'No posts match these filters.';
+      for (const field of fields) {
+        if (field.value) params.set(field.name, field.value);
+        else params.delete(field.name);
+      }
+      const queryString = params.toString();
+      history.replaceState(history.state, '', location.pathname + (queryString ? '?' + queryString : '') + location.hash);
+    };
+    const params = new URLSearchParams(location.search);
+    for (const field of fields) field.value = params.get(field.name) ?? '';
+    form.hidden = false;
+    count.hidden = false;
+    form.addEventListener('input', update);
+    form.addEventListener('reset', () => queueMicrotask(update));
+    form.addEventListener('submit', (event) => event.preventDefault());
+    update();
+  }
+
+  document.addEventListener('astro:page-load', initArchive);
+</script>

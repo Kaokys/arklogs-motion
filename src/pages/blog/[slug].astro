@@ -1,8 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
-export async function getStaticPaths() { const posts = await getCollection('posts', ({ data }) => !data.draft); return posts.map((post) => ({ params: { slug: post.id }, props: { post } })); }
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const { data } = post;
 ---
-<BaseLayout title={post.data.title} description={post.data.description}><div class="inner-screen"><aside class="side-panel"><div class="side-panel-top"><span>FIELD NOTE</span><span>{post.data.category.toUpperCase()}</span></div><div class="side-panel-body"><p class="overline">{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p><h1>{post.data.title}</h1><p>{post.data.description}</p></div><div class="side-panel-bottom"><a href="/blog/">← ALL POSTS</a></div></aside><article class="content-panel"><div class="content-panel-top"><span>OPEN RECORD</span><span>ARKLOGS / BLOG</span></div><div class="content-panel-scroll"><div class="prose"><Content /></div></div></article></div></BaseLayout>
+<BaseLayout title={data.title} description={data.description}>
+  <article class="blog-sheet blog-article">
+    <header class="blog-heading">
+      <div>
+        <a href="/blog/">All posts</a>
+        <p class="blog-meta">{data.archiveCategory ?? data.category} · <time datetime={data.date.toISOString()}>{data.date.toLocaleDateString('en-GB', { dateStyle: 'long', timeZone: 'UTC' })}</time></p>
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
+      </div>
+    </header>
+    <div class="blog-article-body prose" lang={post.id === 'thctt-2025-qualifier' ? 'th' : 'en'}>
+      {data.cover && <img class="blog-cover" src={data.cover} alt="Thailand Cyber Top Talent 2025 event artwork" decoding="async" />}
+      {data.tags.length > 0 && <p class="blog-tags">{data.tags.map((tag) => <a href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}</p>}
+      {headings.length > 1 && <nav aria-label="On this page" class="blog-toc"><ul>{headings.filter(({ depth }) => depth === 2).map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ul></nav>}
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

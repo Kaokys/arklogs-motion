@@ -18,6 +18,7 @@ import '../styles/gyro.css';
 import '../styles/brand-nav.css';
 import '../styles/motion-home.css';
 import '../styles/graphic-system.css';
+import '../styles/blog.css';
 import { ClientRouter } from 'astro:transitions';
 import { fade } from 'astro:transitions';
 import { nav } from '../data/content';
@@ -25,6 +26,7 @@ import { nav } from '../data/content';
 interface Props { title: string; description?: string; }
 const { title, description = 'Arklogs — projects, research, and field notes.' } = Astro.props;
 const pathname = Astro.url.pathname;
+const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?:\/|$)/.test(pathname);
 ---
 <!doctype html>
 <html lang="en">
@@ -33,6 +35,7 @@ const pathname = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#e6e9eb" />
     <meta name="description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title="Arklogs RSS" href="/rss.xml" />
     <title>{title} | Arklogs</title>
     <ClientRouter />
   </head>
@@ -43,11 +46,11 @@ const pathname = Astro.url.pathname;
         <a class="wordmark" href="/" aria-label="Arklogs home"><span class="wordmark-glyph" aria-hidden="true">⌁</span> ARKLOGS<span class="wordmark-period">.</span></a>
         <span class="topbar-caption">PERSONAL ARCHIVE <span>/</span> SYSTEM ONLINE</span>
         <nav class="top-nav" aria-label="Main navigation">
-          {nav.map((item) => <a href={item.href} aria-current={pathname === item.href ? 'page' : undefined}><span>{item.label}</span></a>)}
+          {nav.map((item) => <a href={item.href} aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}><span>{item.label}</span></a>)}
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
       </header>
-      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/' }]} transition:animate={fade({ duration: '0.24s' })}><slot /></main>
+      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog }]} transition:animate={fade({ duration: '0.24s' })}><slot /></main>
       <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
     </div>
     <script>
