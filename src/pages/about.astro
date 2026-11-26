@@ -5,63 +5,27 @@ import '../styles/about-retro.css';
 <BaseLayout title="About Me" description="Meet Kao, a cybersecurity student interested in frontend development, games, music, and motorcycles.">
   <div id="ark-about-retro">
     <div class="site">
-      <header class="hero"><span>ARKLOGS / PROFILE</span><h1>About me.</h1><div class="hero-art" role="img" aria-label="Banner artwork placeholder"><span>Banner artwork</span></div></header>
-      <label class="about-picker">
-        <span>Section</span>
-        <select data-about-picker>
-          <option value="intro">Introduction</option>
-          <option value="profile">Profile</option>
-          <option value="interests">After hours</option>
-          <option value="notes">Field notes</option>
-          <option value="games">Favorite games</option>
-          <option value="music">Favorite tracks</option>
-          <option value="map">Site map</option>
-          <option value="socials">Find me</option>
-          <option value="photo">Photo</option>
-          <option value="scrapbook">Scrapbook</option>
-          <option value="object">Favorite object</option>
-        </select>
-      </label>
       <div class="layout">
         <aside class="left" aria-label="Navigation and social links">
-          <section class="panel" data-about-panel="map"><h2>Site map</h2><ul class="rows"><li><a href="/">Home</a></li><li><a href="/achievements/">Achievements</a></li><li><a href="/projects/">Projects</a></li><li><a href="/blog/">Blog</a></li></ul></section>
-          <section class="panel" data-about-panel="socials"><h2>Find me</h2><ul class="rows"><li><a href="https://github.com/Kaokys">GitHub</a></li><li>Instagram</li><li><a href="https://medium.com/@chsirawich098">Medium</a></li></ul></section>
-          <figure class="panel caption" data-about-panel="photo"><div class="art-slot scrapbook" role="img" aria-label="Scrapbook photo placeholder"><span>Photo slot</span></div><figcaption>Khon Kaen, Thailand</figcaption></figure>
-          <figure class="panel caption" data-about-panel="scrapbook"><div class="art-slot doodle" role="img" aria-label="Sticker artwork placeholder"><span>Sticker slot</span></div><figcaption>Scrapbook</figcaption></figure>
+          <section class="panel"><h2>Site map</h2><ul class="rows"><li><a href="/">Home</a></li><li><a href="/achievements/">Achievements</a></li><li><a href="/projects/">Projects</a></li><li><a href="/blog/">Blog</a></li></ul></section>
+          <section class="panel"><h2>Find me</h2><ul class="rows"><li><a href="https://github.com/Kaokys">GitHub</a></li><li>Instagram</li><li><a href="https://medium.com/@chsirawich098">Medium</a></li></ul></section>
+          <figure class="panel caption"><div class="art-slot scrapbook" role="img" aria-label="Scrapbook photo placeholder"><span>Photo slot</span></div><figcaption>Khon Kaen, Thailand</figcaption></figure>
+          <figure class="panel caption"><div class="art-slot doodle" role="img" aria-label="Sticker artwork placeholder"><span>Sticker slot</span></div><figcaption>Scrapbook</figcaption></figure>
         </aside>
         <div class="center">
-          <section class="panel welcome" data-about-panel="intro"><figure class="portrait-slot"><div class="art-slot portrait-art" role="img" aria-label="Profile portrait placeholder"><span>Portrait</span></div><figcaption>Kao</figcaption></figure><div><h2>Hi, I’m Kao.</h2><p>I’m a first-year cybersecurity student at Khon Kaen University. I’m into frontend development and motorcycles.</p><p class="quote">“Just vibing, not stressing.”</p></div></section>
+          <section class="panel welcome"><figure class="portrait-slot"><div class="art-slot portrait-art" role="img" aria-label="Profile portrait placeholder"><span>Portrait</span></div><figcaption>Kao</figcaption></figure><div><h2>Hi, I’m Kao.</h2><p>I’m a first-year cybersecurity student at Khon Kaen University. I’m into frontend development and motorcycles.</p><p class="quote">“Just vibing, not stressing.”</p></div></section>
           <div class="pair">
-            <section class="panel" data-about-panel="profile"><h2>The short version</h2><dl><dt>Based in</dt><dd>Khon Kaen, Thailand</dd><dt>University</dt><dd>Khon Kaen University</dd><dt>Program</dt><dd>Cybersecurity</dd></dl></section>
-            <section class="panel" data-about-panel="interests"><h2>After hours</h2><p>I like building for the web, playing strategy and simulation games, and getting out on a motorcycle.</p></section>
+            <section class="panel"><h2>The short version</h2><dl><dt>Based in</dt><dd>Khon Kaen, Thailand</dd><dt>University</dt><dd>Khon Kaen University</dd><dt>Program</dt><dd>Cybersecurity</dd></dl></section>
+            <section class="panel"><h2>After hours</h2><p>I like building for the web, playing strategy and simulation games, and getting out on a motorcycle.</p></section>
           </div>
-          <section class="panel notebook" data-about-panel="notes"><header><h2>Field notes</h2></header><div class="note note-with-art"><div class="art-slot doodle" role="img" aria-label="Notebook illustration placeholder"><span>Illustration</span></div><div><h3>Current objective</h3><p><strong>University assignment / project</strong></p><p>Surviving uni, one commit at a time.</p></div></div><div class="note"><h3>Elsewhere on Arklogs</h3><p><a href="/projects/">Projects</a> · <a href="/achievements/">Achievements</a> · <a href="/blog/">Blog</a></p></div></section>
+          <section class="panel notebook"><header><h2>Field notes</h2></header><div class="note note-with-art"><div class="art-slot doodle" role="img" aria-label="Notebook illustration placeholder"><span>Illustration</span></div><div><h3>Current objective</h3><p><strong>University assignment / project</strong></p><p>Surviving uni, one commit at a time.</p></div></div><div class="note"><h3>Elsewhere on Arklogs</h3><p><a href="/projects/">Projects</a> · <a href="/achievements/">Achievements</a> · <a href="/blog/">Blog</a></p></div></section>
         </div>
         <aside class="right" aria-label="Favorites">
-          <section class="panel" data-about-panel="games"><h2>Favorite games</h2><ul class="details"><li><div class="thumb" role="img" aria-label="Game cover placeholder"></div><div><strong>Arknights</strong><span>Strategy · Mobile</span></div></li><li><div class="thumb" role="img" aria-label="Game cover placeholder"></div><div><strong>Oxygen Not Included</strong><span>Simulation · PC</span></div></li></ul></section>
-          <section class="panel" data-about-panel="music"><h2>Favorite tracks</h2><ul class="details"><li><div class="thumb record" role="img" aria-label="Album cover placeholder"></div><div><strong>Let It Happen</strong><span>Tame Impala · Currents</span></div></li><li><div class="thumb record" role="img" aria-label="Album cover placeholder"></div><div><strong>Lost in Yesterday</strong><span>Tame Impala · The Slow Rush</span></div></li></ul></section>
-          <figure class="panel caption" data-about-panel="object"><div class="art-slot scrapbook" role="img" aria-label="Favorite object photo placeholder"><span>Favorite object</span></div><figcaption>A spot for something you like</figcaption></figure>
+          <section class="panel"><h2>Favorite games</h2><ul class="details"><li><div class="thumb" role="img" aria-label="Game cover placeholder"></div><div><strong>Arknights</strong><span>Strategy · Mobile</span></div></li><li><div class="thumb" role="img" aria-label="Game cover placeholder"></div><div><strong>Oxygen Not Included</strong><span>Simulation · PC</span></div></li></ul></section>
+          <section class="panel"><h2>Favorite tracks</h2><ul class="details"><li><div class="thumb record" role="img" aria-label="Album cover placeholder"></div><div><strong>Let It Happen</strong><span>Tame Impala · Currents</span></div></li><li><div class="thumb record" role="img" aria-label="Album cover placeholder"></div><div><strong>Lost in Yesterday</strong><span>Tame Impala · The Slow Rush</span></div></li></ul></section>
+          <figure class="panel caption"><div class="art-slot scrapbook" role="img" aria-label="Favorite object photo placeholder"><span>Favorite object</span></div><figcaption>A spot for something you like</figcaption></figure>
         </aside>
       </div>
     </div>
   </div>
 </BaseLayout>
-<script>
-  function initAboutPicker() {
-    const page = document.getElementById('ark-about-retro');
-    const picker = page?.querySelector<HTMLSelectElement>('[data-about-picker]');
-    if (!page || !picker || page.dataset.ready) return;
-
-    const panels = page.querySelectorAll<HTMLElement>('[data-about-panel]');
-    const showPanel = () => {
-      for (const panel of panels) {
-        panel.toggleAttribute('data-active', panel.dataset.aboutPanel === picker.value);
-      }
-    };
-    showPanel();
-    page.dataset.ready = 'true';
-    picker.addEventListener('change', showPanel);
-  }
-
-  document.addEventListener('astro:page-load', initAboutPicker);
-</script>

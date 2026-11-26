@@ -2,9 +2,6 @@
 #ark-about-retro {--ar-ink:#17263c;--ar-blue:#173cc5;--ar-paper:#f5f7f9;--ar-edge:#9aacc4;min-height:100%;background-color:#182334;background-image:radial-gradient(#a6bad448 1px,transparent 1px);background-size:13px 13px;color:var(--ar-ink);font:16px/1.55 system-ui,sans-serif}
 #ark-about-retro *{box-sizing:border-box}
 #ark-about-retro .site {max-width:1320px;margin:auto;padding:clamp(12px,3vw,27px)}
-#ark-about-retro .hero {display:flex;flex-direction:column;justify-content:space-between;min-height:168px;border:1px solid #7498db;padding:clamp(14px,3vw,27px);margin-bottom:13px;color:white;background:repeating-linear-gradient(130deg,transparent 0 36px,#a7c7ff24 37px 38px,transparent 39px 52px),linear-gradient(118deg,#10244c,#254fac 68%,#527ac5)}
-#ark-about-retro .hero span {font:600 12px/1.4 ui-monospace,monospace;letter-spacing:.14em}
-#ark-about-retro h1 {font:italic 700 clamp(45px,9vw,81px)/1 Georgia,serif;letter-spacing:-.06em;margin:10px 0 0}
 #ark-about-retro .layout {display:grid;grid-template-columns:minmax(140px,1fr) minmax(0,3.75fr) minmax(190px,1.6fr);align-items:start;gap:12px}
 #ark-about-retro .left,#ark-about-retro .right,#ark-about-retro .center {display:grid;gap:12px;min-width:0}
 #ark-about-retro .pair {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.18fr);gap:12px}
@@ -34,9 +31,6 @@
   #ark-about-retro .layout,#ark-about-retro .pair,#ark-about-retro .right {grid-template-columns:1fr}
   #ark-about-retro .left {order:3;grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-#ark-about-retro .hero {position:relative;isolation:isolate}
-#ark-about-retro .hero-art {position:absolute;inset:0 0 0 55%;z-index:-1;display:flex;justify-content:flex-end;align-items:flex-end;padding:10px;background:linear-gradient(125deg,transparent,#b8d1ff38),repeating-linear-gradient(145deg,transparent 0 20px,#c3d8ff29 21px 22px)}
-#ark-about-retro .hero-art span {font-size:11px;letter-spacing:.05em}
 #ark-about-retro figure {margin:0}
 #ark-about-retro figcaption {margin-top:6px;font-size:12px;line-height:1.35;color:#405780}
 #ark-about-retro .art-slot {min-height:75px;aspect-ratio:4/3;display:grid;place-items:center;text-align:center;padding:5px;color:#233c72;border:1px solid #8ba4cf;background-color:#deebff;font-size:11px;font-weight:650}
@@ -48,31 +42,9 @@
 #ark-about-retro .note-with-art .art-slot {width:clamp(62px,9vw,94px)}
 #ark-about-retro .thumb {width:25px;aspect-ratio:1;border:1px solid #8aa4d0;background:linear-gradient(135deg,#becff1 45%,#7193d6 46%)}
 #ark-about-retro .thumb.record {background:radial-gradient(circle,#cfdef8 7%,#4165ae 9% 30%,#7d9cd6 31% 48%,#d0dff6 50%)}
-#ark-about-retro .about-picker {display:none}
-#ark-about-retro .left .art-slot,#ark-about-retro .right .art-slot {max-height:100px}
-@media (min-width:1000px) and (min-height:900px) {
-  .app-main.app-main-about {overflow:hidden}
+@media (min-width:821px) and (max-height:900px) {
   #ark-about-retro .site {padding-block:12px}
-  #ark-about-retro .hero {min-height:110px;padding-block:11px}
   #ark-about-retro .panel:not(.notebook) {padding-block:10px}
   #ark-about-retro .left li {padding-block:3px}
   #ark-about-retro .left .art-slot {min-height:60px;max-height:74px}
-}
-@media (max-width:999px), (max-height:899px) {
-  .app-main.app-main-about:has([data-ready]) {overflow:hidden}
-  #ark-about-retro[data-ready] .site {padding:clamp(8px,2.5vw,20px)}
-  #ark-about-retro[data-ready] .hero {min-height:0;padding:9px 14px;margin-bottom:8px}
-  #ark-about-retro[data-ready] .hero h1 {font-size:clamp(32px,6vw,52px);margin-top:3px}
-  #ark-about-retro[data-ready] .about-picker {display:flex;align-items:center;gap:10px;margin-bottom:8px;color:#eef4fd;font-size:14px}
-  #ark-about-retro .about-picker select {min-height:40px;padding:4px 9px;border:1px solid #7498db;background:var(--ar-paper);color:var(--ar-ink);font:inherit;font-size:16px}
-  #ark-about-retro[data-ready] .layout {display:block;max-width:720px;margin-inline:auto}
-  #ark-about-retro[data-ready] :is(.left,.center,.pair,.right) {display:contents}
-  #ark-about-retro[data-ready] [data-about-panel]:not([data-active]) {display:none}
-  #ark-about-retro[data-ready] .caption .art-slot {max-width:200px;max-height:125px}
-}
-@media (max-height:480px) {
-  #ark-about-retro[data-ready] .hero {display:none}
-  #ark-about-retro[data-ready] .panel:not(.notebook) {padding:8px 12px}
-  #ark-about-retro[data-ready] .note {padding:7px 12px}
-  #ark-about-retro[data-ready] li {padding-block:4px}
 }
