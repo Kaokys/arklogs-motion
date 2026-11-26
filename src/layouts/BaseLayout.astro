@@ -20,7 +20,6 @@ import '../styles/motion-home.css';
 import '../styles/graphic-system.css';
 import '../styles/blog.css';
 import { ClientRouter } from 'astro:transitions';
-import { fade } from 'astro:transitions';
 import { nav } from '../data/content';
 
 interface Props { title: string; description?: string; }
@@ -30,7 +29,7 @@ const isAbout = /^\/about\/?$/.test(pathname);
 const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?:\/|$)/.test(pathname);
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,7 +37,7 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
     <meta name="description" content={description} />
     <link rel="alternate" type="application/rss+xml" title="Arklogs RSS" href="/rss.xml" />
     <title>{title} | Arklogs</title>
-    <ClientRouter />
+    <ClientRouter fallback="swap" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,30 +46,14 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
         <a class="wordmark" href="/" aria-label="Arklogs home"><span class="wordmark-glyph" aria-hidden="true">⌁</span> ARKLOGS<span class="wordmark-period">.</span></a>
         <span class="topbar-caption">PERSONAL ARCHIVE <span>/</span> SYSTEM ONLINE</span>
         <nav class="top-nav" aria-label="Main navigation">
-          {nav.map((item) => <a href={item.href} aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}><span>{item.label}</span></a>)}
+          {nav.map((item) => <a href={item.href} data-astro-prefetch="hover" aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}><span>{item.label}</span></a>)}
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
       </header>
-      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]} transition:animate={isAbout ? 'none' : fade({ duration: '0.24s' })}><slot /></main>
+      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]}><slot /></main>
       <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
     </div>
     <script>
-      import gsap from 'gsap';
-      let pageMotion: gsap.core.Timeline | undefined;
-      const animateInnerPage = () => {
-        pageMotion?.kill();
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const panels = document.querySelectorAll('.inner-screen .side-panel, .inner-screen .content-panel, .index-screen .board-intro, .index-screen .project-tile, .index-screen .writing-intro, .index-screen .writing-records, .index-screen .about-intro, .index-screen .about-board');
-        if (!panels.length) return;
-        pageMotion = gsap.timeline().fromTo(panels, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, stagger: .1, duration: .58, ease: 'power2.out' });
-      };
-      document.addEventListener('astro:before-preparation', () => document.documentElement.classList.add('is-navigating'));
-      document.addEventListener('astro:page-load', () => {
-        window.setTimeout(() => document.documentElement.classList.remove('is-navigating'), 140);
-        animateInnerPage();
-      });
-      if (document.readyState !== 'loading') animateInnerPage();
-
       if (!document.documentElement.dataset.gyroReady) {
         document.documentElement.dataset.gyroReady = 'true';
         const motion = window.matchMedia('(min-width: 761px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
