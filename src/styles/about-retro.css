@@ -48,3 +48,27 @@
 #ark-about-retro .note-with-art .art-slot {width:clamp(62px,9vw,94px)}
 #ark-about-retro .thumb {width:25px;aspect-ratio:1;border:1px solid #8aa4d0;background:linear-gradient(135deg,#becff1 45%,#7193d6 46%)}
 #ark-about-retro .thumb.record {background:radial-gradient(circle,#cfdef8 7%,#4165ae 9% 30%,#7d9cd6 31% 48%,#d0dff6 50%)}
+#ark-about-retro .about-picker {display:none}
+#ark-about-retro .left .art-slot,#ark-about-retro .right .art-slot {max-height:100px}
+@media (min-width:1000px) and (min-height:900px) {
+  .app-main.app-main-about {overflow:hidden}
+  #ark-about-retro .hero {min-height:140px}
+}
+@media (max-width:999px), (max-height:899px) {
+  .app-main.app-main-about:has([data-ready]) {overflow:hidden}
+  #ark-about-retro[data-ready] .site {padding:clamp(8px,2.5vw,20px)}
+  #ark-about-retro[data-ready] .hero {min-height:0;padding:9px 14px;margin-bottom:8px}
+  #ark-about-retro[data-ready] .hero h1 {font-size:clamp(32px,6vw,52px);margin-top:3px}
+  #ark-about-retro[data-ready] .about-picker {display:flex;align-items:center;gap:10px;margin-bottom:8px;color:#eef4fd;font-size:14px}
+  #ark-about-retro .about-picker select {min-height:40px;padding:4px 9px;border:1px solid #7498db;background:var(--ar-paper);color:var(--ar-ink);font:inherit;font-size:16px}
+  #ark-about-retro[data-ready] .layout {display:block;max-width:720px;margin-inline:auto}
+  #ark-about-retro[data-ready] :is(.left,.center,.pair,.right) {display:contents}
+  #ark-about-retro[data-ready] [data-about-panel]:not([data-active]) {display:none}
+  #ark-about-retro[data-ready] .caption .art-slot {max-width:200px;max-height:125px}
+}
+@media (max-height:480px) {
+  #ark-about-retro[data-ready] .hero {display:none}
+  #ark-about-retro[data-ready] .panel:not(.notebook) {padding:8px 12px}
+  #ark-about-retro[data-ready] .note {padding:7px 12px}
+  #ark-about-retro[data-ready] li {padding-block:4px}
+}
