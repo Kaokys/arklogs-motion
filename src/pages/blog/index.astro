@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignalMatrix from '../../components/SignalMatrix.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const [latest, ...older] = posts;
+---
+<BaseLayout title="Blog" description="Build logs and write-ups from Kao’s workbench.">
+  <div class="index-screen writing-screen">
+    <div class="index-kicker"><span>ARKLOGS / FIELD NOTES</span><span>{String(posts.length).padStart(2, '0')} PUBLISHED</span></div>
+    <div class="writing-board">
+      <header class="writing-intro"><h1>Blog</h1><p>Build logs, CTF write-ups, and notes from my workbench.</p><SignalMatrix /></header>
+      <section class="writing-records" aria-label="Published writing">
+        <div class="records-heading"><span>PUBLISHED RECORDS</span><span>{String(posts.length).padStart(2, '0')} / OPEN</span></div>
+        {latest ? <a class="featured-note" href={`/blog/${latest.id}/`}><span class="note-upper"><span>01 / {latest.data.category}</span><time datetime={latest.data.date.toISOString()}>{latest.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></span><span class="note-title">{latest.data.title}</span><span class="note-description">{latest.data.description}</span><span class="note-open">READ THE NOTE <span aria-hidden="true">↗</span></span></a> : <div class="notes-empty"><strong>No notes published yet.</strong><p>New work will be listed here when it is ready to share.</p></div>}
+        {older.length > 0 && <div class="older-notes">{older.map((post, index) => <a href={`/blog/${post.id}/`}><span>{String(index + 2).padStart(2, '0')}</span><strong>{post.data.title}</strong><span aria-hidden="true">↗</span></a>)}</div>}
+        <div class="records-end"><span>FROM THE WORKBENCH</span><a href="/projects/">EXPLORE PROJECT AREAS <span aria-hidden="true">↗</span></a></div>
+      </section>
+    </div>
+    <div class="index-footer"><span>NOTES ARE PUBLISHED WHEN READY</span><a href="/about/">ABOUT ARKLOGS <span aria-hidden="true">↗</span></a></div>
+  </div>
+</BaseLayout>

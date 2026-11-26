@@ -27,15 +27,15 @@ const latest = (await getCollection('posts', ({ data }) => !data.draft))
           <span class="node-art"><img src={area.image} alt="" loading="eager" /><span class="node-chapter" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span class="art-shape art-shape-a" aria-hidden="true"></span><span class="art-center" aria-hidden="true">{area.code}</span></span>
           <span class="node-title">{area.title}</span><span class="node-sub">{area.status} <span aria-hidden="true">↗</span></span>
         </a>)}
-        {latest && <a class="route-node recent-card" href={`/writing/${latest.id}/`} aria-label={`Read most recent post: ${latest.data.title}`} data-record data-code="NEW" data-category={latest.data.category} data-title={latest.data.title} data-description={latest.data.description} data-detail="The latest published note from the Arklogs workbench." data-image="/images/latest-note.svg">
+        {latest && <a class="route-node recent-card" href={`/blog/${latest.id}/`} aria-label={`Read most recent post: ${latest.data.title}`} data-record data-code="NEW" data-category={latest.data.category} data-title={latest.data.title} data-description={latest.data.description} data-detail="The latest published note from the Arklogs workbench." data-image="/images/latest-note.svg">
           <span class="node-index">05 <i></i> MOST RECENT</span>
           <span class="node-art"><img src="/images/latest-note.svg" alt="" loading="eager" /><span class="node-chapter" aria-hidden="true">05</span><span class="art-center" aria-hidden="true">NEW</span></span>
           <span class="node-title">{latest.data.title}</span><span class="node-sub">{latest.data.category} / {latest.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} <span aria-hidden="true">↗</span></span>
         </a>}
       </div>
-      <div class="map-foot"><span>PROJECTS</span><span>FOLLOW THE LINE OF THOUGHT</span><a href="/writing/">ALL WRITING ↗</a></div>
+      <div class="map-foot"><span>PROJECTS</span><span>FOLLOW THE LINE OF THOUGHT</span><a href="/blog/">ALL POSTS ↗</a></div>
     </section>
-    <div class="home-timeline" aria-label="Archive sections"><span>01 / 04</span><span class="timeline-rule"><i></i><i></i><i></i><i></i></span><span>04 / 04</span><a href="/writing/">FIELD NOTES <span aria-hidden="true">↗</span></a></div>
+    <div class="home-timeline" aria-label="Archive sections"><span>01 / 04</span><span class="timeline-rule"><i></i><i></i><i></i><i></i></span><span>04 / 04</span><a href="/blog/">FIELD NOTES <span aria-hidden="true">↗</span></a></div>
   </div>
   <dialog class="record-dialog" aria-labelledby="record-dialog-title" aria-describedby="record-dialog-description">
     <div class="record-dialog-shell">

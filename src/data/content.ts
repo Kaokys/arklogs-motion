@@ -47,7 +47,8 @@ export const areas = [
 
 export const nav = [
   { label: 'Home', href: '/' },
+  { label: 'About Me', href: '/about/' },
+  { label: 'Achievements', href: '/achievements/' },
   { label: 'Projects', href: '/projects/' },
-  { label: 'Writing', href: '/writing/' },
-  { label: 'About', href: '/about/' }
+  { label: 'Blog', href: '/blog/' }
 ];
