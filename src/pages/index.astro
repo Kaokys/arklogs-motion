@@ -1,34 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SignalMatrix from '../components/SignalMatrix.astro';
+
 import { sections } from '../data/content';
 ---
 <BaseLayout title="Home" description="A portfolio template with space for a profile, achievements, projects, and writing.">
-  <div class="home-screen">
-    <div class="motion-stage" aria-hidden="true"><span class="motion-orbit orbit-one"></span><span class="motion-orbit orbit-two"></span><span class="motion-scan"></span><span class="motion-cross cross-one">＋</span><span class="motion-cross cross-two">＋</span></div>
-    <div class="motion-label" aria-hidden="true"><span>ARK</span><span>LOGS</span></div>
-    <div class="screen-heading"><span>MAIN LINE PLOT <i></i> ARK / 001</span><span>SELECT A RECORD TO EXPLORE</span></div>
-    <aside class="intro-panel">
-      <div class="intro-top"><span class="tiny-square"></span> CURATOR'S NOTE <span class="panel-id">A—001</span></div>
-      <div class="intro-main"><p class="overline">A PERSONAL RECORD</p><h1>Your<br /><em>Portfolio.</em></h1><p class="intro-description">Add a short introduction here.</p></div>
-      <div class="intro-bottom"><span>PORTFOLIO TEMPLATE</span><SignalMatrix /><a href="/about/">ABOUT ME <span aria-hidden="true">↗</span></a></div>
-    </aside>
-    <section class="map-zone" aria-label="Explore archive areas">
-      <div class="map-header"><span>ARCHIVE ROUTE <b>◈</b> PORTFOLIO SECTIONS</span><span class="map-readout">04 SECTIONS</span></div>
-      <div class="map-grid" aria-hidden="true"></div>
-      <div class="atlas-particles" aria-hidden="true">{Array.from({ length: 18 }, () => <span></span>)}</div>
-      <div class="map-trace" aria-hidden="true"><svg viewBox="0 0 800 400" preserveAspectRatio="none"><path d="M28 258 L205 190 L392 227 L560 130 L750 176" /></svg></div>
-      <div class="route-track" aria-label="Portfolio sections">
-        {sections.map((section, index) => <a class="route-node" href={section.href} data-record data-code={section.code} data-category="Section" data-title={section.label} data-description={section.description} data-image="/images/latest-note.svg">
-          <span class="node-index">{String(index + 1).padStart(2, '0')} <i></i> {section.code}</span>
-          <span class="node-art"><span class="node-chapter" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span class="art-shape art-shape-a" aria-hidden="true"></span><span class="art-center" aria-hidden="true">{section.code}</span></span>
-          <span class="node-title">{section.label}</span>
-        </a>)}
-      </div>
-      <div class="map-foot"><span>PORTFOLIO</span><a href="/blog/">ALL POSTS ↗</a></div>
-    </section>
-    <div class="home-timeline" aria-label="Archive sections"><span>01 / 04</span><span class="timeline-rule"><i></i><i></i><i></i><i></i></span><span>04 / 04</span><a href="/blog/">BLOG <span aria-hidden="true">↗</span></a></div>
-  </div>
+  <section class="atlas-home" aria-label="Portfolio">
+    <img class="atlas-landscape" src="/atlas-landscape.svg" alt="" />
+    <h1>Arklogs<span>.</span></h1>
+    <nav class="atlas-cards" aria-label="Portfolio sections">
+      {sections.map((section, index) => (
+        <a class="atlas-card" href={section.href} data-record data-code={section.code}
+          data-category="Section" data-title={section.label} data-description={section.description}
+          data-image={`/atlas-${section.code.toLowerCase()}.svg`} style={`--angle:${[-4, 2, -2, 4][index]}deg`}>
+          <img src={`/atlas-${section.code.toLowerCase()}.svg`} alt="" />
+          <span>{section.label}</span>
+        </a>
+      ))}
+    </nav>
+  </section>
   <dialog class="record-dialog" aria-labelledby="record-dialog-title" aria-describedby="record-dialog-description">
     <div class="record-dialog-shell">
       <div class="record-dialog-art"><img src="" alt="" /><span class="record-dialog-code" aria-hidden="true"></span></div>
@@ -47,7 +36,7 @@ import { sections } from '../data/content';
       cleanupDialog?.();
       const dialog = document.querySelector<HTMLDialogElement>('.record-dialog');
       if (!dialog) return;
-      const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('.home-screen [data-record]'));
+      const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('.atlas-home [data-record]'));
       const closeButtons = dialog.querySelectorAll<HTMLButtonElement>('.record-dialog-close');
       const art = dialog.querySelector<HTMLImageElement>('.record-dialog-art img')!;
       const code = dialog.querySelector<HTMLElement>('.record-dialog-code')!;
@@ -119,31 +108,28 @@ import { sections } from '../data/content';
     };
     const initMotion = () => {
       cleanup?.();
-      const home = document.querySelector<HTMLElement>('.home-screen');
+      const home = document.querySelector<HTMLElement>('.atlas-home');
       if (!home) return;
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce) return;
-      const cards = Array.from(home.querySelectorAll<HTMLElement>('.route-node'));
-      const label = home.querySelector<HTMLElement>('.motion-label');
+      const cards = Array.from(home.querySelectorAll<HTMLElement>('.atlas-card'));
       const canPoint = window.matchMedia('(min-width: 761px) and (pointer: fine)').matches;
       let onMove: ((event: PointerEvent) => void) | undefined;
       let onLeave: (() => void) | undefined;
       if (canPoint) {
         const xTo = cards.map((card) => gsap.quickTo(card, 'x', { duration: .8, ease: 'power2.out' }));
         const yTo = cards.map((card) => gsap.quickTo(card, 'y', { duration: .8, ease: 'power2.out' }));
-        const labelX = gsap.quickTo(label, 'x', { duration: 1.1, ease: 'power2.out' });
-        const labelY = gsap.quickTo(label, 'y', { duration: 1.1, ease: 'power2.out' });
+
         onMove = (event) => {
           const nx = event.clientX / window.innerWidth - .5;
           const ny = event.clientY / window.innerHeight - .5;
-          cards.forEach((_, i) => { const depth = i === 4 ? 26 : 10 + i * 3; xTo[i](nx * depth); yTo[i](ny * depth); });
-          labelX(nx * -12); labelY(ny * -9);
+          cards.forEach((_, i) => { const depth = 10 + i * 2; xTo[i](nx * depth); yTo[i](ny * depth); });
         };
-        onLeave = () => { cards.forEach((_, i) => { xTo[i](0); yTo[i](0); }); labelX(0); labelY(0); };
+        onLeave = () => { cards.forEach((_, i) => { xTo[i](0); yTo[i](0); }); };
         window.addEventListener('pointermove', onMove, { passive: true });
         window.addEventListener('blur', onLeave);
       }
-      cleanup = () => { if (onMove) window.removeEventListener('pointermove', onMove); if (onLeave) window.removeEventListener('blur', onLeave); gsap.killTweensOf([...cards, label]); };
+      cleanup = () => { if (onMove) window.removeEventListener('pointermove', onMove); if (onLeave) window.removeEventListener('blur', onLeave); gsap.killTweensOf(cards); };
     };
     document.addEventListener('astro:page-load', () => { initMotion(); initDialog(); });
     document.addEventListener('astro:before-swap', () => { cleanup?.(); cleanupDialog?.(); });
