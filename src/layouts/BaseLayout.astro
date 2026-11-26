@@ -26,6 +26,7 @@ import { nav } from '../data/content';
 interface Props { title: string; description?: string; }
 const { title, description = 'Arklogs — projects, research, and field notes.' } = Astro.props;
 const pathname = Astro.url.pathname;
+const isAbout = /^\/about\/?$/.test(pathname);
 const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?:\/|$)/.test(pathname);
 ---
 <!doctype html>
@@ -50,7 +51,7 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
       </header>
-      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': /^\/about\/?$/.test(pathname) }]} transition:animate={fade({ duration: '0.24s' })}><slot /></main>
+      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]} transition:animate={isAbout ? 'none' : fade({ duration: '0.24s' })}><slot /></main>
       <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
     </div>
     <script>
