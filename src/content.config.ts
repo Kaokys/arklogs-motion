@@ -11,6 +11,8 @@ const posts = defineCollection({
     archiveCategory: z.string().optional(),
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
+    coverAlt: z.string().optional(),
+    language: z.string().default('en'),
     draft: z.boolean().default(false)
   })
 });

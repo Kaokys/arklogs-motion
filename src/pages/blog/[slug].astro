@@ -19,8 +19,8 @@ const { data } = post;
         <p>{data.description}</p>
       </div>
     </header>
-    <div class="blog-article-body prose" lang={post.id === 'thctt-2025-qualifier' ? 'th' : 'en'}>
-      {data.cover && <img class="blog-cover" src={data.cover} alt="Thailand Cyber Top Talent 2025 event artwork" decoding="async" />}
+    <div class="blog-article-body prose" lang={data.language}>
+      {data.cover && <img class="blog-cover" src={data.cover} alt={data.coverAlt ?? ""} decoding="async" />}
       {data.tags.length > 0 && <p class="blog-tags">{data.tags.map((tag) => <a href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}</p>}
       {headings.length > 1 && <nav aria-label="On this page" class="blog-toc"><ul>{headings.filter(({ depth }) => depth === 2).map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ul></nav>}
       <Content />

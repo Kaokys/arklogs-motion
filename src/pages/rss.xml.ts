@@ -16,7 +16,7 @@ export const GET: APIRoute = async () => {
     return `<item><title>${escapeXml(data.title)}</title><link>${link}</link><guid>${link}</guid><pubDate>${data.date.toUTCString()}</pubDate><description>${escapeXml(data.description)}</description></item>`;
   });
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Arklogs</title><link>${site}/blog/</link><description>Build logs, CTF write-ups, and field notes by Kao.</description>${items.join('')}</channel></rss>`,
+    `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Arklogs</title><link>${site}/blog/</link><description>Articles and updates from the portfolio.</description>${items.join('')}</channel></rss>`,
     { headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' } }
   );
 };

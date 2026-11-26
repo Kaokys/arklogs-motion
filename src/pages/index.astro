@@ -1,41 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SignalMatrix from '../components/SignalMatrix.astro';
-import { areas } from '../data/content';
-import { getCollection } from 'astro:content';
-const latest = (await getCollection('posts', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
+import { sections } from '../data/content';
 ---
-<BaseLayout title="Home" description="Arklogs is a personal archive of projects, security research, CTF writeups, and field notes.">
+<BaseLayout title="Home" description="A portfolio template with space for a profile, achievements, projects, and writing.">
   <div class="home-screen">
     <div class="motion-stage" aria-hidden="true"><span class="motion-orbit orbit-one"></span><span class="motion-orbit orbit-two"></span><span class="motion-scan"></span><span class="motion-cross cross-one">＋</span><span class="motion-cross cross-two">＋</span></div>
     <div class="motion-label" aria-hidden="true"><span>ARK</span><span>LOGS</span></div>
     <div class="screen-heading"><span>MAIN LINE PLOT <i></i> ARK / 001</span><span>SELECT A RECORD TO EXPLORE</span></div>
     <aside class="intro-panel">
       <div class="intro-top"><span class="tiny-square"></span> CURATOR'S NOTE <span class="panel-id">A—001</span></div>
-      <div class="intro-main"><p class="overline">A PERSONAL RECORD</p><h1>Make.<br /><em>Investigate.</em><br />Document.</h1><p class="intro-description">Projects, investigations, and field notes from a curious workbench.</p></div>
-      <div class="intro-bottom"><span>ESP32 <b>·</b> SECURITY <b>·</b> CTF</span><SignalMatrix /><a href="/about/">THE STORY BEHIND ARKLOGS <span aria-hidden="true">↗</span></a></div>
+      <div class="intro-main"><p class="overline">A PERSONAL RECORD</p><h1>Your<br /><em>Portfolio.</em></h1><p class="intro-description">Add a short introduction here.</p></div>
+      <div class="intro-bottom"><span>PORTFOLIO TEMPLATE</span><SignalMatrix /><a href="/about/">ABOUT ME <span aria-hidden="true">↗</span></a></div>
     </aside>
     <section class="map-zone" aria-label="Explore archive areas">
-      <div class="map-header"><span>ARCHIVE ROUTE <b>◈</b> PROJECT AREAS</span><span class="map-readout">04 AREAS / LATEST NOTE</span></div>
+      <div class="map-header"><span>ARCHIVE ROUTE <b>◈</b> PORTFOLIO SECTIONS</span><span class="map-readout">04 SECTIONS</span></div>
       <div class="map-grid" aria-hidden="true"></div>
       <div class="atlas-particles" aria-hidden="true">{Array.from({ length: 18 }, () => <span></span>)}</div>
       <div class="map-trace" aria-hidden="true"><svg viewBox="0 0 800 400" preserveAspectRatio="none"><path d="M28 258 L205 190 L392 227 L560 130 L750 176" /></svg></div>
-      <div class="route-track" aria-label="Archive areas and latest writing">
-        {areas.map((area, index) => <a class="route-node" href={`/projects/${area.id}/`} data-record data-code={area.code} data-category={area.status} data-title={area.title} data-description={area.description} data-detail={area.detail} data-image={area.image}>
-          <span class="node-index">{String(index + 1).padStart(2, '0')} <i></i> {area.code}</span>
-          <span class="node-art"><img src={area.image} alt="" loading="eager" /><span class="node-chapter" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span class="art-shape art-shape-a" aria-hidden="true"></span><span class="art-center" aria-hidden="true">{area.code}</span></span>
-          <span class="node-title">{area.title}</span><span class="node-sub">{area.status} <span aria-hidden="true">↗</span></span>
+      <div class="route-track" aria-label="Portfolio sections">
+        {sections.map((section, index) => <a class="route-node" href={section.href} data-record data-code={section.code} data-category="Section" data-title={section.label} data-description={section.description} data-image="/images/latest-note.svg">
+          <span class="node-index">{String(index + 1).padStart(2, '0')} <i></i> {section.code}</span>
+          <span class="node-art"><span class="node-chapter" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span class="art-shape art-shape-a" aria-hidden="true"></span><span class="art-center" aria-hidden="true">{section.code}</span></span>
+          <span class="node-title">{section.label}</span>
         </a>)}
-        {latest && <a class="route-node recent-card" href={`/blog/${latest.id}/`} aria-label={`Read most recent post: ${latest.data.title}`} data-record data-code="NEW" data-category={latest.data.category} data-title={latest.data.title} data-description={latest.data.description} data-detail="The latest published note from the Arklogs workbench." data-image="/images/latest-note.svg">
-          <span class="node-index">05 <i></i> MOST RECENT</span>
-          <span class="node-art"><img src="/images/latest-note.svg" alt="" loading="eager" /><span class="node-chapter" aria-hidden="true">05</span><span class="art-center" aria-hidden="true">NEW</span></span>
-          <span class="node-title">{latest.data.title}</span><span class="node-sub">{latest.data.category} / {latest.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} <span aria-hidden="true">↗</span></span>
-        </a>}
       </div>
-      <div class="map-foot"><span>PROJECTS</span><span>FOLLOW THE LINE OF THOUGHT</span><a href="/blog/">ALL POSTS ↗</a></div>
+      <div class="map-foot"><span>PORTFOLIO</span><a href="/blog/">ALL POSTS ↗</a></div>
     </section>
-    <div class="home-timeline" aria-label="Archive sections"><span>01 / 04</span><span class="timeline-rule"><i></i><i></i><i></i><i></i></span><span>04 / 04</span><a href="/blog/">FIELD NOTES <span aria-hidden="true">↗</span></a></div>
+    <div class="home-timeline" aria-label="Archive sections"><span>01 / 04</span><span class="timeline-rule"><i></i><i></i><i></i><i></i></span><span>04 / 04</span><a href="/blog/">BLOG <span aria-hidden="true">↗</span></a></div>
   </div>
   <dialog class="record-dialog" aria-labelledby="record-dialog-title" aria-describedby="record-dialog-description">
     <div class="record-dialog-shell">

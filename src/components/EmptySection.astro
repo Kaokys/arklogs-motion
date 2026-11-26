@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  empty: string;
+}
+const { title, description, empty } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <div class="index-screen writing-screen">
+    <div class="index-kicker"><span>ARKLOGS / {title.toUpperCase()}</span></div>
+    <div class="writing-board">
+      <header class="writing-intro">
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </header>
+      <section class="writing-records" aria-label={title}>
+        <div class="notes-empty"><p>{empty}</p></div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

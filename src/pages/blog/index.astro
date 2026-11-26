@@ -7,10 +7,10 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
 const categories = [...new Set(posts.map(({ data }) => data.archiveCategory ?? data.category))].sort();
 const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
 ---
-<BaseLayout title="Blog" description="Build logs and write-ups from Kao’s workbench.">
+<BaseLayout title="Blog" description="A template for articles and updates.">
   <div class="blog-sheet">
     <header class="blog-heading">
-      <div><h1>Blog</h1><p>Build logs, competition write-ups, and field notes.</p></div>
+      <div><h1>Blog</h1><p>Add your articles and updates here.</p></div>
       <a href="/rss.xml">RSS feed</a>
     </header>
     <section aria-label="Post archive" data-blog-archive>
@@ -21,6 +21,7 @@ const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
         <button type="reset">Clear</button>
       </form>
       <p data-result-count aria-live="polite" hidden></p>
+      {posts.length === 0 && <p>No posts yet.</p>}
       <ul class="blog-posts">
         {posts.map(({ id, data }) => (
           <li data-post data-category={data.archiveCategory ?? data.category} data-tags={JSON.stringify(data.tags)}>
@@ -47,6 +48,7 @@ const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
     const count = archive?.querySelector<HTMLElement>('[data-result-count]');
     if (!archive || !form || !count || !form.hidden) return;
     const posts = [...archive.querySelectorAll<HTMLElement>('[data-post]')];
+    if (posts.length === 0) return;
     const search = form.querySelector<HTMLInputElement>('[name=q]')!;
     const category = form.querySelector<HTMLSelectElement>('[name=category]')!;
     const tag = form.querySelector<HTMLSelectElement>('[name=tag]')!;
