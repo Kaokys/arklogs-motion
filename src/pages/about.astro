@@ -1,11 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/about-retro.css';
+const particleCount = 22;
 ---
 <BaseLayout title="About Me" description="Meet Kao, a cybersecurity student interested in frontend development, games, music, and motorcycles.">
   <div id="ark-about-retro">
+    <div class="about-particles" aria-hidden="true">
+      {Array.from({ length: particleCount }, (_, index) => (
+        <span style={`--x:${(index * 37 + 5) % 100}%;--y:${(index * 23 + 12) % 100}%;--delay:-${index * 0.73}s;--speed:${8 + index % 7}s`}></span>
+      ))}
+    </div>
     <div class="site">
       <div class="layout">
+<section class="panel welcome about-intro"><figure class="portrait-slot"><div class="art-slot portrait-art" role="img" aria-label="Profile portrait placeholder"><span>Portrait</span></div><figcaption>Kao</figcaption></figure><div><h2>Hi, I’m Kao.</h2><p>I’m a first-year cybersecurity student at Khon Kaen University. I’m into frontend development and motorcycles.</p><p class="quote">“Just vibing, not stressing.”</p></div></section>
         <aside class="left" aria-label="Navigation and social links">
           <section class="panel"><h2>Site map</h2><ul class="rows"><li><a href="/">Home</a></li><li><a href="/achievements/">Achievements</a></li><li><a href="/projects/">Projects</a></li><li><a href="/blog/">Blog</a></li></ul></section>
           <section class="panel"><h2>Find me</h2><ul class="rows"><li><a href="https://github.com/Kaokys">GitHub</a></li><li>Instagram</li><li><a href="https://medium.com/@chsirawich098">Medium</a></li></ul></section>
@@ -13,7 +20,6 @@ import '../styles/about-retro.css';
           <figure class="panel caption"><div class="art-slot doodle" role="img" aria-label="Sticker artwork placeholder"><span>Sticker slot</span></div><figcaption>Scrapbook</figcaption></figure>
         </aside>
         <div class="center">
-          <section class="panel welcome"><figure class="portrait-slot"><div class="art-slot portrait-art" role="img" aria-label="Profile portrait placeholder"><span>Portrait</span></div><figcaption>Kao</figcaption></figure><div><h2>Hi, I’m Kao.</h2><p>I’m a first-year cybersecurity student at Khon Kaen University. I’m into frontend development and motorcycles.</p><p class="quote">“Just vibing, not stressing.”</p></div></section>
           <div class="pair">
             <section class="panel"><h2>The short version</h2><dl><dt>Based in</dt><dd>Khon Kaen, Thailand</dd><dt>University</dt><dd>Khon Kaen University</dd><dt>Program</dt><dd>Cybersecurity</dd></dl></section>
             <section class="panel"><h2>After hours</h2><p>I like building for the web, playing strategy and simulation games, and getting out on a motorcycle.</p></section>
