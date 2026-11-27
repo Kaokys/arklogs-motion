@@ -1,5 +1,4 @@
 .app-main-blog { overflow: auto; }
-.top-nav a[aria-current="location"] { background: #173cc5; color: white; }
 .blog-sheet {
   width: min(100% - 2rem, 68rem);
   margin: clamp(0.75rem, 3vw, 2.5rem) auto;

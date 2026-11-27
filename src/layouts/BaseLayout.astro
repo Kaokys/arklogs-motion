@@ -44,10 +44,15 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="app-shell">
       <header class="topbar">
-        <a class="wordmark" href="/" aria-label="Arklogs home"><span class="wordmark-glyph" aria-hidden="true">⌁</span> ARKLOGS<span class="wordmark-period">.</span></a>
+        <a class="wordmark" href="/" aria-label="Arklogs home"><span class="wordmark-ark">ARK</span><span class="wordmark-logs">LOGS</span></a>
         <span class="topbar-caption">PERSONAL ARCHIVE <span>/</span> SYSTEM ONLINE</span>
         <nav class="top-nav" aria-label="Main navigation">
-          {nav.map((item) => <a href={item.href} data-astro-prefetch="hover" aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}><span>{item.label}</span></a>)}
+          {nav.map((item) => (
+            <a href={item.href} data-astro-prefetch="hover" aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}>
+              <span class="route-marker" aria-hidden="true"></span>
+              <span>{item.label}</span>
+            </a>
+          ))}
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
       </header>
