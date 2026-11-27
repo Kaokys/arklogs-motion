@@ -6,3 +6,39 @@
 .blog-post {border-left:2px solid var(--atlas-blue)}
 .home-screen .map-zone {background-image:url('/atlas-landscape.svg'),url('/graphic-atlas.svg')}
 .home-screen .node-art img {filter:none;opacity:1;object-fit:cover}
+
+.home-screen .map-zone {
+  background-color: #c2e2f7;
+  border-color: #53697d;
+}
+.home-screen .route-track .route-node {
+  border: 2px solid #35485b;
+  background: linear-gradient(150deg, #fff 12%, #f2f8fc 63%, #b8d9ee);
+  color: #182e44;
+  box-shadow: inset 1px 1px 0 #fff, inset -2px -2px 0 #a7c1d4,
+    3px 4px 0 #596c80, 6px 8px 0 #344555, 10px 15px 16px #22374c55;
+}
+.home-screen .route-node .node-index {color:#365571}
+.home-screen .route-node .node-index i {background:#7896aa}
+.home-screen .route-node .node-title {color:#142d46;text-shadow:none}
+.home-screen .route-node .node-art {border:2px solid #577085;background:#daefff}
+.home-screen .route-node .node-art::after {opacity:.15}
+.home-screen .route-node .node-chapter {color:#fff;text-shadow:1px 2px 2px #253d58}
+.home-screen .route-node:is(:hover,:focus-visible) .node-art img {filter:none}
+.home-screen .route-track .route-node:is(:hover,:focus-visible) {
+  z-index:10;
+  border-color:#1856ac;
+  box-shadow:inset 1px 1px 0 #fff, 3px 5px 0 #85c2f1,
+    6px 9px 0 #365471, 14px 23px 20px #21384e66;
+}
+@media (min-width:761px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .home-screen .route-track .route-node {
+    scale:1;
+    rotate:y 0deg;
+    transition:scale 200ms ease-out, rotate 200ms ease-out, box-shadow 200ms ease-out, border-color 150ms ease-out;
+  }
+  .home-screen .route-track .route-node:is(:hover,:focus-visible) {
+    scale:1.065;
+    rotate:y -4deg;
+  }
+}
