@@ -9,27 +9,27 @@
 
 .home-screen .map-zone {
   background-color: #c2e2f7;
-  border-color: #53697d;
+  border-color: #91a8b8;
 }
 .home-screen .route-track .route-node {
-  border: 2px solid #35485b;
-  background: linear-gradient(150deg, #fff 12%, #f2f8fc 63%, #b8d9ee);
+  border: 2px solid #829caf;
+  background: linear-gradient(150deg, #fff 12%, #f3f8fa 63%, #cee4f0);
   color: #182e44;
-  box-shadow: inset 1px 1px 0 #fff, inset -2px -2px 0 #a7c1d4,
-    3px 4px 0 #596c80, 6px 8px 0 #344555, 10px 15px 16px #22374c55;
+  box-shadow: inset 1px 1px 0 #fff, inset -2px -2px 0 #d4e4ea,
+    3px 4px 0 #c4d7e1, 6px 8px 0 #8da8ba, 10px 15px 16px #55758f42;
 }
 .home-screen .route-node .node-index {color:#365571}
 .home-screen .route-node .node-index i {background:#7896aa}
 .home-screen .route-node .node-title {color:#142d46;text-shadow:none}
-.home-screen .route-node .node-art {border:2px solid #577085;background:#daefff}
+.home-screen .route-node .node-art {border:2px solid #a1b7c6;background:#daefff}
 .home-screen .route-node .node-art::after {opacity:.15}
 .home-screen .route-node .node-chapter {color:#fff;text-shadow:1px 2px 2px #253d58}
 .home-screen .route-node:is(:hover,:focus-visible) .node-art img {filter:none}
 .home-screen .route-track .route-node:is(:hover,:focus-visible) {
   z-index:10;
-  border-color:#1856ac;
-  box-shadow:inset 1px 1px 0 #fff, 3px 5px 0 #85c2f1,
-    6px 9px 0 #365471, 14px 23px 20px #21384e66;
+  border-color:#6085bf;
+  box-shadow:inset 1px 1px 0 #fff, 3px 5px 0 #bad8ef,
+    6px 9px 0 #86a9cc, 14px 23px 20px #55758f4d;
 }
 @media (min-width:761px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
   .home-screen .route-track .route-node {
