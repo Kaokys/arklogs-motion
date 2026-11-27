@@ -16,7 +16,8 @@
 #kao-screen-board .strap{position:absolute;width:16px;left:48%;height:30px;top:-28px;background:linear-gradient(90deg,#223d73,#5475a3,#263c6c);border-bottom:4px solid #97aebf}
 #kao-screen-board .band{display:flex;justify-content:space-between;background:#284a85;color:white;font:bold 11px monospace;letter-spacing:.09em;padding:8px}
 #kao-screen-board .idface,#kao-screen-board .idback{min-height:87px;padding:9px;display:flex;align-items:center;gap:10px}
-#kao-screen-board .idback{display:block}#kao-screen-board .monogram{display:grid;place-items:center;width:52px;aspect-ratio:.82;background:repeating-linear-gradient(135deg,#39577b 0 4px,#44658b 4px 6px);color:#e7f4fc;font:italic bold 36px Georgia}
+#kao-screen-board .idback{display:block}
+#kao-screen-board .badge-portrait{display:block;width:42px;height:auto;object-fit:contain;flex-shrink:0}
 #kao-screen-board .flip,#kao-screen-board .close{background:#eff5fa;border:1px solid #8ba5bb;color:#26497f;padding:5px 9px;font:bold 12px Arial}
 #kao-screen-board .flip{margin:0 7px 6px}
 #kao-screen-board .bio{grid-area:bio;--angle:-5deg;background:repeating-linear-gradient(0deg,#fcf5dd 0 20px,#d9d7c4 20px 21px);padding:19px 14px}
@@ -54,7 +55,6 @@
 #kao-screen-board .evidence .idcard {width:97%}
 #kao-screen-board h2 {font:700 19px/1.12 Georgia,serif}
 #kao-screen-board .idface,#kao-screen-board .idback {min-height:72px;padding:6px 8px}
-#kao-screen-board .monogram {width:42px;font-size:30px}
 #kao-screen-board .strap {height:22px;top:-20px}
 #kao-screen-board .idcard .pin {top:-18px}
 #kao-screen-board .photo {justify-self:center;width:min(100%,205px)}
@@ -106,7 +106,7 @@
   letter-spacing:-.09em;
   text-shadow:2px 2px #d1e2f1;
 }
-#kao-screen-board .idface .monogram {align-self:center}
+#kao-screen-board .idface .badge-portrait {align-self:center}
 @container about-board (max-width:350px) {
   #kao-screen-board .idface h2 {font-size:38px}
   #kao-screen-board .bio,#kao-screen-board .dev {padding:8px 7px}
@@ -135,7 +135,7 @@
   #kao-screen-board .evidence .social {--x:577px;--y:409px;--w:221px;--angle:-4deg}
   #kao-screen-board .evidence .snap2 {--x:886px;--y:428px;--w:205px;--angle:-7deg}
   #kao-screen-board .idface {padding:14px 12px;gap:13px;min-height:118px}
-  #kao-screen-board .idface .monogram {width:57px}
+  #kao-screen-board .idface .badge-portrait {width:57px}
   #kao-screen-board .idback {min-height:118px;padding:13px}
   #kao-screen-board .idface h2 {font-size:76px}
   #kao-screen-board .bio {padding:18px 15px}
@@ -151,7 +151,7 @@
 #kao-screen-board .idface h2 {font-family:"Arial Black",Arial,sans-serif;font-style:normal;text-transform:uppercase;text-shadow:none;letter-spacing:-.09em;color:#f9fcff}
 #kao-screen-board .idface {background:linear-gradient(115deg,#172d51,#214bc0);color:white}
 #kao-screen-board .idface small {color:#e0eaff}
-#kao-screen-board .idface .monogram {border:1px solid #a0baea}
+#kao-screen-board .idface .badge-portrait {border:1px solid #a0baea}
 #kao-screen-board .threads i {background:#9a3039}
 @container about-board (width >= 620px) {
   #kao-screen-board .evidence::before {
@@ -188,15 +188,14 @@
 #kao-screen-board .idback p {font:13px/1.3 Georgia,serif}
 #kao-screen-board .idback p+p {margin-top:6px}
 #kao-screen-board .intro-portrait {
-  display:grid;place-items:center;aspect-ratio:1;background:#dae7ee;color:#234580;
+  display:block;width:100%;height:auto;
   border:4px solid white;box-shadow:1px 2px 4px #24395f4a;
-  transform:rotate(-6deg);font:italic 700 29px Georgia,serif;
+  transform:rotate(-6deg);
 }
 @container about-board (width < 620px) {
   #kao-screen-board .idback {grid-template-columns:32px minmax(0,1fr);gap:8px;padding:5px}
   #kao-screen-board .idback h2 {font-size:19px}
   #kao-screen-board .idback p {font-size:11px;line-height:1.15}
-  #kao-screen-board .intro-portrait {font-size:19px}
   #kao-screen-board .idface p {font-size:11px}
 }
 
@@ -226,8 +225,18 @@
 }
 #kao-screen-board .socials>a {display:grid;justify-items:center;gap:3px;font:700 11px Arial}
 #kao-screen-board .spotify-link,#kao-screen-board .github a {color:#203f83;text-decoration:underline}
-#kao-screen-board .music-dialog {width:min(92vw,480px);max-width:none}
-#kao-screen-board .music-dialog iframe {display:block;margin:10px 0;border:0;border-radius:8px;background:#e7edef}
+#kao-screen-board .music-dialog {
+  width:min(92vw,480px);max-width:none;padding:16px;
+  border:1px solid #3a3a3a;border-radius:18px;
+  background:#171717;color:#f5f5f5;
+}
+#kao-screen-board .music-top {display:flex;align-items:center;justify-content:space-between;gap:12px}
+#kao-screen-board .music-top h2 {font:700 17px/1.1 Arial,sans-serif;margin:0}
+#kao-screen-board .music-dialog .close {border:1px solid #727272;border-radius:20px;background:#292929;color:white}
+#kao-screen-board .music-dialog iframe {display:block;margin:12px 0;border:0;border-radius:10px;background:#242424}
+#kao-screen-board .music-dialog .spotify-link {color:#64e490}
+#kao-screen-board .listen {border-color:#286543;background:#e8f7ed;color:#174829;border-radius:999px}
+#kao-screen-board .listen:is(:hover,:focus-visible) {background:#c3efce}
 #kao-screen-board .close,#kao-screen-board .flip,#kao-screen-board .enlarge {cursor:pointer}
 #kao-screen-board .profile-note {
   padding:9px 11px;
@@ -251,9 +260,26 @@
 #kao-screen-board .after-hours-dialog .close {display:block;margin:0 0 12px auto}
 #kao-screen-board .after-hours-dialog h2 {font:italic 700 29px/1.1 Georgia,serif}
 #kao-screen-board .after-hours-dialog p {margin-top:10px;font:15px/1.5 Georgia,serif}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  #kao-screen-board .sheet {
+    transition:translate 190ms ease-out, rotate 190ms ease-out, scale 190ms ease-out, box-shadow 190ms ease-out;
+  }
+  #kao-screen-board .evidence .sheet:is(:hover,:focus-within) {
+    z-index:5;
+    translate:0 -4px;
+    rotate:y 6deg;
+    scale:1.025;
+    box-shadow:2px 6px 15px #2035493b;
+  }
+  #kao-screen-board .evidence .sheet:nth-of-type(odd):is(:hover,:focus-within) {
+    rotate:y -6deg;
+  }
+}
 @container about-board (width >= 620px) {
   #kao-screen-board .board-stage {max-height:var(--board-height,none)}
   #kao-screen-board .evidence {left:50%;top:50%;transform:scale(var(--wide-scale,1)) translate(-50%,-50%)}
+  #kao-screen-board .evidence .profile-note {--x:42px;--y:285px;--w:254px;--angle:1deg}
+  #kao-screen-board .evidence .github {--angle:-5deg}
   #kao-screen-board .evidence .t1 {--x:769px;--y:243px}
   #kao-screen-board .evidence .t2 {--x:928px;--y:392px}
   #kao-screen-board .evidence .snap2 {--x:746px;--y:430px}

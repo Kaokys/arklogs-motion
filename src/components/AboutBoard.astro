@@ -1,15 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import kaoProfile from '../assets/kao-profile.png';
+---
+
 <div id="kao-screen-board">
 <header><h1>About Me</h1></header>
 <div class="board-stage"><div class="evidence" data-group="profile">
 <div class="threads" aria-hidden="true"></div>
-<article class="sheet idcard" data-group="profile"><i class="strap" aria-hidden="true"></i><div class="band">ARKLOGS <span>PROFILE ID</span></div><div class="idface">
-  <b class="monogram" aria-hidden="true">K</b>
+<article class="sheet idcard" data-group="profile"><i class="strap" aria-hidden="true"></i><div class="band">ARKLOGS <span>PROFILE ID</span></div><div class="badge-faces"><div class="idface">
+  <Image class="badge-portrait" src={kaoProfile} width={160} format="webp" alt="Kao’s profile picture" />
   <div><h2>Kao</h2><p>Cybersecurity student<br>Khon Kaen University, Thailand</p></div>
 </div>
 <div class="idback" hidden>
-  <div class="intro-portrait" aria-hidden="true">K</div>
+  <Image class="intro-portrait" src={kaoProfile} width={160} format="webp" alt="Kao’s profile picture" />
   <div><h2>Hi, I’m Kao.</h2><p>I study cybersecurity at Khon Kaen University in Thailand.</p><p>I like building things for the web, working with ESP32 boards, and keeping notes on what I learn.</p></div>
-</div><button class="flip" type="button" aria-expanded="false">Flip ID ↻</button></article>
+</div></div><button class="flip" type="button" aria-expanded="false">Flip ID ↻</button></article>
 <article class="sheet bio" data-group="profile">
   <h2>Hi, I’m Kao.</h2>
   <p class="bio-greeting">Nice to meet you!</p>
@@ -38,8 +43,8 @@
 </div>
 </div><nav class="board-tabs" aria-label="Board sections"><button type="button" data-view="profile" aria-pressed="true">Profile</button><button class="cursor-interaction" type="button" data-view="favorites" aria-pressed="false">Favorites</button><button class="cursor-interaction" type="button" data-view="profiles" aria-pressed="false">Social</button><button class="cursor-interaction" type="button" data-view="images" aria-pressed="false">Files</button></nav>
 <dialog class="image-dialog" aria-label="Pinned image"><button class="close" type="button">Close ×</button><img alt=""><p></p></dialog>
-<dialog class="music-dialog" aria-label="Spotify player">
-  <button class="close" type="button">Close ×</button>
+<dialog class="music-dialog" aria-labelledby="spotify-player-title">
+  <div class="music-top"><h2 id="spotify-player-title">Now playing</h2><button class="close" type="button">Close ×</button></div>
   <iframe title="Spotify player" width="100%" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
   <a class="spotify-link" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a>
 </dialog>
@@ -93,12 +98,62 @@ function initAboutBoard() {
       line.hidden = !a.width || !b.width;
       if(line.hidden) continue;
       const dx=b.x+b.width/2-a.x-a.width/2,dy=b.y+b.height/2-a.y-a.height/2;
-      Object.assign(line.style,{left:((a.x+a.width/2-origin.x))+'px',top:((a.y+a.height/2-origin.y)-1)+'px',width:(Math.hypot(dx,dy)/scale)+'px',transform:'rotate('+Math.atan2(dy,dx)+'rad)'});
+      Object.assign(line.style,{
+        left: ((a.x + a.width / 2 - origin.x) / scale) + 'px',
+        top: ((a.y + a.height / 2 - origin.y) / scale - 1) + 'px',
+        width: (Math.hypot(dx, dy) / scale) + 'px',
+        transform: 'rotate(' + Math.atan2(dy, dx) + 'rad)',
+      });
     }
   }
   const observer=new ResizeObserver(draw); observer.observe(stage); observer.observe(grid); grid.querySelectorAll('.sheet').forEach(sheet=>observer.observe(sheet)); draw();
   const flip=root.querySelector<HTMLElement>('.flip')!,front=root.querySelector<HTMLElement>('.idface')!,back=root.querySelector<HTMLElement>('.idback')!;
-  flip.addEventListener('click',()=>{ const show=back.hidden; front.hidden=show;back.hidden=!show;flip.setAttribute('aria-expanded',String(show));flip.textContent=show?'Show front ↻':'Flip ID ↻'; });
+  const faces = root.querySelector<HTMLElement>('.badge-faces')!;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let flipping = false;
+  flip.addEventListener('click', async () => {
+    if (flipping) return;
+    const showBack = back.hidden;
+    const turn = showBack ? 90 : -90;
+    flipping = true;
+    try {
+      if (!reducedMotion.matches) {
+        await faces.animate(
+          [{ transform: 'perspective(700px) rotateY(0deg)' }, { transform: `perspective(700px) rotateY(${turn}deg)` }],
+          { duration: 150, easing: 'ease-in', fill: 'forwards' },
+        ).finished;
+      }
+      front.hidden = showBack;
+      back.hidden = !showBack;
+      flip.setAttribute('aria-expanded', String(showBack));
+      flip.textContent = showBack ? 'Show front ↻' : 'Flip ID ↻';
+      if (!reducedMotion.matches) {
+        await faces.animate(
+          [{ transform: `perspective(700px) rotateY(${-turn}deg)` }, { transform: 'perspective(700px) rotateY(0deg)' }],
+          { duration: 200, easing: 'ease-out', fill: 'forwards' },
+        ).finished;
+      }
+    } finally {
+      faces.getAnimations().forEach(animation => animation.cancel());
+      flipping = false;
+    }
+  });
+  const tilting = new Set<EventTarget>();
+  let threadFrame = 0;
+  function followPins() {
+    draw();
+    threadFrame = tilting.size ? requestAnimationFrame(followPins) : 0;
+  }
+  grid.addEventListener('transitionrun', event => {
+    if (event.propertyName !== 'translate' || !(event.target instanceof HTMLElement) || !event.target.matches('.sheet')) return;
+    tilting.add(event.target);
+    if (!threadFrame) threadFrame = requestAnimationFrame(followPins);
+  });
+  const stopFollowing = (event: TransitionEvent) => {
+    if (event.propertyName === 'translate' && event.target) tilting.delete(event.target);
+  };
+  grid.addEventListener('transitionend', stopFollowing);
+  grid.addEventListener('transitioncancel', stopFollowing);
   const dialog=root.querySelector<HTMLDialogElement>('.image-dialog')!;
   root.querySelectorAll('.enlarge').forEach(button=>button.addEventListener('click',()=>{
     const thumbnail=button.querySelector('img')!,image=dialog.querySelector('img')!;
@@ -128,6 +183,7 @@ function initAboutBoard() {
   afterHours.querySelector('.close')!.addEventListener('click', () => afterHours.close());
   teardown = () => {
     observer.disconnect();
+    cancelAnimationFrame(threadFrame);
     teardown = undefined;
   };
 }
