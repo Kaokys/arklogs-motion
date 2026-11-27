@@ -2,20 +2,66 @@
 import SignalMatrix from './SignalMatrix.astro';
 ---
 
-<div class="cutout" aria-hidden="true">
-  <span class="drafting-ring"></span>
-  <div class="paper">
+<div class="cutout">
+  <span class="drafting-ring" aria-hidden="true"></span>
+  <div class="paper" aria-hidden="true">
     <span class="registration mark-top"></span>
     <span class="registration mark-bottom"></span>
     <div class="letters">
       <span class="ark">ARK</span>
       <span class="logs">LOGS</span>
     </div>
-    <span class="seal">✦</span>
+    <span class="ink-stamp"></span>
     <span class="barcode"></span>
     <div class="matrix"><SignalMatrix /></div>
   </div>
+  <button class="seal" type="button" aria-label="Stamp the Arklogs wordmark">
+    <span aria-hidden="true">✦</span>
+  </button>
+  <span class="stamp-status" role="status"></span>
 </div>
+
+<script>
+  const stamps = [
+    { symbol: '✦', name: 'Star' },
+    { symbol: '⊕', name: 'Compass' },
+    { symbol: '▣', name: 'Circuit' },
+  ];
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const cutout = event.target.closest('.cutout .seal')?.closest<HTMLElement>('.cutout');
+    if (!cutout) return;
+
+    const ink = cutout.querySelector<HTMLElement>('.ink-stamp')!;
+    const status = cutout.querySelector<HTMLElement>('.stamp-status')!;
+    const index = (Number(cutout.dataset.stamp ?? -1) + 1) % stamps.length;
+    const stamp = stamps[index];
+    cutout.dataset.stamp = String(index);
+    ink.textContent = stamp.symbol;
+    status.textContent = `${stamp.name} stamp applied`;
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const letters = cutout.querySelectorAll<HTMLElement>('.letters span');
+    for (const [position, letter] of letters.entries()) {
+      const direction = position === 0 ? -1 : 1;
+      letter.getAnimations().forEach((animation) => animation.cancel());
+      letter.animate([
+        { translate: '0 0', rotate: '0deg' },
+        { translate: `${direction * 12}px ${direction * -8}px`, rotate: `${direction * 8}deg` },
+        { translate: '0 0', rotate: '0deg' },
+      ], { duration: 320, easing: 'ease-in-out' });
+    }
+
+    ink.getAnimations().forEach((animation) => animation.cancel());
+    ink.animate([
+      { opacity: 0, scale: 1.6 },
+      { opacity: .8, scale: .94, offset: .75 },
+      { opacity: .8, scale: 1 },
+    ], { duration: 420, delay: 140, fill: 'backwards', easing: 'ease-out' });
+  });
+</script>
 
 <style>
   :global(.home-screen) {
@@ -96,15 +142,59 @@ import SignalMatrix from './SignalMatrix.astro';
     right: 8%;
     display: grid;
     place-items: center;
-    width: clamp(24px, 3.1vw, 44px);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: auto;
+    cursor: pointer;
+    transform: rotate(8deg);
+  }
+
+  .seal span {
+    display: grid;
+    place-items: center;
+    width: clamp(26px, 3.1vw, 44px);
     aspect-ratio: 1;
     border: 1px solid #aac0e2;
     border-radius: 50%;
     background: var(--cobalt);
     color: #fff;
     font: 700 clamp(15px, 2.2vw, 29px)/1 Georgia, serif;
-    transform: rotate(12deg);
     box-shadow: 2px 2px #91aac5;
+  }
+
+  .seal:is(:hover, :focus-visible) span { background: #173795; }
+  .seal:active span { box-shadow: inset 1px 2px #102770; }
+
+  .ink-stamp {
+    position: absolute;
+    left: 10%;
+    top: 8%;
+    display: grid;
+    place-items: center;
+    width: clamp(20px, 3.8vw, 49px);
+    aspect-ratio: 1;
+    border: 3px double currentColor;
+    border-radius: 50%;
+    background: #f4faf4de;
+    opacity: .8;
+    color: var(--cobalt);
+    font: 700 clamp(13px, 2.4vw, 31px)/1 Georgia, serif;
+    transform: rotate(-19deg);
+  }
+
+  .ink-stamp:empty { display: none; }
+
+  .stamp-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .barcode {
@@ -158,5 +248,6 @@ import SignalMatrix from './SignalMatrix.astro';
     }
 
     .letters { font-size: clamp(1.25rem, 5.8vw, 2.2rem); }
+    .seal { top: -9px; right: 3%; }
   }
 </style>
