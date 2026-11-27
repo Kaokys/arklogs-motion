@@ -21,8 +21,6 @@ import '../styles/about-board.css';
 import '../styles/cutout-wordmark.css';
 import { ClientRouter } from 'astro:transitions';
 import { nav } from '../data/content';
-import SpotifyTrack from '../components/SpotifyTrack.astro';
-import { aboutTracks } from '../data/about-music';
 
 interface Props { title: string; description?: string; }
 const { title, description = 'Arklogs — projects, research, and field notes.' } = Astro.props;
@@ -60,13 +58,5 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
       <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]}><slot /></main>
       <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
     </div>
-    {!isAbout && (
-      <details class="music-dock">
-        <summary>Music</summary>
-        <div class="music-dock-players">
-          {aboutTracks.map(({ id, title }) => <SpotifyTrack id={id} title={title} />)}
-        </div>
-      </details>
-    )}
   </body>
 </html>
