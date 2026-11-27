@@ -35,7 +35,8 @@
   .home-screen .route-track .route-node {
     scale:1;
     rotate:y 0deg;
-    transition:scale 200ms ease-out, rotate 200ms ease-out, box-shadow 200ms ease-out, border-color 150ms ease-out;
+    transition:scale 200ms ease-out, rotate 200ms ease-out, transform 220ms ease-out,
+      translate 220ms ease-out, box-shadow 200ms ease-out, border-color 150ms ease-out;
   }
   .home-screen .route-track .route-node:is(:hover,:focus-visible) {
     scale:1.065;
