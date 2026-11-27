@@ -172,6 +172,14 @@
 }
 
 #kao-screen-board .idface p {color:#f0f5ff;line-height:1.25}
+#kao-screen-board .idface .id-subtitle {margin-top:12px}
+#kao-screen-board .idface .id-fact {
+  margin-top:7px;
+  padding-top:5px;
+  border-top:1px solid #b9cfff70;
+  color:#dbe9ff;
+}
+#kao-screen-board .id-fact strong {margin-right:4px;color:#fff}
 #kao-screen-board .idback {
   display:grid;align-items:center;grid-template-columns:62px minmax(0,1fr);gap:12px;
   background:#fffdfa;color:#1b3047;
@@ -194,6 +202,7 @@
   #kao-screen-board .idback h2 {font-size:19px}
   #kao-screen-board .idback p {font-size:11px;line-height:1.15}
   #kao-screen-board .idface p {font-size:11px}
+  #kao-screen-board .idface .id-subtitle {margin-top:8px}
 }
 
 #kao-screen-board .bio .bio-greeting {margin:0 0 5px;font:italic 700 15px/1.15 Georgia,serif}
