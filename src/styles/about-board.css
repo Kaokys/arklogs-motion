@@ -229,6 +229,28 @@
 #kao-screen-board .music-dialog {width:min(92vw,480px);max-width:none}
 #kao-screen-board .music-dialog iframe {display:block;margin:10px 0;border:0;border-radius:8px;background:#e7edef}
 #kao-screen-board .close,#kao-screen-board .flip,#kao-screen-board .enlarge {cursor:pointer}
+#kao-screen-board .profile-note {
+  padding:9px 11px;
+  background:#faf8ee;
+  border:1px solid #8f9ca6;
+  box-shadow:3px 4px #a2b4bf75;
+}
+#kao-screen-board .profile-note h2 {font:italic 700 17px/1.05 Georgia,serif;margin:4px 0}
+#kao-screen-board .profile-note dl {margin:3px 0 5px}
+#kao-screen-board .profile-note dl div {
+  display:grid;
+  grid-template-columns:4.5rem minmax(0,1fr);
+  align-items:baseline;
+  padding:2px 0;
+  border-top:1px solid #727e8e40;
+}
+#kao-screen-board .profile-note dt {font:10px/1.1 'Courier New',monospace;text-transform:uppercase;color:#46596d}
+#kao-screen-board .profile-note dd {margin:0;font:700 11px/1.15 Georgia,serif}
+#kao-screen-board .after-hours {border:0;padding:3px 0;background:transparent;color:#254788;font:700 12px Arial;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+#kao-screen-board .after-hours-dialog {width:min(92vw,460px);padding:18px;background:#faf8ee}
+#kao-screen-board .after-hours-dialog .close {display:block;margin:0 0 12px auto}
+#kao-screen-board .after-hours-dialog h2 {font:italic 700 29px/1.1 Georgia,serif}
+#kao-screen-board .after-hours-dialog p {margin-top:10px;font:15px/1.5 Georgia,serif}
 @container about-board (width >= 620px) {
   #kao-screen-board .board-stage {max-height:var(--board-height,none)}
   #kao-screen-board .evidence {left:50%;top:50%;transform:scale(var(--wide-scale,1)) translate(-50%,-50%)}

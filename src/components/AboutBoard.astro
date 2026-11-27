@@ -20,7 +20,16 @@ import '../styles/about-board.css';
   <p>I’m a cybersecurity student at Khon Kaen University in Thailand. I’m especially interested in red teaming.</p>
   <p>I like CTFs, odd corners of the web, and keeping track of the things I learn along the way. This page is a small collection of those bits and pieces.</p>
 </article>
-<article class="sheet dev" data-group="images"><small>WORKBENCH NOTE</small><h2>ESP32</h2><p>Sensor readings and small hardware builds.</p></article>
+<article class="sheet dev profile-note" data-group="images">
+  <small>THE SHORT VERSION</small>
+  <h2>A few things about me.</h2>
+  <dl>
+    <div><dt>Studying at</dt><dd>Khon Kaen University</dd></div>
+    <div><dt>Based in</dt><dd>Thailand</dd></div>
+    <div><dt>Interested in</dt><dd>Cybersecurity · Red teaming</dd></div>
+  </dl>
+  <button class="after-hours" type="button" aria-haspopup="dialog">After Hours ↗</button>
+</article>
 <article class="sheet game g1" data-group="favorites"><small>FAVORITE GAME</small><img class="gameart" src="/arknights-icon.jpg" width="45" height="45" alt=""><h2>Arknights</h2><p>Strategy · Mobile</p></article>
 <article class="sheet game g2" data-group="favorites"><small>FAVORITE GAME</small><img class="gameart" src="/oxygen-not-included-icon.jpg" width="45" height="45" alt=""><h2>Oxygen Not Included</h2><p>Colony sim · PC</p></article>
 <article class="sheet track t1" data-group="favorites"><div class="vinyl" aria-hidden="true"></div><small>ON REPEAT</small><h2>Let It Happen</h2><p>Tame Impala · Currents</p><a class="listen" data-track="2X485T9Z5Ly0xyaghN73ed" data-title="Let It Happen" href="https://open.spotify.com/track/2X485T9Z5Ly0xyaghN73ed" aria-label="Play Let It Happen">▶ Play</a></article>
@@ -37,6 +46,13 @@ import '../styles/about-board.css';
   <button class="close" type="button">Close ×</button>
   <iframe title="Spotify player" width="100%" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
   <a class="spotify-link" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a>
+</dialog>
+<dialog class="after-hours-dialog" aria-labelledby="after-hours-title">
+  <button class="close" type="button">Close ×</button>
+  <small>AFTER HOURS</small>
+  <h2 id="after-hours-title">Curious by default.</h2>
+  <p>I like spending my free time on CTFs and hands-on labs. I’m especially interested in web security, reverse engineering, and red teaming.</p>
+  <p>When I’m away from the keyboard, you’ll usually find me listening to music, playing games, or out on my motorcycle.</p>
 </dialog>
 </div>
 
@@ -111,6 +127,9 @@ function initAboutBoard() {
   });
   music.querySelector('.close')!.addEventListener('click', () => music.close());
   music.addEventListener('close', () => player.removeAttribute('src'));
+  const afterHours = root.querySelector<HTMLDialogElement>('.after-hours-dialog')!;
+  root.querySelector('.after-hours')!.addEventListener('click', () => afterHours.showModal());
+  afterHours.querySelector('.close')!.addEventListener('click', () => afterHours.close());
   teardown = () => {
     observer.disconnect();
     teardown = undefined;
