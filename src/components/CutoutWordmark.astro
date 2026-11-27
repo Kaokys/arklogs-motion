@@ -38,6 +38,7 @@ import SignalMatrix from './SignalMatrix.astro';
     const index = (Number(cutout.dataset.stamp ?? -1) + 1) % stamps.length;
     const stamp = stamps[index];
     cutout.dataset.stamp = String(index);
+    cutout.toggleAttribute('data-colors-flipped');
     ink.textContent = stamp.symbol;
     status.textContent = `${stamp.name} stamp applied`;
 
@@ -70,6 +71,8 @@ import SignalMatrix from './SignalMatrix.astro';
 
   .cutout {
     --cobalt: #234bc4;
+    --blue-paper: repeating-linear-gradient(0deg, #ffffff0b 0 1px, transparent 1px 4px), var(--cobalt);
+    --white-paper: repeating-linear-gradient(0deg, #d7e6ec 0 1px, #fbfdfc 1px 4px);
     position: absolute;
     z-index: 2;
     top: 65%;
@@ -124,16 +127,26 @@ import SignalMatrix from './SignalMatrix.astro';
 
   .ark {
     color: #fff;
-    background: repeating-linear-gradient(0deg, #ffffff0b 0 1px, transparent 1px 4px), var(--cobalt);
+    background: var(--blue-paper);
     transform: rotate(-6deg);
     font-family: var(--heading-font);
   }
 
   .logs {
     color: #152e47;
-    background: repeating-linear-gradient(0deg, #d7e6ec 0 1px, #fbfdfc 1px 4px);
+    background: var(--white-paper);
     transform: rotate(7deg) translateY(6%);
     font-family: Georgia, serif;
+  }
+
+  .cutout[data-colors-flipped] .ark {
+    color: #152e47;
+    background: var(--white-paper);
+  }
+
+  .cutout[data-colors-flipped] .logs {
+    color: #fff;
+    background: var(--blue-paper);
   }
 
   .seal {
