@@ -18,7 +18,7 @@
 .signal-cell:nth-child(9) { background: #0b1edd; color: #fff; }
 .intro-bottom { position: relative; }
 .intro-bottom > .signal-matrix { position: absolute; right: 12px; top: 50%; width: 64px; transform: translateY(-50%); gap: 2px; }
-.intro-bottom > span:first-child, .intro-bottom > a { padding-right: 69px; }
+.intro-bottom > span:first-child, .intro-bottom > .intro-link-label { padding-right: 69px; }
 .writing-intro > .signal-matrix { width: 98px; margin-top: 29px; }
 
 .atlas-particles { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -58,7 +58,7 @@
   .home-screen .map-zone { background-size: auto 100%, auto 100%; }
   .atlas-particles span { opacity: .28; animation: none; }
   .intro-bottom { display: block; position: absolute; right: 9px; bottom: 8px; width: 36px; height: 36px; padding: 0; border: 0; background: transparent; }
-  .intro-bottom > span:first-child, .intro-bottom > a { display: none; }
+  .intro-bottom > span:first-child, .intro-bottom > .intro-link-label { display: none; }
   .intro-bottom > .signal-matrix { top: 0; right: 0; width: 36px; transform: none; gap: 1px; }
   .writing-intro > .signal-matrix { display: none; }
   .record-dialog-art::before { width: 24px; height: 24px; top: 9px; left: 9px; }
