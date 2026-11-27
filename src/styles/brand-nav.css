@@ -99,6 +99,35 @@
   box-shadow: 0 0 0 3px #234bc432;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .top-nav a[aria-current] .route-marker {
+    view-transition-name: ark-nav-marker;
+  }
+
+  ::view-transition-group(ark-nav-marker) {
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+    z-index: 2;
+  }
+
+  ::view-transition-old(ark-nav-marker),
+  ::view-transition-new(ark-nav-marker) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(ark-nav-marker) { opacity: 0; }
+
+  [data-astro-transition-fallback='new'] .top-nav a[aria-current] .route-marker {
+    animation: route-marker-arrive 220ms ease-out both;
+  }
+}
+
+@keyframes route-marker-arrive {
+  from { opacity: .45; scale: .7; }
+  to { opacity: 1; scale: 1; }
+}
+
 @media (min-width: 761px) {
   .topbar {
     display: grid;
