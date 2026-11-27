@@ -27,9 +27,6 @@
 #kao-screen-board .game small{color:#d8e5ee}#kao-screen-board .gameart{float:right;font:700 28px Georgia;line-height:1;color:#b4d8ea}
 #kao-screen-board .g1{grid-area:g1;--angle:6deg}#kao-screen-board .g2{grid-area:g2;--angle:-3deg;background:#34524c;color:#f4f7ea}
 #kao-screen-board .t1{grid-area:t1;--angle:3deg}#kao-screen-board .t2{grid-area:t2;--angle:-4deg}
-#kao-screen-board .track{padding-left:36px;background:#f6f1ed;overflow:visible}
-#kao-screen-board .vinyl{position:absolute;left:-11px;top:20%;width:37px;height:37px;border-radius:50%;background:radial-gradient(circle,#f8ede3 0 5%,#9a435a 6% 23%,transparent 24%),repeating-radial-gradient(circle,#27363e 0 2px,#586770 3px 4px)}
-#kao-screen-board .t2 .vinyl{filter:hue-rotate(130deg)}
 #kao-screen-board .github{grid-area:gh;--angle:-3deg}#kao-screen-board .htb{grid-area:htb;--angle:4deg;border-left:4px solid #84af41}
 #kao-screen-board .github h2,#kao-screen-board .htb h2{display:flex;align-items:center;gap:6px}
 #kao-screen-board .brand-icon{width:20px;height:20px;object-fit:contain}
@@ -71,7 +68,7 @@
     grid-template-areas:"id id" "bio bio";
     gap:13px;
   }
-  #kao-screen-board .evidence[data-group="favorites"] {grid-template-areas:"g1 g2" "t1 t2"}
+  #kao-screen-board .evidence[data-group="favorites"] {grid-template-areas:"g1 g2" "t1 t1" "t2 t2";grid-template-rows:auto 156px 156px}
   #kao-screen-board .evidence[data-group="profiles"] {grid-template-areas:"gh htb" "social social"}
   #kao-screen-board .evidence[data-group="images"] {grid-template-areas:"dev dev" "snap1 snap2"}
   #kao-screen-board .evidence .sheet {display:none}
@@ -87,8 +84,6 @@
   #kao-screen-board .flip,#kao-screen-board .close {min-height:44px}
   #kao-screen-board .photo {padding:5px}
   #kao-screen-board .photo img {height:110px}
-  #kao-screen-board .track {padding-left:23px}
-  #kao-screen-board .vinyl {width:26px;height:26px;left:-6px}
   #kao-screen-board .socials {grid-template-columns:repeat(4,minmax(0,1fr))}
   #kao-screen-board .board-tabs {display:flex;justify-content:center;gap:3px;padding:3px;background:#e1ecf1;border-top:1px solid #91aabc}
   #kao-screen-board .board-tabs button {flex:1;max-width:120px;min-height:44px;border:0;background:transparent;color:#294763;font:700 12px Arial}
@@ -128,8 +123,6 @@
   #kao-screen-board .evidence .g2 {--x:928px;--y:98px;--w:204px;--angle:-6deg}
   #kao-screen-board .evidence .dev {--x:55px;--y:245px;--w:225px;--angle:5deg}
   #kao-screen-board .evidence .snap1 {--x:333px;--y:292px;--w:195px;--angle:9deg}
-  #kao-screen-board .evidence .t1 {--x:586px;--y:280px;--w:230px;--angle:-4deg}
-  #kao-screen-board .evidence .t2 {--x:852px;--y:291px;--w:238px;--angle:6deg}
   #kao-screen-board .evidence .github {--x:41px;--y:437px;--w:218px;--angle:-5deg}
   #kao-screen-board .evidence .htb {--x:279px;--y:464px;--w:230px;--angle:3deg}
   #kao-screen-board .evidence .social {--x:577px;--y:409px;--w:221px;--angle:-4deg}
@@ -168,8 +161,6 @@
   #kao-screen-board .evidence .social {--x:486px;--y:433px;--w:218px;--angle:-3deg}
   #kao-screen-board .evidence .g1 {--x:755px;--y:45px;--w:206px;--angle:-10deg;z-index:2}
   #kao-screen-board .evidence .g2 {--x:932px;--y:116px;--w:193px;--angle:12deg}
-  #kao-screen-board .evidence .t1 {--x:783px;--y:266px;--w:202px;--angle:-9deg}
-  #kao-screen-board .evidence .t2 {--x:908px;--y:373px;--w:206px;--angle:8deg}
   #kao-screen-board .evidence .snap1 {--x:363px;--y:23px;--w:199px;--angle:10deg}
   #kao-screen-board .evidence .snap2 {--x:733px;--y:410px;--w:159px;--angle:-11deg}
   #kao-screen-board .evidence .snap2 img {height:72px}
@@ -192,6 +183,11 @@
   border:4px solid white;box-shadow:1px 2px 4px #24395f4a;
   transform:rotate(-6deg);
 }
+#kao-screen-board .badge-faces {display:grid;grid-template-columns:minmax(0,1fr)}
+#kao-screen-board .badge-faces > div {grid-area:1 / 1}
+#kao-screen-board .badge-faces > [hidden] {visibility:hidden}
+#kao-screen-board .badge-faces > .idface[hidden] {display:flex!important}
+#kao-screen-board .badge-faces > .idback[hidden] {display:grid!important}
 @container about-board (width < 620px) {
   #kao-screen-board .idback {grid-template-columns:32px minmax(0,1fr);gap:8px;padding:5px}
   #kao-screen-board .idback h2 {font-size:19px}
@@ -219,24 +215,14 @@
   width:45px;height:45px;margin:0 0 4px 5px;object-fit:cover;
   border:1px solid #dce6ee80;border-radius:6px;
 }
-#kao-screen-board .listen {
-  display:inline-block;margin-top:5px;border:1px solid #8ba5bb;
-  padding:2px 8px;background:#fff;color:#1a4185;font-weight:700;
-}
 #kao-screen-board .socials>a {display:grid;justify-items:center;gap:3px;font:700 11px Arial}
-#kao-screen-board .spotify-link,#kao-screen-board .github a {color:#203f83;text-decoration:underline}
-#kao-screen-board .music-dialog {
-  width:min(92vw,480px);max-width:none;padding:16px;
+#kao-screen-board .github a {color:#203f83;text-decoration:underline}
+#kao-screen-board .evidence .track {
+  padding:2px;
   border:1px solid #3a3a3a;border-radius:18px;
   background:#171717;color:#f5f5f5;
 }
-#kao-screen-board .music-top {display:flex;align-items:center;justify-content:space-between;gap:12px}
-#kao-screen-board .music-top h2 {font:700 17px/1.1 Arial,sans-serif;margin:0}
-#kao-screen-board .music-dialog .close {border:1px solid #727272;border-radius:20px;background:#292929;color:white}
-#kao-screen-board .music-dialog iframe {display:block;margin:12px 0;border:0;border-radius:10px;background:#242424}
-#kao-screen-board .music-dialog .spotify-link {color:#64e490}
-#kao-screen-board .listen {border-color:#286543;background:#e8f7ed;color:#174829;border-radius:999px}
-#kao-screen-board .listen:is(:hover,:focus-visible) {background:#c3efce}
+#kao-screen-board .track iframe {display:block;width:100%;height:152px;border:0;border-radius:15px;background:#242424}
 #kao-screen-board .close,#kao-screen-board .flip,#kao-screen-board .enlarge {cursor:pointer}
 #kao-screen-board .profile-note {
   padding:9px 11px;
@@ -280,7 +266,7 @@
   #kao-screen-board .evidence {left:50%;top:50%;transform:scale(var(--wide-scale,1)) translate(-50%,-50%)}
   #kao-screen-board .evidence .profile-note {--x:42px;--y:285px;--w:254px;--angle:1deg}
   #kao-screen-board .evidence .github {--angle:-5deg}
-  #kao-screen-board .evidence .t1 {--x:769px;--y:243px}
-  #kao-screen-board .evidence .t2 {--x:928px;--y:392px}
-  #kao-screen-board .evidence .snap2 {--x:746px;--y:430px}
+  #kao-screen-board .evidence .t1 {--x:747px;--y:252px;--w:252px;--angle:-2deg}
+  #kao-screen-board .evidence .t2 {--x:887px;--y:416px;--w:251px;--angle:2deg}
+  #kao-screen-board .evidence .snap2 {--x:716px;--y:430px;--w:149px}
 }
