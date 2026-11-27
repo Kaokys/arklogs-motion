@@ -20,6 +20,7 @@ import '../styles/motion-home.css';
 import '../styles/graphic-system.css';
 import '../styles/blog.css';
 import '../styles/atlas.css';
+import '../styles/about-board.css';
 import { ClientRouter } from 'astro:transitions';
 import { nav } from '../data/content';
 
@@ -53,7 +54,7 @@ const pageTransition = { forwards: contentAnimation, backwards: contentAnimation
         <span class="topbar-caption">PERSONAL ARCHIVE <span>/</span> SYSTEM ONLINE</span>
         <nav class="top-nav" aria-label="Main navigation">
           {nav.map((item) => (
-            <a href={item.href} data-astro-prefetch="hover" aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}>
+            <a href={item.href} data-astro-prefetch="load" aria-current={pathname === item.href ? 'page' : item.href === '/blog/' && isBlog ? 'location' : undefined}>
               <span class="route-marker" aria-hidden="true"></span>
               <span>{item.label}</span>
             </a>
