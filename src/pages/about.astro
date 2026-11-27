@@ -1,4 +1,8 @@
 ---
-import ArchiveSection from '../components/ArchiveSection.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutBoard from '../components/AboutBoard.astro';
 ---
-<ArchiveSection title="About Me" description="Add your introduction here." empty="No profile details yet." />
+
+<BaseLayout title="About Me" description="Kao’s profile, projects, and favorites.">
+  <AboutBoard />
+</BaseLayout>

@@ -1,0 +1,122 @@
+---
+import '../styles/about-board.css';
+---
+
+<div id="kao-screen-board">
+<header><h1>About Me</h1></header>
+<div class="board-stage"><div class="evidence" data-group="profile">
+<div class="threads" aria-hidden="true"></div>
+<article class="sheet idcard" data-group="profile"><i class="strap" aria-hidden="true"></i><div class="band">ARKLOGS <span>PROFILE ID</span></div><div class="idface">
+  <b class="monogram" aria-hidden="true">K</b>
+  <div><h2>Kao</h2><p>Cybersecurity student<br>Khon Kaen University, Thailand</p></div>
+</div>
+<div class="idback" hidden>
+  <div class="intro-portrait" aria-hidden="true">K</div>
+  <div><h2>Hi, I’m Kao.</h2><p>I study cybersecurity at Khon Kaen University in Thailand.</p><p>I like building things for the web, working with ESP32 boards, and keeping notes on what I learn.</p></div>
+</div><button class="flip" type="button" aria-expanded="false">Flip ID ↻</button></article>
+<article class="sheet bio" data-group="profile">
+  <h2>Hi, I’m Kao.</h2>
+  <p class="bio-greeting">Nice to meet you!</p>
+  <p>I’m a cybersecurity student at Khon Kaen University in Thailand. I’m especially interested in red teaming.</p>
+  <p>I like CTFs, odd corners of the web, and keeping track of the things I learn along the way. This page is a small collection of those bits and pieces.</p>
+</article>
+<article class="sheet dev" data-group="images"><small>WORKBENCH NOTE</small><h2>ESP32</h2><p>Sensor readings and small hardware builds.</p></article>
+<article class="sheet game g1" data-group="favorites"><small>FAVORITE GAME</small><img class="gameart" src="/arknights-icon.jpg" width="45" height="45" alt=""><h2>Arknights</h2><p>Strategy · Mobile</p></article>
+<article class="sheet game g2" data-group="favorites"><small>FAVORITE GAME</small><img class="gameart" src="/oxygen-not-included-icon.jpg" width="45" height="45" alt=""><h2>Oxygen Not Included</h2><p>Colony sim · PC</p></article>
+<article class="sheet track t1" data-group="favorites"><div class="vinyl" aria-hidden="true"></div><small>ON REPEAT</small><h2>Let It Happen</h2><p>Tame Impala · Currents</p><a class="listen" data-track="2X485T9Z5Ly0xyaghN73ed" data-title="Let It Happen" href="https://open.spotify.com/track/2X485T9Z5Ly0xyaghN73ed" aria-label="Play Let It Happen">▶ Play</a></article>
+<article class="sheet track t2" data-group="favorites"><div class="vinyl" aria-hidden="true"></div><small>ON REPEAT</small><h2>Lost in Yesterday</h2><p>Tame Impala · The Slow Rush</p><a class="listen" data-track="4k3cMasUNMHi8OBYORYtvJ" data-title="Lost in Yesterday" href="https://open.spotify.com/track/4k3cMasUNMHi8OBYORYtvJ" aria-label="Play Lost in Yesterday">▶ Play</a></article>
+<article class="sheet github" data-group="profiles"><small>DEVELOPER PROFILE</small><h2><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/github.svg" alt=""> GitHub</h2><p><a href="https://github.com/Kaokys">@Kaokys ↗</a></p></article>
+<article class="sheet htb" data-group="profiles"><small>LAB PROFILE</small><h2><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/hackthebox.svg" alt=""> Hack The Box</h2><p>Cybersecurity labs</p></article>
+<article class="sheet social" data-group="profiles"><small>SOCIAL</small><div class="socials"><a href="https://github.com/Kaokys"><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/github.svg" alt=""><span>GitHub</span></a><div><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/medium.svg" alt=""><span>Medium</span></div><div><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/instagram.svg" alt=""><span>Instagram</span></div><div><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/linkedin.svg" alt=""><span>LinkedIn</span></div></div></article>
+<figure class="sheet photo snap1" data-group="images"><button type="button" class="enlarge" aria-label="Enlarge Arklogs landscape illustration"><img src="/atlas-landscape.svg" alt="Arklogs landscape illustration"></button><figcaption>Love this slice of the homepage.</figcaption></figure>
+<figure class="sheet photo snap2" data-group="images"><button type="button" class="enlarge" aria-label="Enlarge Layered project illustration"><img src="/atlas-prj.svg" alt="Layered project illustration"></button><figcaption>Sketch for the project card.</figcaption></figure>
+</div>
+</div><nav class="board-tabs" aria-label="Board sections"><button type="button" data-view="profile" aria-pressed="true">Profile</button><button class="cursor-interaction" type="button" data-view="favorites" aria-pressed="false">Favorites</button><button class="cursor-interaction" type="button" data-view="profiles" aria-pressed="false">Social</button><button class="cursor-interaction" type="button" data-view="images" aria-pressed="false">Files</button></nav>
+<dialog class="image-dialog" aria-label="Pinned image"><button class="close" type="button">Close ×</button><img alt=""><p></p></dialog>
+<dialog class="music-dialog" aria-label="Spotify player">
+  <button class="close" type="button">Close ×</button>
+  <iframe title="Spotify player" width="100%" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  <a class="spotify-link" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a>
+</dialog>
+</div>
+
+<script>
+let teardown: (() => void) | undefined;
+
+function initAboutBoard() {
+  const root=document.getElementById('kao-screen-board');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = 'true';
+  const grid=root.querySelector<HTMLElement>('.evidence')!;
+  const lines=grid.querySelector('.threads');
+  const stage=root.querySelector<HTMLElement>('.board-stage')!;
+  const tabs=root.querySelector<HTMLElement>('.board-tabs')!;
+  for (const button of tabs.querySelectorAll<HTMLButtonElement>('button')) {
+    button.addEventListener('click',()=>{
+      grid.dataset.group=button.dataset.view ?? 'profile';
+      tabs.querySelectorAll('button').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+      draw();
+    });
+  }
+  grid.querySelectorAll('.sheet').forEach(sheet=>{
+    const pin=document.createElement('span');
+    pin.className='pin'; pin.setAttribute('aria-hidden','true'); sheet.append(pin);
+  });
+  const pairs=[['idcard','bio'],['idcard','g1'],['g1','g2'],['idcard','t1'],['t1','t2'],['bio','dev'],['dev','github'],['github','htb'],['idcard','snap1'],['t2','snap2'],['snap1','social']];
+  const strings=pairs.map(([from,to])=>{
+    const line=document.createElement('i'); lines.append(line);
+    return {line,start:grid.querySelector('.'+from+' .pin')!,end:grid.querySelector('.'+to+' .pin')!};
+  });
+  function draw(){
+    const wide=getComputedStyle(grid).position==='absolute';
+    const main = root.closest('main');
+    const header = root.querySelector('header');
+    if (main && header) stage.style.setProperty('--board-height', Math.max(0, main.clientHeight - header.offsetHeight - 2) + 'px');
+    const scale = wide ? Math.min(stage.clientWidth / grid.offsetWidth, stage.clientHeight / grid.offsetHeight) : 1;
+    if(!scale) return;
+    grid.style.setProperty('--wide-scale',String(scale));
+    const origin=lines.getBoundingClientRect();
+    for(const {line,start,end} of strings){
+      const a=start.getBoundingClientRect(),b=end.getBoundingClientRect();
+      line.hidden = !a.width || !b.width;
+      if(line.hidden) continue;
+      const dx=b.x+b.width/2-a.x-a.width/2,dy=b.y+b.height/2-a.y-a.height/2;
+      Object.assign(line.style,{left:((a.x+a.width/2-origin.x))+'px',top:((a.y+a.height/2-origin.y)-1)+'px',width:(Math.hypot(dx,dy)/scale)+'px',transform:'rotate('+Math.atan2(dy,dx)+'rad)'});
+    }
+  }
+  const observer=new ResizeObserver(draw); observer.observe(stage); observer.observe(grid); grid.querySelectorAll('.sheet').forEach(sheet=>observer.observe(sheet)); draw();
+  const flip=root.querySelector<HTMLElement>('.flip')!,front=root.querySelector<HTMLElement>('.idface')!,back=root.querySelector<HTMLElement>('.idback')!;
+  flip.addEventListener('click',()=>{ const show=back.hidden; front.hidden=show;back.hidden=!show;flip.setAttribute('aria-expanded',String(show));flip.textContent=show?'Show front ↻':'Flip ID ↻'; });
+  const dialog=root.querySelector<HTMLDialogElement>('.image-dialog')!;
+  root.querySelectorAll('.enlarge').forEach(button=>button.addEventListener('click',()=>{
+    const thumbnail=button.querySelector('img')!,image=dialog.querySelector('img')!;
+    image.src=thumbnail.src;image.alt=thumbnail.alt;
+    dialog.querySelector('p')!.textContent=button.closest('figure')!.querySelector('figcaption')!.textContent;
+    dialog.showModal();
+  }));
+  dialog.querySelector('.close')!.addEventListener('click',()=>dialog.close());
+
+  const music = root.querySelector<HTMLDialogElement>('.music-dialog')!;
+  const player = music.querySelector('iframe')!;
+  const spotifyLink = music.querySelector<HTMLAnchorElement>('.spotify-link')!;
+  root.querySelectorAll<HTMLAnchorElement>('[data-track]').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || !link.dataset.track) return;
+      event.preventDefault();
+      player.title = (link.dataset.title ?? 'Track') + ' on Spotify';
+      spotifyLink.href = link.href;
+      music.showModal();
+      player.src = 'https://open.spotify.com/embed/track/' + link.dataset.track + '?theme=0';
+    });
+  });
+  music.querySelector('.close')!.addEventListener('click', () => music.close());
+  music.addEventListener('close', () => player.removeAttribute('src'));
+  teardown = () => {
+    observer.disconnect();
+    teardown = undefined;
+  };
+}
+
+document.addEventListener('astro:page-load', initAboutBoard);
+document.addEventListener('astro:before-swap', () => teardown?.());
+</script>

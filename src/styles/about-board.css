@@ -1,0 +1,238 @@
+#kao-screen-board {color:#1b3047;background:#e7edef;font:14px/1.4 Arial,sans-serif;border:1px solid #899cab;overflow:hidden}
+#kao-screen-board *{box-sizing:border-box}
+#kao-screen-board [hidden]{display:none!important}
+#kao-screen-board header{display:flex;align-items:center;gap:22px;padding:10px 4%;border-bottom:1px solid #90acbf;background:#f6fafb}
+#kao-screen-board h1{font:italic 700 25px Georgia,serif;margin:0}
+#kao-screen-board .evidence{position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-areas:"bio id id g1" "bio id id g2" "dev snap1 t1 g2" "gh snap1 t2 snap2" "htb social social snap2";gap:23px 21px;align-items:center;padding:38px 4% 29px;background:radial-gradient(circle,#7d9bad46 .8px,transparent 1px) 0 0/15px 15px,linear-gradient(125deg,#e4eef0,#faf8f1 58%,#e0e9eb)}
+#kao-screen-board .sheet{--angle:-2deg;position:relative;transform:rotate(var(--angle));margin:0;padding:14px 12px 12px;border:1px solid #a4b3bc;background:#fafbf9;box-shadow:2px 3px 0 #b4c1c699,3px 6px 8px #27384d24;min-width:0}
+#kao-screen-board .pin{position:absolute;z-index:1;top:-4px;left:31%;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 30% 24%,#ffd5c4 0 12%,#c64c48 28%,#722836 77%);box-shadow:1px 2px 2px #27313d66}
+#kao-screen-board .threads{position:absolute;inset:0;pointer-events:none;z-index:-1}
+#kao-screen-board .threads i{height:2px;position:absolute;background:#a93e49;transform-origin:0 50%;box-shadow:0 1px 1px #55212b27}
+#kao-screen-board small{font:700 11px/1.2 'Courier New',monospace;letter-spacing:.07em;color:#3d5a76}
+#kao-screen-board h2{font:700 clamp(16px,2.2vw,26px)/1.06 Georgia,serif;margin:6px 0}
+#kao-screen-board p{margin:3px 0 0;font-size:13px;overflow-wrap:anywhere}
+#kao-screen-board .idcard{grid-area:id;--angle:-6deg;justify-self:center;width:min(86%,320px);padding:4px;border:3px solid #c1cfd9;border-radius:8px;background:linear-gradient(132deg,#fff 65%,#d7e9f4 65%);box-shadow:1px 2px #7893aa,5px 8px 13px #223a5244}
+#kao-screen-board .idcard .pin{top:-26px;left:49%}
+#kao-screen-board .strap{position:absolute;width:16px;left:48%;height:30px;top:-28px;background:linear-gradient(90deg,#223d73,#5475a3,#263c6c);border-bottom:4px solid #97aebf}
+#kao-screen-board .band{display:flex;justify-content:space-between;background:#284a85;color:white;font:bold 11px monospace;letter-spacing:.09em;padding:8px}
+#kao-screen-board .idface,#kao-screen-board .idback{min-height:87px;padding:9px;display:flex;align-items:center;gap:10px}
+#kao-screen-board .idback{display:block}#kao-screen-board .monogram{display:grid;place-items:center;width:52px;aspect-ratio:.82;background:repeating-linear-gradient(135deg,#39577b 0 4px,#44658b 4px 6px);color:#e7f4fc;font:italic bold 36px Georgia}
+#kao-screen-board .flip,#kao-screen-board .close{background:#eff5fa;border:1px solid #8ba5bb;color:#26497f;padding:5px 9px;font:bold 12px Arial}
+#kao-screen-board .flip{margin:0 7px 6px}
+#kao-screen-board .bio{grid-area:bio;--angle:-5deg;background:repeating-linear-gradient(0deg,#fcf5dd 0 20px,#d9d7c4 20px 21px);padding:19px 14px}
+#kao-screen-board .bio h2,#kao-screen-board figcaption{font-style:italic}
+#kao-screen-board .dev{grid-area:dev;--angle:3deg;background:#e6efed}
+#kao-screen-board .game{background:#203b50;color:white;border:3px solid #f6f8f8}
+#kao-screen-board .game small{color:#d8e5ee}#kao-screen-board .gameart{float:right;font:700 28px Georgia;line-height:1;color:#b4d8ea}
+#kao-screen-board .g1{grid-area:g1;--angle:6deg}#kao-screen-board .g2{grid-area:g2;--angle:-3deg;background:#34524c;color:#f4f7ea}
+#kao-screen-board .t1{grid-area:t1;--angle:3deg}#kao-screen-board .t2{grid-area:t2;--angle:-4deg}
+#kao-screen-board .track{padding-left:36px;background:#f6f1ed;overflow:visible}
+#kao-screen-board .vinyl{position:absolute;left:-11px;top:20%;width:37px;height:37px;border-radius:50%;background:radial-gradient(circle,#f8ede3 0 5%,#9a435a 6% 23%,transparent 24%),repeating-radial-gradient(circle,#27363e 0 2px,#586770 3px 4px)}
+#kao-screen-board .t2 .vinyl{filter:hue-rotate(130deg)}
+#kao-screen-board .github{grid-area:gh;--angle:-3deg}#kao-screen-board .htb{grid-area:htb;--angle:4deg;border-left:4px solid #84af41}
+#kao-screen-board .github h2,#kao-screen-board .htb h2{display:flex;align-items:center;gap:6px}
+#kao-screen-board .brand-icon{width:20px;height:20px;object-fit:contain}
+#kao-screen-board .social{grid-area:social;--angle:2deg;background:#eaf2f5}
+#kao-screen-board .socials{display:flex;justify-content:space-around;gap:6px;flex-wrap:wrap;margin-top:6px}
+#kao-screen-board .socials>div{display:grid;justify-items:center;gap:3px;font:700 11px Arial}
+#kao-screen-board .photo{background:#fffefb;padding:6px 6px 9px}
+#kao-screen-board .photo::after{content:"";position:absolute;top:-6px;left:59%;width:33px;height:12px;transform:rotate(14deg);background:#cfbd8b99;pointer-events:none}
+#kao-screen-board .photo button{display:block;width:100%;padding:0;border:0;background:#e6eff0}
+#kao-screen-board .photo img{display:block;width:100%;aspect-ratio:1.3;object-fit:cover}
+#kao-screen-board figcaption{padding:7px 3px 0;font:italic 14px/1.15 Georgia,serif}
+#kao-screen-board .snap1{grid-area:snap1;--angle:6deg}#kao-screen-board .snap2{grid-area:snap2;--angle:-5deg}
+#kao-screen-board dialog{max-width:min(92%,650px);padding:12px;border:1px solid #7b94a4;background:#fffefa;color:#213246}#kao-screen-board dialog img{display:block;width:100%;max-height:55vh;object-fit:contain;margin-top:8px}#kao-screen-board dialog::backdrop{background:#102639aa}
+/* Keep the layout in normal flow so the preview host can measure it. */
+#kao-screen-board { container: about-board / inline-size; }
+#kao-screen-board .evidence {
+  grid-template-columns:1fr 1.13fr 1fr 1fr;
+  grid-template-areas:"bio id g1 g2" "dev snap1 t1 t2" "gh htb social snap2";
+  grid-auto-rows:auto;
+  gap:18px 20px;
+  padding:27px 22px 21px;
+}
+#kao-screen-board .evidence .idcard {width:97%}
+#kao-screen-board h2 {font:700 19px/1.12 Georgia,serif}
+#kao-screen-board .idface,#kao-screen-board .idback {min-height:72px;padding:6px 8px}
+#kao-screen-board .monogram {width:42px;font-size:30px}
+#kao-screen-board .strap {height:22px;top:-20px}
+#kao-screen-board .idcard .pin {top:-18px}
+#kao-screen-board .photo {justify-self:center;width:min(100%,205px)}
+#kao-screen-board .photo img {height:72px;aspect-ratio:auto}
+#kao-screen-board .socials {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#kao-screen-board .sheet {transform:rotate(clamp(-4deg,var(--angle),4deg))}
+#kao-screen-board .board-tabs {display:none}
+@container about-board (width < 620px) {
+  #kao-screen-board .evidence {
+    min-height:325px;
+    padding:25px 13px 17px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:auto auto;
+    grid-template-areas:"id id" "bio bio";
+    gap:13px;
+  }
+  #kao-screen-board .evidence[data-group="favorites"] {grid-template-areas:"g1 g2" "t1 t2"}
+  #kao-screen-board .evidence[data-group="profiles"] {grid-template-areas:"gh htb" "social social"}
+  #kao-screen-board .evidence[data-group="images"] {grid-template-areas:"dev dev" "snap1 snap2"}
+  #kao-screen-board .evidence .sheet {display:none}
+  #kao-screen-board .evidence[data-group="profile"] [data-group="profile"],
+  #kao-screen-board .evidence[data-group="favorites"] [data-group="favorites"],
+  #kao-screen-board .evidence[data-group="profiles"] [data-group="profiles"],
+  #kao-screen-board .evidence[data-group="images"] [data-group="images"] {display:block}
+  #kao-screen-board .sheet {padding:10px 8px;transform:rotate(clamp(-2deg,var(--angle),2deg))}
+  #kao-screen-board h2 {font-size:16px;margin:4px 0}
+  #kao-screen-board p {font-size:12px;line-height:1.3}
+  #kao-screen-board .evidence .idcard {width:min(100%,220px);padding:4px}
+  #kao-screen-board .idface,#kao-screen-board .idback {min-height:58px;padding:4px}
+  #kao-screen-board .flip,#kao-screen-board .close {min-height:44px}
+  #kao-screen-board .photo {padding:5px}
+  #kao-screen-board .photo img {height:110px}
+  #kao-screen-board .track {padding-left:23px}
+  #kao-screen-board .vinyl {width:26px;height:26px;left:-6px}
+  #kao-screen-board .socials {grid-template-columns:repeat(4,minmax(0,1fr))}
+  #kao-screen-board .board-tabs {display:flex;justify-content:center;gap:3px;padding:3px;background:#e1ecf1;border-top:1px solid #91aabc}
+  #kao-screen-board .board-tabs button {flex:1;max-width:120px;min-height:44px;border:0;background:transparent;color:#294763;font:700 12px Arial}
+  #kao-screen-board .board-tabs button[aria-pressed="true"] {background:#244bb0;color:white}
+}
+@container about-board (max-width:350px) {
+  #kao-screen-board .evidence {padding:24px 9px 12px;gap:10px}
+  #kao-screen-board .gameart {font-size:20px}
+}
+
+#kao-screen-board .idface h2 {
+  margin:0 0 5px;
+  color:#234bc4;
+  font:italic 900 51px/.92 Georgia,serif;
+  letter-spacing:-.09em;
+  text-shadow:2px 2px #d1e2f1;
+}
+#kao-screen-board .idface .monogram {align-self:center}
+@container about-board (max-width:350px) {
+  #kao-screen-board .idface h2 {font-size:38px}
+  #kao-screen-board .bio,#kao-screen-board .dev {padding:8px 7px}
+  #kao-screen-board .evidence {gap:8px;padding-bottom:8px}
+}
+@container about-board (width >= 620px) {
+  #kao-screen-board .board-stage {position:relative;aspect-ratio:1160/580;max-width:1280px;margin-inline:auto;background:#edf3f3;overflow:hidden}
+  #kao-screen-board .evidence {
+    position:absolute;top:0;left:0;display:block;width:1160px;height:580px;padding:0;
+    transform:scale(var(--wide-scale,1));transform-origin:top left;
+  }
+  #kao-screen-board .evidence .sheet {
+    position:absolute;left:var(--x);top:var(--y);width:var(--w);
+    transform:rotate(var(--angle));max-width:none;
+  }
+  #kao-screen-board .evidence .bio {--x:35px;--y:54px;--w:240px;--angle:-8deg}
+  #kao-screen-board .evidence .idcard {--x:317px;--y:39px;--w:315px;--angle:-6deg;z-index:2}
+  #kao-screen-board .evidence .g1 {--x:698px;--y:29px;--w:205px;--angle:8deg}
+  #kao-screen-board .evidence .g2 {--x:928px;--y:98px;--w:204px;--angle:-6deg}
+  #kao-screen-board .evidence .dev {--x:55px;--y:245px;--w:225px;--angle:5deg}
+  #kao-screen-board .evidence .snap1 {--x:333px;--y:292px;--w:195px;--angle:9deg}
+  #kao-screen-board .evidence .t1 {--x:586px;--y:280px;--w:230px;--angle:-4deg}
+  #kao-screen-board .evidence .t2 {--x:852px;--y:291px;--w:238px;--angle:6deg}
+  #kao-screen-board .evidence .github {--x:41px;--y:437px;--w:218px;--angle:-5deg}
+  #kao-screen-board .evidence .htb {--x:279px;--y:464px;--w:230px;--angle:3deg}
+  #kao-screen-board .evidence .social {--x:577px;--y:409px;--w:221px;--angle:-4deg}
+  #kao-screen-board .evidence .snap2 {--x:886px;--y:428px;--w:205px;--angle:-7deg}
+  #kao-screen-board .idface {padding:14px 12px;gap:13px;min-height:118px}
+  #kao-screen-board .idface .monogram {width:57px}
+  #kao-screen-board .idback {min-height:118px;padding:13px}
+  #kao-screen-board .idface h2 {font-size:76px}
+  #kao-screen-board .bio {padding:18px 15px}
+  #kao-screen-board .photo img {height:91px}
+}
+
+#kao-screen-board .evidence {
+  background:
+    linear-gradient(90deg,#203a6012 1px,transparent 1px) 0 0/32px 32px,
+    linear-gradient(#203a6012 1px,transparent 1px) 0 0/32px 32px,
+    radial-gradient(ellipse at 43% 42%,#fbf4df 0%,#e0ebef 65%,#beccd3 100%);
+}
+#kao-screen-board .idface h2 {font-family:"Arial Black",Arial,sans-serif;font-style:normal;text-transform:uppercase;text-shadow:none;letter-spacing:-.09em;color:#f9fcff}
+#kao-screen-board .idface {background:linear-gradient(115deg,#172d51,#214bc0);color:white}
+#kao-screen-board .idface small {color:#e0eaff}
+#kao-screen-board .idface .monogram {border:1px solid #a0baea}
+#kao-screen-board .threads i {background:#9a3039}
+@container about-board (width >= 620px) {
+  #kao-screen-board .evidence::before {
+    content:"";position:absolute;inset:74px 225px 74px 245px;border:1px dashed #375e7c7a;border-radius:50%;
+    transform:rotate(-22deg);pointer-events:none;
+  }
+  #kao-screen-board .evidence .idcard {--x:295px;--y:156px;--w:426px;--angle:-11deg;z-index:3}
+  #kao-screen-board .idface,#kao-screen-board .idback {min-height:149px}
+  #kao-screen-board .idface h2 {font-size:116px;line-height:.81}
+  #kao-screen-board .evidence .bio {--x:49px;--y:96px;--w:240px;--angle:-13deg;z-index:1}
+  #kao-screen-board .evidence .dev {--x:44px;--y:297px;--w:216px;--angle:9deg}
+  #kao-screen-board .evidence .github {--x:54px;--y:462px;--w:185px;--angle:-9deg}
+  #kao-screen-board .evidence .htb {--x:248px;--y:455px;--w:204px;--angle:7deg}
+  #kao-screen-board .evidence .social {--x:486px;--y:433px;--w:218px;--angle:-3deg}
+  #kao-screen-board .evidence .g1 {--x:755px;--y:45px;--w:206px;--angle:-10deg;z-index:2}
+  #kao-screen-board .evidence .g2 {--x:932px;--y:116px;--w:193px;--angle:12deg}
+  #kao-screen-board .evidence .t1 {--x:783px;--y:266px;--w:202px;--angle:-9deg}
+  #kao-screen-board .evidence .t2 {--x:908px;--y:373px;--w:206px;--angle:8deg}
+  #kao-screen-board .evidence .snap1 {--x:363px;--y:23px;--w:199px;--angle:10deg}
+  #kao-screen-board .evidence .snap2 {--x:733px;--y:410px;--w:159px;--angle:-11deg}
+  #kao-screen-board .evidence .snap2 img {height:72px}
+}
+@container about-board (width < 620px) {
+  #kao-screen-board .evidence .idcard {width:min(100%,235px)}
+  #kao-screen-board .idface h2 {font-size:42px}
+}
+
+#kao-screen-board .idface p {color:#f0f5ff;line-height:1.25}
+#kao-screen-board .idback {
+  display:grid;align-items:center;grid-template-columns:62px minmax(0,1fr);gap:12px;
+  background:#fffdfa;color:#1b3047;
+}
+#kao-screen-board .idback h2 {margin:0 0 5px;font:italic 700 26px/1 Georgia,serif}
+#kao-screen-board .idback p {font:13px/1.3 Georgia,serif}
+#kao-screen-board .idback p+p {margin-top:6px}
+#kao-screen-board .intro-portrait {
+  display:grid;place-items:center;aspect-ratio:1;background:#dae7ee;color:#234580;
+  border:4px solid white;box-shadow:1px 2px 4px #24395f4a;
+  transform:rotate(-6deg);font:italic 700 29px Georgia,serif;
+}
+@container about-board (width < 620px) {
+  #kao-screen-board .idback {grid-template-columns:32px minmax(0,1fr);gap:8px;padding:5px}
+  #kao-screen-board .idback h2 {font-size:19px}
+  #kao-screen-board .idback p {font-size:11px;line-height:1.15}
+  #kao-screen-board .intro-portrait {font-size:19px}
+  #kao-screen-board .idface p {font-size:11px}
+}
+
+#kao-screen-board .bio .bio-greeting {margin:0 0 5px;font:italic 700 15px/1.15 Georgia,serif}
+#kao-screen-board .bio p {font:13px/1.3 Georgia,serif}
+#kao-screen-board .bio p+p {margin-top:7px}
+@container about-board (width >= 620px) {
+  #kao-screen-board .evidence .bio {--x:39px;--y:46px;--w:254px;--angle:-7deg}
+  #kao-screen-board .evidence .dev {--y:303px}
+  #kao-screen-board .evidence .github {--y:460px}
+}
+@container about-board (width < 620px) {
+  #kao-screen-board .bio {padding:10px 12px}
+  #kao-screen-board .bio p {font-size:12px}
+  #kao-screen-board .bio p+p {margin-top:5px}
+}
+.app-main-about {overflow:auto}
+#kao-screen-board {width:min(100%,1420px);min-height:0;margin-inline:auto}
+#kao-screen-board header {padding:7px 18px}
+#kao-screen-board .gameart {
+  width:45px;height:45px;margin:0 0 4px 5px;object-fit:cover;
+  border:1px solid #dce6ee80;border-radius:6px;
+}
+#kao-screen-board .listen {
+  display:inline-block;margin-top:5px;border:1px solid #8ba5bb;
+  padding:2px 8px;background:#fff;color:#1a4185;font-weight:700;
+}
+#kao-screen-board .socials>a {display:grid;justify-items:center;gap:3px;font:700 11px Arial}
+#kao-screen-board .spotify-link,#kao-screen-board .github a {color:#203f83;text-decoration:underline}
+#kao-screen-board .music-dialog {width:min(92vw,480px);max-width:none}
+#kao-screen-board .music-dialog iframe {display:block;margin:10px 0;border:0;border-radius:8px;background:#e7edef}
+#kao-screen-board .close,#kao-screen-board .flip,#kao-screen-board .enlarge {cursor:pointer}
+@container about-board (width >= 620px) {
+  #kao-screen-board .board-stage {max-height:var(--board-height,none)}
+  #kao-screen-board .evidence {left:50%;top:50%;transform:scale(var(--wide-scale,1)) translate(-50%,-50%)}
+  #kao-screen-board .evidence .t1 {--x:769px;--y:243px}
+  #kao-screen-board .evidence .t2 {--x:928px;--y:392px}
+  #kao-screen-board .evidence .snap2 {--x:746px;--y:430px}
+}
