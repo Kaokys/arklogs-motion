@@ -176,13 +176,6 @@
 .home-screen .cutout .mark-top { left: 6%; top: 12%; }
 .home-screen .cutout .mark-bottom { right: 5%; bottom: 7%; rotate: 180deg; }
 
-@media (min-width: 761px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .home-screen .cutout {
-    translate: var(--float-x, 0px) var(--float-y, 0px);
-    transition: translate 220ms ease-out;
-  }
-}
-
 @media (max-width: 760px) {
   .home-screen .cutout {
     z-index: 3;

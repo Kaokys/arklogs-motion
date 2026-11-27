@@ -12,7 +12,6 @@ import '../styles/chapter-layout.css';
 import '../styles/index-pages.css';
 import '../styles/depth-ui.css';
 import '../styles/stage-menu.css';
-import '../styles/gyro.css';
 import '../styles/brand-nav.css';
 import '../styles/motion-home.css';
 import '../styles/graphic-system.css';
@@ -28,11 +27,6 @@ const { title, description = 'Arklogs — projects, research, and field notes.' 
 const pathname = Astro.url.pathname;
 const isAbout = /^\/about\/?$/.test(pathname);
 const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?:\/|$)/.test(pathname);
-const contentAnimation = {
-  old: { name: 'ark-page-out', duration: '110ms', easing: 'ease-out', fillMode: 'both' },
-  new: { name: 'ark-page-in', duration: '200ms', easing: 'ease-out', fillMode: 'both' },
-};
-const pageTransition = { forwards: contentAnimation, backwards: contentAnimation };
 ---
 <!doctype html>
 <html lang="en" transition:animate="none">
@@ -43,7 +37,7 @@ const pageTransition = { forwards: contentAnimation, backwards: contentAnimation
     <meta name="description" content={description} />
     <link rel="alternate" type="application/rss+xml" title="Arklogs RSS" href="/rss.xml" />
     <title>{title} | Arklogs</title>
-    <ClientRouter fallback="animate" />
+    <ClientRouter fallback="swap" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -61,35 +55,8 @@ const pageTransition = { forwards: contentAnimation, backwards: contentAnimation
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
       </header>
-      <main id="main" transition:name="ark-page" transition:animate={pageTransition} class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]}><slot /></main>
+      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]}><slot /></main>
       <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
     </div>
-    <script>
-      if (!document.documentElement.dataset.gyroReady) {
-        document.documentElement.dataset.gyroReady = 'true';
-        const motion = window.matchMedia('(min-width: 761px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-        let frame = 0;
-        let tiltX = 0;
-        let tiltY = 0;
-        const applyTilt = () => {
-          document.documentElement.style.setProperty('--gyro-x', `${tiltX.toFixed(2)}deg`);
-          document.documentElement.style.setProperty('--gyro-y', `${tiltY.toFixed(2)}deg`);
-          document.documentElement.style.setProperty('--float-x', `${(tiltY * 3.2).toFixed(2)}px`);
-          document.documentElement.style.setProperty('--float-y', `${(-tiltX * 3).toFixed(2)}px`);
-          frame = 0;
-        };
-        const schedule = () => { if (!frame) frame = requestAnimationFrame(applyTilt); };
-        const reset = () => { tiltX = 0; tiltY = 0; schedule(); };
-        window.addEventListener('pointermove', (event) => {
-          if (!motion.matches) return;
-          tiltX = (0.5 - event.clientY / window.innerHeight) * 4;
-          tiltY = (event.clientX / window.innerWidth - 0.5) * 5;
-          schedule();
-        }, { passive: true });
-        window.addEventListener('pointerout', (event) => { if (!event.relatedTarget) reset(); });
-        window.addEventListener('blur', reset);
-        motion.addEventListener('change', reset);
-      }
-    </script>
   </body>
 </html>

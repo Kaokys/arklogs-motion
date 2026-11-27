@@ -41,7 +41,6 @@ import { sections } from '../data/content';
     </div>
   </dialog>
   <script>
-    import gsap from 'gsap';
     let cleanupDialog: (() => void) | undefined;
     const initDialog = () => {
       cleanupDialog?.();
@@ -56,9 +55,7 @@ import { sections } from '../data/content';
       const description = dialog.querySelector<HTMLElement>('#record-dialog-description')!;
       const detail = dialog.querySelector<HTMLElement>('.record-dialog-detail')!;
       const read = dialog.querySelector<HTMLAnchorElement>('.record-dialog-read')!;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
       let trigger: HTMLAnchorElement | undefined;
-      let busy = false;
       const open = (event: MouseEvent, card: HTMLAnchorElement) => {
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
@@ -73,41 +70,12 @@ import { sections } from '../data/content';
         detail.textContent = card.dataset.detail || '';
         read.href = card.href;
         dialog.showModal();
-        if (!reduce.matches) {
-          const source = card.getBoundingClientRect();
-          const target = dialog.getBoundingClientRect();
-          const body = dialog.querySelector('.record-dialog-body');
-          const image = dialog.querySelector('.record-dialog-art img');
-          gsap.fromTo(dialog, {
-            x: source.left - target.left, y: source.top - target.top,
-            scaleX: source.width / target.width, scaleY: source.height / target.height,
-            transformOrigin: 'top left', borderRadius: 3
-          }, {
-            x: 0, y: 0, scaleX: 1, scaleY: 1, borderRadius: 0,
-            duration: .76, ease: 'back.out(1.16)', clearProps: 'transform,borderRadius'
-          });
-          gsap.fromTo(image, { scale: 1.12 }, { scale: 1, duration: 1, ease: 'power2.out', clearProps: 'transform' });
-          gsap.fromTo(body, { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: .44, delay: .2, ease: 'power2.out', clearProps: 'all' });
-        }
         dialog.querySelector<HTMLButtonElement>('.record-dialog-close')?.focus();
       };
       const close = () => {
-        if (!dialog.open || busy) return;
-        if (reduce.matches) { dialog.close(); trigger?.focus(); return; }
-        busy = true;
-        const source = trigger?.getBoundingClientRect();
-        const target = dialog.getBoundingClientRect();
-        const body = dialog.querySelector('.record-dialog-body');
-        const base = { width: dialog.offsetWidth, height: dialog.offsetHeight };
-        gsap.to(body, { autoAlpha: 0, y: 8, duration: .2, overwrite: true });
-        gsap.to(dialog, {
-          x: (source?.left ?? target.left) - (target.left - gsap.getProperty(dialog, 'x') as number),
-          y: (source?.top ?? target.top) - (target.top - gsap.getProperty(dialog, 'y') as number),
-          scaleX: (source?.width ?? base.width) / base.width,
-          scaleY: (source?.height ?? base.height) / base.height,
-          transformOrigin: 'top left', duration: .52, ease: 'power2.inOut', overwrite: true,
-          onComplete: () => { dialog.close(); gsap.set([dialog, body], { clearProps: 'all' }); busy = false; trigger?.focus(); }
-        });
+        if (!dialog.open) return;
+        dialog.close();
+        trigger?.focus();
       };
       const cardListeners = cards.map((card) => { const listener = (event: MouseEvent) => open(event, card); card.addEventListener('click', listener); return { card, listener }; });
       closeButtons.forEach((button) => button.addEventListener('click', close));
@@ -115,7 +83,7 @@ import { sections } from '../data/content';
       const onCancel = (event: Event) => { event.preventDefault(); close(); };
       dialog.addEventListener('click', onBackdrop);
       dialog.addEventListener('cancel', onCancel);
-      cleanupDialog = () => { cardListeners.forEach(({ card, listener }) => card.removeEventListener('click', listener)); closeButtons.forEach((button) => button.removeEventListener('click', close)); dialog.removeEventListener('click', onBackdrop); dialog.removeEventListener('cancel', onCancel); gsap.killTweensOf(dialog); if (dialog.open) dialog.close(); };
+      cleanupDialog = () => { cardListeners.forEach(({ card, listener }) => card.removeEventListener('click', listener)); closeButtons.forEach((button) => button.removeEventListener('click', close)); dialog.removeEventListener('click', onBackdrop); dialog.removeEventListener('cancel', onCancel); if (dialog.open) dialog.close(); };
     };
     document.addEventListener('astro:page-load', initDialog);
     document.addEventListener('astro:before-swap', () => cleanupDialog?.());
