@@ -9,6 +9,7 @@
   font:400 clamp(5rem,11vw,12rem)/.95 var(--atlas-serif); letter-spacing:-.085em;
 }
 .atlas-home h1 span {color:var(--atlas-blue)}
+.atlas-home h1 {text-shadow:2px 1px 0 #f6f7f3}
 .atlas-cards {
   position:absolute; left:7%; right:7%; bottom:10%; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(12px,3vw,54px);
 }
@@ -21,6 +22,30 @@
 .atlas-card:is(:hover,:focus-visible) {border-color:var(--atlas-blue);color:var(--atlas-blue)}
 .atlas-card::after {content:"";position:absolute;left:50%;bottom:-12px;width:8px;height:8px;background:var(--atlas-blue);border:2px solid white;border-radius:50%;opacity:0}
 .atlas-card:is(:hover,:focus-visible)::after {opacity:1}
+.atlas-card {
+  --plate-edge:#2f5b91;
+  border-bottom:3px solid var(--plate-edge);
+  box-shadow:1px 2px 0 #ced7dd,2px 4px 0 var(--plate-edge),5px 11px 13px #223d572b;
+}
+.atlas-card:nth-child(2) {--plate-edge:#ae3960}
+.atlas-card:nth-child(3) {--plate-edge:#127f84}
+.atlas-card:nth-child(4) {--plate-edge:#49479b}
+@media (min-width:761px) and (prefers-reduced-motion:no-preference) {
+  .atlas-card {
+    transform-style:preserve-3d;
+    transform:perspective(850px) rotateX(calc(4deg + var(--gyro-x,0deg) * 4))
+      rotateY(calc(-5deg + var(--gyro-y,0deg) * 5)) translateZ(var(--lift,0px));
+    transition:transform 260ms ease-out,box-shadow 260ms ease-out;
+    animation:atlas-float 6s ease-in-out infinite alternate;
+  }
+  .atlas-card img {transform:translateZ(7px)}
+  .atlas-card span {transform:translateZ(13px)}
+  .atlas-card:is(:hover,:focus-visible) {--lift:20px;z-index:2;box-shadow:2px 4px 0 var(--plate-edge),8px 18px 21px #25395840}
+}
+@keyframes atlas-float {
+  from {translate:var(--float-x,0px) calc(var(--float-y,0px) + 3px)}
+  to {translate:var(--float-x,0px) calc(var(--float-y,0px) - 6px)}
+}
 .atlas-cards::before {
   content:"";position:absolute;inset:auto -9% -9px;height:8px;pointer-events:none;
   background:linear-gradient(var(--atlas-blue),var(--atlas-blue)) top/100% 1px no-repeat,

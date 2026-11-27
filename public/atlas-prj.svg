@@ -1,6 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 124" fill="none">
-  <rect width="240" height="124" fill="#f0f3ef"/>
+  <defs><linearGradient id="paper" x2="1" y2=".65"><stop stop-color="#f9f9f2"/><stop offset="1" stop-color="#b9e0d5"/></linearGradient><pattern id="screen" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".62" fill="#167277"/></pattern></defs>
+  <rect width="240" height="124" fill="url(#paper)"/>
+  <path d="m0 91 96-57-50 71-46 13zm182-72 58-16v33l-65 27z" fill="url(#screen)" opacity=".54"/>
+  <path d="m51 67 69-39 70 26-70 42z" fill="#216d73"/><path d="m51 67 69 29v10L52 78z" fill="#173f56"/><path d="m120 96 70-42v10l-70 42z" fill="#43a59f"/><g stroke="#a8f1dc" stroke-width="1.7"><path d="m63 64 20 6 25-14m-33 18 13 5 27-16m36-13 12 4-13 8m-15 13 11-6 9 3"/></g>
   <path d="M0 94h240M36 0v124M180 0v124" stroke="#a8bbca" stroke-width=".6"/>
   <g stroke="#4d6577"><path d="m55 69 64-39 66 23-63 43z"/><path d="m55 72 64-39 66 23-63 43z"/><path d="m55 75 64-39 66 23-63 43z"/><path d="m55 78 64-39 66 23-63 43z"/><path d="m55 81 64-39 66 23-63 43z"/><path d="m55 84 64-39 66 23-63 43z"/><path d="m55 87 64-39 66 23-63 43z"/><path d="m55 90 64-39 66 23-63 43z"/></g><path d="m88 51 32-20 36 12-33 21z" fill="#2855c7"/><path d="M137 38l29-22h34" stroke="#2459c8"/><circle cx="137" cy="38" r="3" fill="white" stroke="#2459c8"/>
   <path d="M8 18V8h12m200 106h12v-10" stroke="#2459c8"/>
+  <g fill="#167277"><path d="M13 105h29v2H13zm0 4h18v1H13z"/><circle cx="203" cy="27" r="2.5"/></g>
+  <path d="m155 54 32-27h16" stroke="#167277" stroke-width=".8"/>
 </svg>

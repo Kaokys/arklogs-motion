@@ -3,7 +3,10 @@
   <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0v48" stroke="#9bb1bf" opacity=".32" stroke-width=".6"/></pattern>
   <pattern id="ticks" width="24" height="10" patternUnits="userSpaceOnUse"><path d="M0 0v7" stroke="#2751ba"/></pattern>
   <pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#648692"/></pattern>
-  <linearGradient id="wash"><stop stop-color="#dce6db" stop-opacity="0"/><stop offset=".55" stop-color="#b4cfbf" stop-opacity=".8"/><stop offset="1" stop-color="#d6edef" stop-opacity="0"/></linearGradient>
+  <linearGradient id="wash"><stop stop-color="#dce6db" stop-opacity="0"/><stop offset=".45" stop-color="#75b7a8" stop-opacity=".65"/><stop offset=".72" stop-color="#81b6e7" stop-opacity=".68"/><stop offset="1" stop-color="#d6edef" stop-opacity="0"/></linearGradient>
+  <linearGradient id="fold" x2=".85" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#142c86"/><stop offset=".42" stop-color="#1859d6"/><stop offset=".72" stop-color="#56cbc0"/><stop offset="1" stop-color="#cce8de"/></linearGradient>
+  <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse"><path d="m-1 5 6-6m-1 8 5-5" stroke="#194ba7" stroke-width=".8"/></pattern>
+  <path id="bird" d="M0 8Q9 7 15 11Q8 2 5-2Q18 3 22 9Q29 5 37 3L26 12L16 15Z"/>
   <g id="ridge"><path d="M 480 280 C 680 275, 728 252, 786 128 S 855 56, 886 106 S 963 270, 1085 260 Q 1150 280 1260 280" stroke="#315d9e" opacity="0.26"/>
 <path d="M 481.79245283018867 280 C 681.0377358490566 274.24528301886795, 728.8490566037735 252.18867924528303, 787.0943396226415 128.60377358490567 S 855.7924528301887 55.58490566037736, 886.6415094339623 105.32075471698113 S 962.7169811320755 269.0943396226415, 1085.6037735849056 260.22641509433964 Q 1150 280 1260 280" stroke="#486973" opacity="0.27"/>
 <path d="M 483.58490566037733 280 C 682.0754716981132 273.49056603773585, 729.6981132075472 252.37735849056602, 788.188679245283 129.20754716981133 S 856.5849056603773 55.16981132075472, 887.2830188679245 104.64150943396227 S 962.433962264151 268.188679245283, 1086.2075471698113 260.45283018867923 Q 1150 280 1260 280" stroke="#486973" opacity="0.27"/>
@@ -64,6 +67,16 @@
 <path d="M390 249 644 169 807 112 702 258 473 290Z" fill="url(#dots)" opacity=".37"/>
 <path d="m1000 138 174-46-75 78-82 19z" fill="#7eaaa5" opacity=".24"/>
 <use href="#ridge"/><use href="#ridge" transform="translate(0 448) scale(1 -.6)" opacity=".32"/>
+<g>
+  <path d="M577 279Q741 274 820 138Q871 48 891 78Q874 89 852 148Q790 270 577 279Z" fill="url(#fold)"/>
+  <path d="M890 78Q928 97 945 178Q970 251 1104 270Q977 264 931 206Q919 185 890 78Z" fill="#194b9e" opacity=".72"/>
+  <path d="M894 84Q919 111 929 154L949 209 938 193Z" fill="#db3265"/>
+  <path d="m945 178 124 54-94-28z" fill="url(#hatch)"/>
+  <path d="M627 284Q788 285 847 348Q864 369 881 379Q857 366 841 345Q780 291 627 284Z" fill="#3a86ad" opacity=".55"/>
+  <g fill="#273e5c"><use href="#bird" transform="translate(638 115) rotate(-12)"/><use href="#bird" transform="translate(694 87) scale(.62)"/><use href="#bird" transform="translate(1163 145) rotate(11) scale(.8)"/></g>
+  <g stroke="#1a4ab0"><circle cx="1130" cy="175" r="28" stroke-dasharray="2 5"/><ellipse cx="1129" cy="175" rx="47" ry="8" transform="rotate(-25 1129 175)"/><path d="m1086 198-30 17h-49"/></g>
+  <g fill="#204bc2"><rect x="531" y="261" width="25" height="4"/><rect x="559" y="261" width="6" height="4"/><rect x="1137" y="238" width="32" height="3"/></g>
+</g>
 <g stroke="#315abf" stroke-width=".85"><path d="M0 280h1440M878 34v377M875 35h6m-6 377h6"/><circle cx="878" cy="81" r="12"/><path d="M864 81h28m-14-14v28M663 221h-23v-44h56M963 218h43l43-49h62"/><rect x="818" y="64" width="106" height="99" stroke-dasharray="8 5"/></g>
 <rect y="280" width="1440" height="8" fill="url(#ticks)"/>
 <path d="M59 391q295-158 520-158M1059 98q133 36 286 15" stroke="#7f929e" stroke-width=".8"/>

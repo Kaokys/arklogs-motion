@@ -30,7 +30,6 @@ import { sections } from '../data/content';
   </dialog>
   <script>
     import gsap from 'gsap';
-    let cleanup: (() => void) | undefined;
     let cleanupDialog: (() => void) | undefined;
     const initDialog = () => {
       cleanupDialog?.();
@@ -106,33 +105,8 @@ import { sections } from '../data/content';
       dialog.addEventListener('cancel', onCancel);
       cleanupDialog = () => { cardListeners.forEach(({ card, listener }) => card.removeEventListener('click', listener)); closeButtons.forEach((button) => button.removeEventListener('click', close)); dialog.removeEventListener('click', onBackdrop); dialog.removeEventListener('cancel', onCancel); gsap.killTweensOf(dialog); if (dialog.open) dialog.close(); };
     };
-    const initMotion = () => {
-      cleanup?.();
-      const home = document.querySelector<HTMLElement>('.atlas-home');
-      if (!home) return;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce) return;
-      const cards = Array.from(home.querySelectorAll<HTMLElement>('.atlas-card'));
-      const canPoint = window.matchMedia('(min-width: 761px) and (pointer: fine)').matches;
-      let onMove: ((event: PointerEvent) => void) | undefined;
-      let onLeave: (() => void) | undefined;
-      if (canPoint) {
-        const xTo = cards.map((card) => gsap.quickTo(card, 'x', { duration: .8, ease: 'power2.out' }));
-        const yTo = cards.map((card) => gsap.quickTo(card, 'y', { duration: .8, ease: 'power2.out' }));
-
-        onMove = (event) => {
-          const nx = event.clientX / window.innerWidth - .5;
-          const ny = event.clientY / window.innerHeight - .5;
-          cards.forEach((_, i) => { const depth = 10 + i * 2; xTo[i](nx * depth); yTo[i](ny * depth); });
-        };
-        onLeave = () => { cards.forEach((_, i) => { xTo[i](0); yTo[i](0); }); };
-        window.addEventListener('pointermove', onMove, { passive: true });
-        window.addEventListener('blur', onLeave);
-      }
-      cleanup = () => { if (onMove) window.removeEventListener('pointermove', onMove); if (onLeave) window.removeEventListener('blur', onLeave); gsap.killTweensOf(cards); };
-    };
-    document.addEventListener('astro:page-load', () => { initMotion(); initDialog(); });
-    document.addEventListener('astro:before-swap', () => { cleanup?.(); cleanupDialog?.(); });
-    if (document.readyState !== 'loading') { initMotion(); initDialog(); }
+    document.addEventListener('astro:page-load', initDialog);
+    document.addEventListener('astro:before-swap', () => cleanupDialog?.());
+    if (document.readyState !== 'loading') initDialog();
   </script>
 </BaseLayout>
