@@ -55,7 +55,13 @@ import { sections } from '../data/content';
       const description = dialog.querySelector<HTMLElement>('#record-dialog-description')!;
       const detail = dialog.querySelector<HTMLElement>('.record-dialog-detail')!;
       const read = dialog.querySelector<HTMLAnchorElement>('.record-dialog-read')!;
+      const body = dialog.querySelector<HTMLElement>('.record-dialog-body')!;
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
       let trigger: HTMLAnchorElement | undefined;
+      let closing = false;
+      const cancelAnimations = () => dialog.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+      const cardTransform = (card: DOMRect, panel: DOMRect) =>
+        `translate(${card.left - panel.left}px, ${card.top - panel.top}px) scale(${card.width / panel.width}, ${card.height / panel.height})`;
       const open = (event: MouseEvent, card: HTMLAnchorElement) => {
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
@@ -69,13 +75,45 @@ import { sections } from '../data/content';
         description.textContent = card.dataset.description || '';
         detail.textContent = card.dataset.detail || '';
         read.href = card.href;
+        const source = card.getBoundingClientRect();
         dialog.showModal();
+        if (!reducedMotion.matches) {
+          const target = dialog.getBoundingClientRect();
+          dialog.animate(
+            [{ transform: cardTransform(source, target), borderRadius: '3px' }, { transform: 'none', borderRadius: '0' }],
+            { duration: 760, easing: 'cubic-bezier(.25, .8, .3, 1.1)' },
+          );
+          art.animate([{ scale: '1.12' }, { scale: '1' }], { duration: 1000, easing: 'ease-out' });
+          body.animate(
+            [{ opacity: 0, translate: '0 15px' }, { opacity: 1, translate: '0 0' }],
+            { duration: 440, delay: 200, easing: 'ease-out', fill: 'backwards' },
+          );
+        }
         dialog.querySelector<HTMLButtonElement>('.record-dialog-close')?.focus();
       };
       const close = () => {
-        if (!dialog.open) return;
-        dialog.close();
-        trigger?.focus();
+        if (!dialog.open || closing) return;
+        const finish = () => {
+          dialog.close();
+          cancelAnimations();
+          closing = false;
+          trigger?.focus();
+        };
+        if (reducedMotion.matches || !trigger) {
+          finish();
+          return;
+        }
+        closing = true;
+        const from = getComputedStyle(dialog).transform;
+        const bodyOpacity = getComputedStyle(body).opacity;
+        cancelAnimations();
+        const target = dialog.getBoundingClientRect();
+        const source = trigger.getBoundingClientRect();
+        body.animate([{ opacity: bodyOpacity }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+        dialog.animate(
+          [{ transform: from }, { transform: cardTransform(source, target) }],
+          { duration: 520, easing: 'ease-in-out', fill: 'forwards' },
+        ).finished.then(finish, () => { closing = false; });
       };
       const cardListeners = cards.map((card) => { const listener = (event: MouseEvent) => open(event, card); card.addEventListener('click', listener); return { card, listener }; });
       closeButtons.forEach((button) => button.addEventListener('click', close));
@@ -83,7 +121,14 @@ import { sections } from '../data/content';
       const onCancel = (event: Event) => { event.preventDefault(); close(); };
       dialog.addEventListener('click', onBackdrop);
       dialog.addEventListener('cancel', onCancel);
-      cleanupDialog = () => { cardListeners.forEach(({ card, listener }) => card.removeEventListener('click', listener)); closeButtons.forEach((button) => button.removeEventListener('click', close)); dialog.removeEventListener('click', onBackdrop); dialog.removeEventListener('cancel', onCancel); if (dialog.open) dialog.close(); };
+      cleanupDialog = () => {
+        cardListeners.forEach(({ card, listener }) => card.removeEventListener('click', listener));
+        closeButtons.forEach(button => button.removeEventListener('click', close));
+        dialog.removeEventListener('click', onBackdrop);
+        dialog.removeEventListener('cancel', onCancel);
+        cancelAnimations();
+        if (dialog.open) dialog.close();
+      };
     };
     document.addEventListener('astro:page-load', initDialog);
     document.addEventListener('astro:before-swap', () => cleanupDialog?.());

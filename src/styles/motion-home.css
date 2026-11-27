@@ -19,12 +19,17 @@
 .home-screen .route-node:hover .node-art img, .home-screen .route-node:focus-visible .node-art img { transform: scale(1.08); filter: grayscale(.1) contrast(1.13) brightness(.94); }
 .home-screen .route-node::after { content: ''; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #d7e9f675; opacity: 0; pointer-events: none; }
 .home-screen .route-node:hover::after { opacity: .5; }
+@media (prefers-reduced-motion: no-preference) {
+  .home-screen .route-node:hover::after { animation: card-scan 1.6s ease-in-out infinite alternate; }
+}
+@keyframes card-scan { from { top: 25%; } to { top: 80%; } }
 .home-screen .map-trace path { stroke-dasharray: 9 6; }
 @media (max-width: 760px) { .motion-stage { opacity: .5 !important; }.home-screen .map-zone { background: #d4e1e8dc; }.home-screen .route-node { color: #f3f7f8; }.home-screen .node-title { color: #f3f7f8; font-size: 13px; }.home-screen .node-sub { color: #c2d1d7; font-size: 9px; }.home-screen .node-art { min-height: 0; }.home-screen .route-node:nth-child(5) { flex-basis: 57%; } }
 @media (prefers-reduced-motion: reduce) { .motion-stage { opacity: 1; }.motion-scan { display: none; } }
 
 /* The selected record uses the browser's modal layer for focus and Escape handling. */
 .record-dialog { width: min(820px, calc(100vw - 36px)); max-width: none; max-height: min(620px, calc(100dvh - 36px)); padding: 0; border: 1px solid #d9e6ec; color: #f5f8f8; background: #21333f; box-shadow: 12px 15px 0 #1329398a, 0 36px 75px #0b2036ae; overflow: hidden; }
+.record-dialog { transform-origin: top left; }
 .record-dialog::backdrop { background: #dce7ed52; backdrop-filter: blur(4px); }
 .record-dialog-shell { display: grid; grid-template-columns: 52% 48%; min-height: 440px; max-height: inherit; }
 .record-dialog-art { position: relative; min-height: 0; overflow: hidden; background: #b7c9d4; border-right: 1px solid #718998; }
