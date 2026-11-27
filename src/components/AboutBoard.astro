@@ -16,10 +16,10 @@ const tracks = [
   <Image class="badge-portrait" src={kaoProfile} width={160} format="webp" alt="Kao’s profile picture" />
   <div><h2>Kao</h2><p>Cybersecurity student<br>Khon Kaen University, Thailand</p></div>
 </div>
-<div class="idback" hidden>
+<div class="idback" id="about-id-back" hidden>
   <Image class="intro-portrait" src={kaoProfile} width={160} format="webp" alt="Kao’s profile picture" />
   <div><h2>Hi, I’m Kao.</h2><p>I study cybersecurity at Khon Kaen University in Thailand.</p><p>I like building things for the web, working with ESP32 boards, and keeping notes on what I learn.</p></div>
-</div></div><button class="flip" type="button" aria-expanded="false">Flip ID ↻</button></article>
+</div></div><button class="flip" type="button" aria-label="Show back of ID card" aria-controls="about-id-back" aria-expanded="false"></button></article>
 <article class="sheet bio" data-group="profile">
   <h2>Hi, I’m Kao.</h2>
   <p class="bio-greeting">Nice to meet you!</p>
@@ -142,7 +142,7 @@ function initAboutBoard() {
       front.hidden = showBack;
       back.hidden = !showBack;
       flip.setAttribute('aria-expanded', String(showBack));
-      flip.textContent = showBack ? 'Show front ↻' : 'Flip ID ↻';
+      flip.setAttribute('aria-label', showBack ? 'Show front of ID card' : 'Show back of ID card');
       if (animate) {
         const outgoing = flipAnimation;
         flipAnimation = badge.animate(

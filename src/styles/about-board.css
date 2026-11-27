@@ -18,8 +18,9 @@
 #kao-screen-board .idface,#kao-screen-board .idback{min-height:87px;padding:9px;display:flex;align-items:center;gap:10px}
 #kao-screen-board .idback{display:block}
 #kao-screen-board .badge-portrait{display:block;width:42px;height:auto;object-fit:contain;flex-shrink:0}
-#kao-screen-board .flip,#kao-screen-board .close{background:#eff5fa;border:1px solid #8ba5bb;color:#26497f;padding:5px 9px;font:bold 12px Arial}
-#kao-screen-board .flip{margin:0 7px 6px}
+#kao-screen-board .close{background:#eff5fa;border:1px solid #8ba5bb;color:#26497f;padding:5px 9px;font:bold 12px Arial}
+#kao-screen-board .flip {position:absolute;inset:-3px;z-index:4;border:0;background:transparent;padding:0}
+#kao-screen-board .flip:focus-visible {outline:2px solid #214bc0;outline-offset:3px}
 #kao-screen-board .bio{grid-area:bio;--angle:-5deg;background:repeating-linear-gradient(0deg,#fcf5dd 0 20px,#d9d7c4 20px 21px);padding:19px 14px}
 #kao-screen-board .bio h2,#kao-screen-board figcaption{font-style:italic}
 #kao-screen-board .dev{grid-area:dev;--angle:3deg;background:#e6efed}
@@ -81,7 +82,7 @@
   #kao-screen-board p {font-size:12px;line-height:1.3}
   #kao-screen-board .evidence .idcard {width:min(100%,220px);padding:4px}
   #kao-screen-board .idface,#kao-screen-board .idback {min-height:58px;padding:4px}
-  #kao-screen-board .flip,#kao-screen-board .close {min-height:44px}
+  #kao-screen-board .close {min-height:44px}
   #kao-screen-board .photo {padding:5px}
   #kao-screen-board .photo img {height:110px}
   #kao-screen-board .socials {grid-template-columns:repeat(4,minmax(0,1fr))}
