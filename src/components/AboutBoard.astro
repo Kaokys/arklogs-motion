@@ -1,11 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import kaoProfile from '../assets/kao-profile.png';
-
-const tracks = [
-  { id: '2X485T9Z5Ly0xyaghN73ed', title: 'Let It Happen', position: 't1' },
-  { id: '4k3cMasUNMHi8OBYORYtvJ', title: 'Lost in Yesterday', position: 't2' },
-];
+import SpotifyTrack from './SpotifyTrack.astro';
+import { aboutTracks } from '../data/about-music';
 ---
 
 <div id="kao-screen-board">
@@ -38,16 +35,9 @@ const tracks = [
 </article>
 <article class="sheet game g1" data-group="favorites"><small>FAVORITE GAME</small><img class="gameart" src="/arknights-icon.jpg" width="45" height="45" alt=""><h2>Arknights</h2><p>Strategy · Mobile</p></article>
 <article class="sheet game g2" data-group="favorites"><small>FAVORITE GAME</small><img class="gameart" src="/oxygen-not-included-icon.jpg" width="45" height="45" alt=""><h2>Oxygen Not Included</h2><p>Colony sim · PC</p></article>
-{tracks.map(({ id, title, position }) => (
+{aboutTracks.map(({ id, title, position }) => (
   <article class:list={['sheet', 'track', position]} data-group="favorites" aria-label={title}>
-    <iframe
-      src={`https://open.spotify.com/embed/track/${id}?theme=0`}
-      title={`${title} — Tame Impala on Spotify`}
-      width="100%"
-      height="152"
-      loading="lazy"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    ></iframe>
+    <SpotifyTrack id={id} title={title} />
   </article>
 ))}
 <article class="sheet github" data-group="profiles"><small>DEVELOPER PROFILE</small><h2><img class="brand-icon" src="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/github.svg" alt=""> GitHub</h2><p><a href="https://github.com/Kaokys">@Kaokys ↗</a></p></article>

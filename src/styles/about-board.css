@@ -223,6 +223,22 @@
   background:#1f1f1f;color:#f5f5f5;
 }
 #kao-screen-board .track iframe {display:block;width:100%;height:152px;border:0;background:#1f1f1f}
+.music-dock {
+  display:none;
+  position:fixed;
+  right:12px;
+  bottom:36px;
+  z-index:12;
+  max-width:calc(100vw - 24px);
+  background:#1f1f1f;
+  color:#f4f9f4;
+  border:1px solid #506151;
+  box-shadow:3px 4px 12px #14213038;
+}
+.music-dock:has(.spotify-track[src]) {display:block}
+.music-dock summary {padding:8px 12px;cursor:pointer;font-weight:700}
+.music-dock-players {display:grid;gap:5px;width:min(340px,calc(100vw - 26px));max-height:calc(100dvh - 96px);overflow:auto;padding:4px}
+.music-dock-players iframe {display:block;width:100%;height:152px;border:0;background:#1f1f1f}
 #kao-screen-board .close,#kao-screen-board .flip,#kao-screen-board .enlarge {cursor:pointer}
 #kao-screen-board .profile-note {
   padding:9px 11px;
@@ -266,7 +282,7 @@
   #kao-screen-board .evidence {left:50%;top:50%;transform:scale(var(--wide-scale,1)) translate(-50%,-50%)}
   #kao-screen-board .evidence .profile-note {--x:42px;--y:285px;--w:254px;--angle:1deg}
   #kao-screen-board .evidence .github {--angle:-5deg}
-  #kao-screen-board .evidence .t1 {--x:747px;--y:252px;--w:252px;--angle:-2deg}
-  #kao-screen-board .evidence .t2 {--x:887px;--y:416px;--w:251px;--angle:2deg}
+  #kao-screen-board .evidence .t1 {--x:887px;--y:252px;--w:251px;--angle:0deg}
+  #kao-screen-board .evidence .t2 {--x:887px;--y:416px;--w:251px;--angle:0deg}
   #kao-screen-board .evidence .snap2 {--x:716px;--y:430px;--w:149px}
 }
