@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveSection from '../../components/ArchiveSection.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts', ({ data }) => !data.draft))
@@ -7,13 +7,10 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
 const categories = [...new Set(posts.map(({ data }) => data.archiveCategory ?? data.category))].sort();
 const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
 ---
-<BaseLayout title="Blog" description="A template for articles and updates.">
-  <div class="blog-sheet">
-    <header class="blog-heading">
-      <div><h1>Blog</h1><p>Add your articles and updates here.</p></div>
-      <a href="/rss.xml">RSS feed</a>
-    </header>
-    <section aria-label="Post archive" data-blog-archive>
+<ArchiveSection title="Blog" description="Add your articles and updates here.">
+  <a slot="intro" class="archive-feed-link" href="/rss.xml">RSS feed</a>
+  {posts.length === 0 ? <div class="notes-empty"><p>No posts yet.</p></div> : (
+    <div class="archive-post-list" data-blog-archive>
       <form class="archive-filters" hidden>
         <label>Search <input type="search" name="q" placeholder="Search posts" /></label>
         <label>Category <select name="category"><option value="">All categories</option>{categories.map((category) => <option>{category}</option>)}</select></label>
@@ -21,7 +18,6 @@ const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
         <button type="reset">Clear</button>
       </form>
       <p data-result-count aria-live="polite" hidden></p>
-      {posts.length === 0 && <p>No posts yet.</p>}
       <ul class="blog-posts">
         {posts.map(({ id, data }) => (
           <li data-post data-category={data.archiveCategory ?? data.category} data-tags={JSON.stringify(data.tags)}>
@@ -37,9 +33,9 @@ const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
           </li>
         ))}
       </ul>
-    </section>
-  </div>
-</BaseLayout>
+    </div>
+  )}
+</ArchiveSection>
 
 <script>
   function initArchive() {

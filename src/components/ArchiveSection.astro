@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 interface Props {
   title: string;
   description: string;
-  empty: string;
+  empty?: string;
 }
 const { title, description, empty } = Astro.props;
 ---
@@ -15,9 +15,10 @@ const { title, description, empty } = Astro.props;
       <header class="writing-intro">
         <h1>{title}</h1>
         <p>{description}</p>
+        <slot name="intro" />
       </header>
       <section class="writing-records" aria-label={title}>
-        <div class="notes-empty"><p>{empty}</p></div>
+        <slot>{empty && <div class="notes-empty"><p>{empty}</p></div>}</slot>
       </section>
     </div>
   </div>
