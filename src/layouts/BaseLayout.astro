@@ -20,6 +20,7 @@ import '../styles/atlas.css';
 import '../styles/about-board.css';
 import '../styles/cutout-wordmark.css';
 import ScreenHeading from '../components/ScreenHeading.astro';
+import ArchiveTimeline from '../components/ArchiveTimeline.astro';
 import { ClientRouter } from 'astro:transitions';
 import { nav } from '../data/content';
 
@@ -69,6 +70,7 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
           <>
             <ScreenHeading {...heading} />
             <div class="section-frame"><slot /></div>
+            <ArchiveTimeline activeHref={isBlog ? '/blog/' : `/${section}/`} />
           </>
         ) : <slot />}
       </main>
@@ -80,8 +82,8 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
 <style is:global>
   .app-main.app-main-framed {
     display: grid;
-    grid-template-rows: minmax(26px, auto) minmax(0, 1fr);
-    padding: 12px 30px 18px;
+    grid-template-rows: minmax(26px, auto) minmax(0, 1fr) 56px;
+    padding: 12px 30px 0;
     overflow: hidden;
     background: var(--archive-surround);
   }
@@ -105,6 +107,12 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
     background: #edf3f3;
     overflow: auto;
   }
+  .app-main-framed > .home-timeline {
+    position: static;
+    height: auto;
+    min-width: 0;
+    white-space: nowrap;
+  }
   .section-frame > #kao-screen-board { border: 0; }
   .section-frame > .writing-screen {
     min-height: 100%;
@@ -114,6 +122,9 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
   }
   .section-frame > .writing-screen > .writing-board { border: 0; }
   @media (max-width: 760px) {
-    .app-main.app-main-framed { padding: 8px 9px; }
+    .app-main.app-main-framed {
+      grid-template-rows: minmax(26px, auto) minmax(0, 1fr) 40px;
+      padding: 8px 9px 0;
+    }
   }
 </style>

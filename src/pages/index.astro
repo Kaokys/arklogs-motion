@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CutoutWordmark from '../components/CutoutWordmark.astro';
 import SignalMatrix from '../components/SignalMatrix.astro';
 import ScreenHeading from '../components/ScreenHeading.astro';
+import ArchiveTimeline from '../components/ArchiveTimeline.astro';
 import { sections } from '../data/content';
 ---
 <BaseLayout title="Home" description="A portfolio template with space for a profile, achievements, projects, and writing.">
@@ -29,7 +30,7 @@ import { sections } from '../data/content';
       </div>
       <div class="map-foot"><span>PORTFOLIO</span><a href="/blog/">ALL POSTS ↗</a></div>
     </section>
-    <div class="home-timeline" aria-label="Archive sections"><span>01 / 04</span><span class="timeline-rule"><i></i><i></i><i></i><i></i></span><span>04 / 04</span><a href="/blog/">BLOG <span aria-hidden="true">↗</span></a></div>
+    <ArchiveTimeline />
   </div>
   <dialog class="record-dialog" aria-labelledby="record-dialog-title" aria-describedby="record-dialog-description">
     <div class="record-dialog-shell">

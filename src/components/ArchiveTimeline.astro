@@ -1,0 +1,27 @@
+---
+import { sections } from '../data/content';
+
+interface Props { activeHref?: string; }
+const { activeHref = sections[0].href } = Astro.props;
+const activeIndex = sections.findIndex(section => section.href === activeHref);
+const format = (value: number) => String(value).padStart(2, '0');
+const total = format(sections.length);
+---
+<nav class="home-timeline" aria-label="Archive sections">
+  <span>{format(activeIndex + 1)} / {total}</span>
+  <div class="timeline-rule">
+    {sections.map(section => (
+      <a href={section.href} aria-label={section.label} aria-current={section.href === activeHref && Astro.url.pathname !== '/' ? 'location' : undefined} class:list={{ active: section.href === activeHref }}><i aria-hidden="true"></i></a>
+    ))}
+  </div>
+  <span>{total} / {total}</span>
+  <a href="/blog/">BLOG <span aria-hidden="true">↗</span></a>
+</nav>
+
+<style>
+  .timeline-rule { align-items: center; }
+  .timeline-rule a { display: grid; place-items: center; flex: 1; min-width: 0; height: 32px; }
+  .timeline-rule a i { transform: rotate(45deg); background: #c0cbd2; border-color: #7d8c9b; }
+  .timeline-rule a:is(.active, :hover, :focus-visible) i { background: #173cc5; border-color: #173cc5; }
+  .timeline-rule a:focus-visible { outline-offset: -3px; }
+</style>
