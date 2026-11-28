@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+import '../../styles/projects.css';
+
+export function getStaticPaths() {
+  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+---
+<BaseLayout title={project.title} description={project.summary}>
+  <article class="project-workbench">
+    <header class="workbench-header"><a href="/projects/">← All projects</a><span>Sample project</span></header>
+    <div class="workbench-detail">
+      <div class="record-figure"><img src={project.cover} alt="" /></div>
+      <div class="record-copy">
+        <small>{project.category}</small>
+        <h1>{project.title}</h1>
+        <p>{project.summary}</p>
+        <ul class="workbench-tools" aria-label="Tools and components">{project.tools.map(tool => <li>{tool}</li>)}</ul>
+        <h2>Build notes</h2>
+        {project.notes.map(note => <p>{note}</p>)}
+      </div>
+    </div>
+  </article>
+</BaseLayout>

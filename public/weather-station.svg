@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320">
+  <title>ESP32 with a sensor breakout and a room conditions display</title>
+  <defs>
+    <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#698c9a"/></pattern>
+    <pattern id="pins" width="18" height="12" patternUnits="userSpaceOnUse"><rect x="2" width="9" height="12" fill="#afbdc8"/></pattern>
+  </defs>
+  <rect width="720" height="320" fill="#e1efed"/>
+  <path d="M0 60 L410 0H526L215 320H0Z" fill="#c3ddd8"/>
+  <path d="M0 200L315 0H389L46 320H0Z" fill="url(#dots)"/>
+  <g transform="translate(72 112) rotate(-9)">
+    <rect x="5" y="9" width="305" height="148" fill="#789aa2"/>
+    <rect width="305" height="148" rx="10" fill="#174c51" stroke="#184053" stroke-width="3"/>
+    <path d="M20 1h266v10H20z M20 137h266v10H20z" fill="url(#pins)"/>
+    <rect x="25" y="35" width="106" height="78" rx="3" fill="#d9e3e5" stroke="#7499a3" stroke-width="3"/>
+    <text x="38" y="83" font-family="monospace" font-weight="bold" font-size="23" fill="#214757">ESP32</text>
+    <path d="M151 38h26v21h20v-21h19v22h21v-22h26" fill="none" stroke="#d7b57a" stroke-width="5"/>
+    <rect x="165" y="81" width="29" height="25" fill="#122d38"/><path d="M204 84h33m-33 11h54m-54 11h20" stroke="#a4c7b3" stroke-width="4"/>
+  </g>
+  <path d="M339 222v40q0 10 12 10h80v-36m-81-15v32q0 9 10 9h61v-26" fill="none" stroke="#366aaf" stroke-width="3"/>
+  <g transform="translate(402 199) rotate(4)"><rect width="85" height="42" rx="4" fill="#345ba0"/><rect x="32" y="9" width="22" height="18" fill="#cad7d9"/><circle cx="12" cy="12" r="4" fill="#e0c484"/></g>
+  <g transform="translate(445 48) rotate(4)"><rect x="6" y="7" width="205" height="128" fill="#94adb7"/><rect width="205" height="128" fill="#f9fbf4" stroke="#89a4ad"/>
+    <text x="16" y="29" font-family="monospace" font-size="15" fill="#35566a">ROOM CONDITIONS</text>
+    <text x="15" y="77" font-family="Georgia,serif" font-size="44" fill="#174d55">26.4 °C</text>
+    <path d="M15 89h173" stroke="#a5b7b0"/><text x="17" y="111" font-family="monospace" font-size="16" fill="#31576a">Humidity   62%</text>
+  </g>
+</svg>

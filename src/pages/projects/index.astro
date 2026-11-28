@@ -1,4 +1,28 @@
 ---
-import ArchiveSection from '../../components/ArchiveSection.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+import '../../styles/projects.css';
 ---
-<ArchiveSection title="Projects" description="Add your projects here." empty="No projects yet." />
+<BaseLayout title="Projects" description="Browse the Arklogs project archive.">
+  <section class="project-workbench">
+    <header class="workbench-header"><h1>Projects</h1><span>Sample projects</span></header>
+    <ul class="workbench-records">
+      {projects.map(project => (
+        <li>
+          <a class="workbench-record" href={`/projects/${project.slug}/`}>
+            <div class="record-figure"><img src={project.cover} alt="" /></div>
+            <div class="record-copy">
+              <small>{project.category}</small>
+              <h2>{project.title}</h2>
+              <p>{project.summary}</p>
+              <ul class="workbench-tools" aria-label="Built with">
+                {project.tools.map(tool => <li>{tool}</li>)}
+              </ul>
+              <span class="record-action">View project <span aria-hidden="true">↗</span></span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
