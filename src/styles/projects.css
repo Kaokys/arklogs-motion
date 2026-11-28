@@ -12,6 +12,11 @@
   padding-block-end: 16px;
 }
 
+.project-index {
+  position: relative;
+  isolation: isolate;
+}
+
 .workbench-header {
   display: flex;
   justify-content: space-between;

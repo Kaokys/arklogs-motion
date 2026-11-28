@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectBackdrop from '../../components/ProjectBackdrop.astro';
 import { projects } from '../../data/projects';
 import '../../styles/projects.css';
 ---
 <BaseLayout title="Projects" description="Browse the Arklogs project archive.">
-  <section class="project-workbench">
+  <section class="project-workbench project-index">
+    <ProjectBackdrop />
     <header class="workbench-header"><h1>Projects</h1><span>Sample projects</span></header>
     <ul class="workbench-records">
       {projects.map(project => (
