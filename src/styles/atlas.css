@@ -11,6 +11,11 @@
   background-color: #c2e2f7;
   border: var(--archive-frame-border);
 }
+.home-screen .map-zone .map-grid {
+  inset: 0;
+  transform: none;
+  pointer-events: none;
+}
 .home-screen .route-track .route-node {
   border: 2px solid #829caf;
   background: linear-gradient(150deg, #fff 12%, #f3f8fa 63%, #cee4f0);

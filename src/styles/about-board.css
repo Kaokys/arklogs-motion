@@ -136,12 +136,13 @@
   #kao-screen-board .photo img {height:91px}
 }
 
-#kao-screen-board .evidence {
-  background:
+#kao-screen-board {
+  --board-grid:
     linear-gradient(90deg,#203a6012 1px,transparent 1px) 0 0/32px 32px,
     linear-gradient(#203a6012 1px,transparent 1px) 0 0/32px 32px,
     radial-gradient(ellipse at 43% 42%,#fbf4df 0%,#e0ebef 65%,#beccd3 100%);
 }
+#kao-screen-board .evidence {background:var(--board-grid)}
 #kao-screen-board .idface h2 {font-family:"Arial Black",Arial,sans-serif;font-style:normal;text-transform:uppercase;text-shadow:none;letter-spacing:-.09em;color:#f9fcff}
 #kao-screen-board .idface {background:linear-gradient(115deg,#172d51,#214bc0);color:white}
 #kao-screen-board .idface small {color:#e0eaff}
@@ -221,16 +222,20 @@
 }
 .app-main-about > .section-frame {overflow:clip}
 .app-main-about #kao-screen-board {
+  width:100%;
   height:100%;
   display:grid;
   grid-template-rows:auto minmax(0,1fr) auto;
+  background:var(--board-grid);
 }
 .app-main-about #kao-screen-board .board-stage {
   width:100%;
   min-height:0;
   aspect-ratio:auto;
   overflow:clip;
+  background:transparent;
 }
+.app-main-about #kao-screen-board .evidence {background:transparent}
 @container about-board (width < 620px) {
   .app-main-about #kao-screen-board .evidence {
     transform:scale(var(--wide-scale,1));
