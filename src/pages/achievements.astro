@@ -90,7 +90,30 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
   .milestones header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
   .scroll-controls{display:flex;gap:5px}
   .scroll-controls button{width:44px;height:44px;background:#f8fbfa;color:#2448a0;border:1px solid #95adc2;font-size:20px;cursor:pointer}
-  .strip{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-color:#819bc8 #e0ebed;margin:auto 0;max-width:100%}
+  .strip{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-color:#315ac3 #d9e5eb;margin:auto 0;max-width:100%}
+  @supports selector(::-webkit-scrollbar){
+    .strip{scrollbar-color:auto}
+    .strip::-webkit-scrollbar:horizontal{height:18px}
+    .strip::-webkit-scrollbar-track:horizontal{
+      margin-inline:6vw;
+      border-block:1px solid #9db3c1;
+      background:
+        repeating-linear-gradient(90deg,#829db5 0 1px,transparent 1px 48px) left bottom/100% 9px no-repeat,
+        repeating-linear-gradient(90deg,#a8bbc9 0 1px,transparent 1px 8px) left bottom/100% 5px no-repeat,
+        #e1ebef;
+    }
+    .strip::-webkit-scrollbar-thumb:horizontal{
+      border:3px solid transparent;
+      border-radius:4px;
+      background:
+        repeating-linear-gradient(90deg,#e1edff 0 2px,transparent 2px 5px) center/12px 6px no-repeat,
+        linear-gradient(#496ed3,#294ba5);
+      background-clip:padding-box;
+    }
+    .strip::-webkit-scrollbar-thumb:horizontal:hover{background-color:#234694;background-blend-mode:normal,multiply}
+    .strip::-webkit-scrollbar-thumb:horizontal:active{background-color:#183477}
+  }
+  @media(forced-colors:active){.strip{scrollbar-color:auto}}
   .timeline{width:max-content;min-width:100%;display:grid;grid-auto-flow:column;grid-auto-columns:max(230px,25vw);align-items:center;gap:3vw;list-style:none;margin:0;padding:54px 6vw;position:relative;background:linear-gradient(90deg,#4567bf,#96afc9) center/94% 2px no-repeat}
   li{min-width:0;position:relative;align-self:center;padding:7px 6px 9px 8px;border-left:2px solid #365ac1;background:#edf3f3;transform:translateY(-30px)}
   li:nth-child(even){transform:translateY(30px)}
