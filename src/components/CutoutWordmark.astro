@@ -4,7 +4,8 @@ import SignalMatrix from './SignalMatrix.astro';
 
 <div class="cutout">
   <span class="drafting-ring" aria-hidden="true"></span>
-  <div class="paper" aria-hidden="true">
+  <div class="paper-lift" aria-hidden="true">
+  <div class="paper">
     <span class="registration mark-top"></span>
     <span class="registration mark-bottom"></span>
     <div class="letters">
@@ -14,6 +15,7 @@ import SignalMatrix from './SignalMatrix.astro';
     <span class="ink-stamp"></span>
     <span class="barcode"></span>
     <div class="matrix"><SignalMatrix /></div>
+  </div>
   </div>
   <button class="seal" type="button" aria-label="Stamp the Arklogs wordmark">
     <span aria-hidden="true">✦</span>
