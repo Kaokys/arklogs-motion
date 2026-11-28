@@ -90,14 +90,21 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
     background: radial-gradient(circle, #9eb6bd 1px, transparent 1.3px) 0 0 / 12px 12px,
       linear-gradient(125deg, #edf3ef, #e4eeec 65%, #dce9e9);
     color: #19374e;
-    padding: 26px 0 20px;
+    padding-top: 26px;
   }
   .milestones header{margin:0 6%}.milestones header small,.issuer{font:13px 'Courier New',monospace}
   .milestones h1{font:italic 700 25px Georgia,serif;letter-spacing:normal;text-transform:none;margin:3px 0 0}
   .milestones header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
   .scroll-controls{display:flex;gap:5px}
   .scroll-controls button{width:44px;height:44px;background:#f8fbfa;color:#2448a0;border:1px solid #95adc2;font-size:20px;cursor:pointer}
-  .strip{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-color:#315ac3 #d9e5eb;margin:auto 0;max-width:100%}
+  .strip {
+    display: flex;
+    flex: 1 0 auto;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-color: #315ac3 #d9e5eb;
+    max-width: 100%;
+  }
   @supports selector(::-webkit-scrollbar){
     .strip{scrollbar-color:auto}
     .strip::-webkit-scrollbar:horizontal{height:18px}
@@ -122,6 +129,7 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
   }
   @media(forced-colors:active){.strip{scrollbar-color:auto}}
   .timeline {
+    flex: none;
     width: max-content;
     min-width: 100%;
     display: grid;
