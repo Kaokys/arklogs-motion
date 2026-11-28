@@ -1,5 +1,5 @@
 ---
-import ArchiveSection from '../../components/ArchiveSection.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts', ({ data }) => !data.draft))
@@ -7,35 +7,104 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
 const categories = [...new Set(posts.map(({ data }) => data.archiveCategory ?? data.category))].sort();
 const tags = [...new Set(posts.flatMap(({ data }) => data.tags))].sort();
 ---
-<ArchiveSection title="Blog" description="Add your articles and updates here.">
-  <a slot="intro" class="archive-feed-link" href="/rss.xml">RSS feed</a>
-  {posts.length === 0 ? <div class="notes-empty"><p>No posts yet.</p></div> : (
-    <div class="archive-post-list" data-blog-archive>
+<BaseLayout title="Blog" description="Write-ups, field notes, and experiments from Kao.">
+  <section class="blog-archive" aria-labelledby="blog-title" data-blog-archive>
+    <aside class="blog-sidebar">
+      <header>
+        <h1 id="blog-title">Blog</h1>
+        <p>Write-ups, field notes, and experiments.</p>
+        <a class="archive-feed-link" href="/rss.xml">RSS feed <span aria-hidden="true">↗</span></a>
+      </header>
+      {posts.length > 0 && (
       <form class="archive-filters" hidden>
         <label>Search <input type="search" name="q" placeholder="Search posts" /></label>
         <label>Category <select name="category"><option value="">All categories</option>{categories.map((category) => <option>{category}</option>)}</select></label>
         <label>Tag <select name="tag"><option value="">All tags</option>{tags.map((tag) => <option>{tag}</option>)}</select></label>
         <button type="reset">Clear</button>
       </form>
-      <p data-result-count aria-live="polite" hidden></p>
-      <ul class="blog-posts">
-        {posts.map(({ id, data }) => (
+      )}
+    </aside>
+    <div class="blog-results">
+      <p class="blog-result-count" data-result-count aria-live="polite" hidden></p>
+      {posts.length === 0 ? <p class="blog-empty">No posts yet.</p> : <ul class="blog-posts">
+        {posts.map(({ id, data }, index) => (
           <li data-post data-category={data.archiveCategory ?? data.category} data-tags={JSON.stringify(data.tags)}>
-            <a class="blog-post" href={`/blog/${id}/`}>
+            <a class:list={['blog-post', { 'blog-post-featured': index === 0 }]} href={`/blog/${id}/`}>
               {data.cover && <img src={data.cover} alt="" width="320" height="180" decoding="async" />}
               <div>
                 <p class="blog-meta">{data.archiveCategory ?? data.category} · <time datetime={data.date.toISOString()}>{data.date.toLocaleDateString('en-GB', { dateStyle: 'medium', timeZone: 'UTC' })}</time></p>
                 <h2>{data.title}</h2>
-                <p>{data.description}</p>
-                {data.tags.length > 0 && <p class="blog-meta">{data.tags.join(' · ')}</p>}
+                <p class="blog-excerpt" lang={data.language}>{data.description}</p>
+                {data.tags.length > 0 && <ul class="blog-card-tags" aria-label="Tags">{data.tags.map((tag) => <li>{tag}</li>)}</ul>}
+                <span class="blog-read">Read article <span aria-hidden="true">↗</span></span>
               </div>
             </a>
           </li>
         ))}
-      </ul>
+      </ul>}
     </div>
-  )}
-</ArchiveSection>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-archive {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1rem, 4vw, 4rem);
+    padding: clamp(1rem, 3vw, 3rem);
+    background: #edf2ed url('/atlas-landscape.svg') center / cover no-repeat;
+    color: #19374e;
+  }
+  .blog-sidebar, .blog-empty, .blog-result-count {
+    background: #f5f8f8;
+    border: 1px solid #a3b8c5;
+  }
+  .blog-sidebar { border-top: 3px solid #234bb1; padding: clamp(.9rem, 2vw, 1.4rem); }
+  .blog-sidebar h1 { margin: 0; font: italic 700 clamp(1.65rem, 3vw, 2.35rem) Georgia, serif; }
+  .blog-sidebar header p { margin: .4rem 0 .6rem; line-height: 1.5; }
+  .blog-sidebar .archive-feed-link { display: inline-block; margin: 0; }
+  .archive-filters:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 1.15rem;
+    padding-top: 1rem;
+    border-top: 1px solid #b8c8d0;
+  }
+  .archive-filters button { justify-self: start; padding-inline: .85rem; }
+  .blog-results { min-width: 0; width: 100%; max-width: 52rem; margin-inline: auto; }
+  .blog-result-count, .blog-empty { width: fit-content; padding: .35rem .6rem; margin: 0 0 .65rem; font-size: .85rem; }
+  .blog-post {
+    overflow: hidden;
+    border-left: 1px solid #aebbc5;
+    border-top: 3px solid #234bb1;
+    box-shadow: 4px 5px #57758e42;
+    background: #f8faf9;
+  }
+  .blog-post-featured { display: grid; gap: 0; padding: 0; }
+  .blog-post-featured > img {
+    width: 100%;
+    height: clamp(9rem, 16vw, 13rem);
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    border-bottom: 1px solid #a3b8c5;
+  }
+  .blog-post-featured > div { padding: clamp(1rem, 3vw, 1.8rem); }
+  .blog-post h2 { font-weight: 700; letter-spacing: normal; overflow-wrap: anywhere; }
+  .blog-post-featured h2 { font-size: clamp(1.35rem, 3vw, 2.05rem); }
+  .blog-excerpt { line-height: 1.65; }
+  .blog-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: .8rem 0; list-style: none; }
+  .blog-card-tags li { padding: .15rem .4rem; background: #e8f0f4; border: 1px solid #b8cbd6; font-size: .8rem; }
+  .blog-read { display: flex; justify-content: space-between; padding-top: .55rem; border-top: 1px solid #bbcbd5; color: #234bb1; font-weight: 700; font-size: .875rem; }
+  @media (max-width: 700px) {
+    .blog-archive { grid-template-columns: minmax(0, 1fr); }
+    .archive-filters:not([hidden]) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .archive-filters label:first-child { grid-column: 1 / -1; }
+  }
+</style>
 
 <script>
   function initArchive() {
