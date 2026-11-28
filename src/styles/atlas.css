@@ -9,7 +9,7 @@
 
 .home-screen .map-zone {
   background-color: #c2e2f7;
-  border-color: #91a8b8;
+  border: var(--archive-frame-border);
 }
 .home-screen .route-track .route-node {
   border: 2px solid #829caf;

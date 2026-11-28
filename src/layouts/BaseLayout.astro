@@ -19,6 +19,7 @@ import '../styles/blog.css';
 import '../styles/atlas.css';
 import '../styles/about-board.css';
 import '../styles/cutout-wordmark.css';
+import ScreenHeading from '../components/ScreenHeading.astro';
 import { ClientRouter } from 'astro:transitions';
 import { nav } from '../data/content';
 
@@ -27,6 +28,14 @@ const { title, description = 'Arklogs — projects, research, and field notes.' 
 const pathname = Astro.url.pathname;
 const isAbout = /^\/about\/?$/.test(pathname);
 const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?:\/|$)/.test(pathname);
+const section = pathname.split('/')[1];
+const headings = {
+  about: { label: 'PROFILE RECORD', index: '002', caption: 'GET TO KNOW KAO' },
+  achievements: { label: 'CERTIFICATE TIMELINE', index: '003', caption: 'SELECT A CERTIFICATE TO VIEW' },
+  projects: { label: 'PROJECT ARCHIVE', index: '004', caption: 'EXPLORE PROJECTS' },
+  blog: { label: 'WRITING ARCHIVE', index: '005', caption: 'BROWSE POSTS' },
+};
+const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
 ---
 <!doctype html>
 <html lang="en" transition:animate="none">
@@ -55,8 +64,56 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
       </header></slot>
-      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]}><slot /></main>
+      <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout, 'app-main-framed': heading }]}>
+        {heading ? (
+          <>
+            <ScreenHeading {...heading} />
+            <div class="section-frame"><slot /></div>
+          </>
+        ) : <slot />}
+      </main>
       <slot name="footer"><footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer></slot>
     </div>
   </body>
 </html>
+
+<style is:global>
+  .app-main.app-main-framed {
+    display: grid;
+    grid-template-rows: minmax(26px, auto) minmax(0, 1fr);
+    padding: 12px 30px 18px;
+    overflow: hidden;
+    background: var(--archive-surround);
+  }
+  .app-main-framed > .screen-heading {
+    position: static;
+    display: flex;
+    height: auto;
+    min-width: 0;
+    gap: 8px 16px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .app-main-framed > .screen-heading span:last-child {
+    display: inline;
+    margin-left: auto;
+  }
+  .section-frame {
+    min-width: 0;
+    min-height: 0;
+    border: var(--archive-frame-border);
+    background: #edf3f3;
+    overflow: auto;
+  }
+  .section-frame > #kao-screen-board { border: 0; }
+  .section-frame > .writing-screen {
+    min-height: 100%;
+    height: auto;
+    padding: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .section-frame > .writing-screen > .writing-board { border: 0; }
+  @media (max-width: 760px) {
+    .app-main.app-main-framed { padding: 8px 9px; }
+  }
+</style>

@@ -2,13 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CutoutWordmark from '../components/CutoutWordmark.astro';
 import SignalMatrix from '../components/SignalMatrix.astro';
+import ScreenHeading from '../components/ScreenHeading.astro';
 import { sections } from '../data/content';
 ---
 <BaseLayout title="Home" description="A portfolio template with space for a profile, achievements, projects, and writing.">
   <div class="home-screen">
     <div class="motion-stage" aria-hidden="true"><span class="motion-orbit orbit-one"></span><span class="motion-orbit orbit-two"></span><span class="motion-scan"></span><span class="motion-cross cross-one">＋</span><span class="motion-cross cross-two">＋</span></div>
     <CutoutWordmark />
-    <div class="screen-heading"><span>MAIN LINE PLOT <i></i> ARK / 001</span><span>SELECT A RECORD TO EXPLORE</span></div>
+    <ScreenHeading label="MAIN LINE PLOT" index="001" caption="SELECT A RECORD TO EXPLORE" />
     <a class="intro-panel" href="/about/" aria-label="About Me">
       <div class="intro-top"><span class="tiny-square"></span> CURATOR'S NOTE <span class="panel-id">A—001</span></div>
       <div class="intro-main"><p class="overline">A PERSONAL RECORD</p><h1>Ark<br /><em>logs.</em></h1></div>

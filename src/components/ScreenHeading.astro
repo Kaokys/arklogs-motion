@@ -1,0 +1,12 @@
+---
+interface Props {
+  label: string;
+  index: string;
+  caption: string;
+}
+const { label, index, caption } = Astro.props;
+---
+<div class="screen-heading">
+  <span>{label} <i aria-hidden="true"></i> ARK / {index}</span>
+  <span>{caption}</span>
+</div>
