@@ -109,7 +109,6 @@
   .selection-copy h2 { color: #fff; font-size: clamp(1.55rem, 1.9vw, 2.4rem); margin-bottom: 8px; }
   .selection-copy > p:last-child { color: #d1dde1; font-size: 13px; line-height: 1.38; }
   .open-record { height: 42px; }
-  .home-timeline { position: absolute; left: 27px; right: 27px; bottom: 3px; height: 43px; }
 }
 
 @media (min-width: 761px) and (max-height: 700px) {

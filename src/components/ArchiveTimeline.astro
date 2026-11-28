@@ -1,17 +1,17 @@
 ---
-import { sections } from '../data/content';
+import { nav } from '../data/content';
 
-interface Props { activeHref?: string; }
-const { activeHref = sections[0].href } = Astro.props;
-const activeIndex = sections.findIndex(section => section.href === activeHref);
+interface Props { activeHref: string; }
+const { activeHref } = Astro.props;
+const activeIndex = nav.findIndex(item => item.href === activeHref);
 const format = (value: number) => String(value).padStart(2, '0');
-const total = format(sections.length);
+const total = format(nav.length);
 ---
 <nav class="home-timeline" aria-label="Archive sections">
   <span>{format(activeIndex + 1)} / {total}</span>
   <div class="timeline-rule">
-    {sections.map(section => (
-      <a href={section.href} aria-label={section.label} aria-current={section.href === activeHref && Astro.url.pathname !== '/' ? 'location' : undefined} class:list={{ active: section.href === activeHref }}><i aria-hidden="true"></i></a>
+    {nav.map(item => (
+      <a href={item.href} aria-label={item.label} aria-current={item.href === activeHref ? (item.href === Astro.url.pathname ? 'page' : 'location') : undefined} class:list={{ active: item.href === activeHref }}><i aria-hidden="true"></i></a>
     ))}
   </div>
   <span>{total} / {total}</span>
@@ -19,6 +19,17 @@ const total = format(sections.length);
 </nav>
 
 <style>
+  .home-timeline {
+    position: absolute;
+    grid-area: auto;
+    inset: auto 30px 0;
+    height: 56px;
+    white-space: nowrap;
+    z-index: 4;
+  }
+  @media (max-width: 760px) {
+    .home-timeline { inset-inline: 9px; height: 36px; }
+  }
   .timeline-rule { align-items: center; }
   .timeline-rule a { display: grid; place-items: center; flex: 1; min-width: 0; height: 32px; }
   .timeline-rule a i { transform: rotate(45deg); background: #c0cbd2; border-color: #7d8c9b; }

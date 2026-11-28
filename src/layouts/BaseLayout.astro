@@ -70,9 +70,9 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
           <>
             <ScreenHeading {...heading} />
             <div class="section-frame"><slot /></div>
-            <ArchiveTimeline activeHref={isBlog ? '/blog/' : `/${section}/`} />
           </>
         ) : <slot />}
+        {(heading || pathname === '/') && <ArchiveTimeline activeHref={isBlog ? '/blog/' : heading ? `/${section}/` : '/'} />}
       </main>
       <slot name="footer"><footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer></slot>
     </div>
@@ -107,12 +107,6 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
     background: #edf3f3;
     overflow: auto;
   }
-  .app-main-framed > .home-timeline {
-    position: static;
-    height: auto;
-    min-width: 0;
-    white-space: nowrap;
-  }
   .section-frame > #kao-screen-board { border: 0; }
   .section-frame > .writing-screen {
     min-height: 100%;
@@ -123,7 +117,7 @@ const heading = headings[isBlog ? 'blog' : section as keyof typeof headings];
   .section-frame > .writing-screen > .writing-board { border: 0; }
   @media (max-width: 760px) {
     .app-main.app-main-framed {
-      grid-template-rows: minmax(26px, auto) minmax(0, 1fr) 40px;
+      grid-template-rows: minmax(26px, auto) minmax(0, 1fr) 36px;
       padding: 8px 9px 0;
     }
   }
