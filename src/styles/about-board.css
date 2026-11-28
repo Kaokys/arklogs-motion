@@ -219,7 +219,24 @@
   #kao-screen-board .bio p {font-size:12px}
   #kao-screen-board .bio p+p {margin-top:5px}
 }
-.app-main-about {overflow:auto}
+.app-main-about > .section-frame {overflow:clip}
+.app-main-about #kao-screen-board {
+  height:100%;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+}
+.app-main-about #kao-screen-board .board-stage {
+  width:100%;
+  min-height:0;
+  aspect-ratio:auto;
+  overflow:clip;
+}
+@container about-board (width < 620px) {
+  .app-main-about #kao-screen-board .evidence {
+    transform:scale(var(--wide-scale,1));
+    transform-origin:top center;
+  }
+}
 #kao-screen-board {width:min(100%,1420px);min-height:0;margin-inline:auto}
 #kao-screen-board header {padding:7px 18px}
 #kao-screen-board .gameart {
@@ -273,7 +290,6 @@
   }
 }
 @container about-board (width >= 620px) {
-  #kao-screen-board .board-stage {max-height:var(--board-height,none)}
   #kao-screen-board .evidence {left:50%;top:50%;transform:scale(var(--wide-scale,1)) translate(-50%,-50%)}
   #kao-screen-board .evidence .profile-note {--x:42px;--y:285px;--w:254px;--angle:1deg}
   #kao-screen-board .evidence .github {--angle:-5deg}

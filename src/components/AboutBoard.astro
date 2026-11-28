@@ -81,6 +81,7 @@ function initAboutBoard() {
   const grid=root.querySelector<HTMLElement>('.evidence')!;
   const lines=grid.querySelector('.threads');
   const stage=root.querySelector<HTMLElement>('.board-stage')!;
+  const fitted = Boolean(root.closest('.app-main-about'));
   const tabs=root.querySelector<HTMLElement>('.board-tabs')!;
   for (const button of tabs.querySelectorAll<HTMLButtonElement>('button')) {
     button.addEventListener('click',()=>{
@@ -100,10 +101,9 @@ function initAboutBoard() {
   });
   function draw(){
     const wide=getComputedStyle(grid).position==='absolute';
-    const main = root.closest('main');
-    const header = root.querySelector('header');
-    if (main && header) stage.style.setProperty('--board-height', Math.max(0, main.clientHeight - header.offsetHeight - 2) + 'px');
-    const scale = wide ? Math.min(stage.clientWidth / grid.offsetWidth, stage.clientHeight / grid.offsetHeight) : 1;
+    const scale = wide
+      ? Math.min(stage.clientWidth / grid.offsetWidth, stage.clientHeight / grid.offsetHeight)
+      : fitted ? Math.min(1, stage.clientHeight / grid.offsetHeight) : 1;
     if(!scale) return;
     grid.style.setProperty('--wide-scale',String(scale));
     const origin=lines.getBoundingClientRect();
