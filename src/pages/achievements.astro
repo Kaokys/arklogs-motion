@@ -21,7 +21,13 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
 <BaseLayout title="Achievements" description="Kao’s certificate timeline, ordered by issue date.">
   <footer slot="footer" class="archive-foot"><b>Milestone timeline</b><span>{sample ? 'Sample certificates' : 'Certificates'}</span></footer>
   <section class="milestones">
-    <header><small>Certificates by issue date</small><h1>Achievements</h1></header>
+    <header><div><small>Certificates by issue date</small><h1>Achievements</h1></div>
+      <div class="scroll-controls">
+        <button type="button" data-step="-1" aria-label="Scroll certificates left" aria-controls="certificate-strip">←</button>
+        <button type="button" data-step="1" aria-label="Scroll certificates right" aria-controls="certificate-strip">→</button>
+      </div>
+    </header>
+    <div id="certificate-strip" class="strip" tabindex="0" role="region" aria-label="Scrollable certificate timeline">
     <ol class="timeline" aria-label="Certificates by issue date">
       {records.map(record => <li>
         <button type="button" data-certificate aria-label={`View ${record.title} certificate`}>
@@ -32,12 +38,22 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
         </button>
       </li>)}
     </ol>
+    </div>
     <dialog aria-label="Certificate preview"><form method="dialog"><button type="submit">Close ×</button></form><div data-preview></div></dialog>
   </section>
 </BaseLayout>
 <script>
   document.addEventListener('click', event => {
     if (!(event.target instanceof Element)) return;
+    const arrow = event.target.closest<HTMLButtonElement>('.scroll-controls [data-step]');
+    if (arrow) {
+      const strip = document.getElementById('certificate-strip');
+      const cards = strip?.querySelectorAll('li');
+      if (strip && cards && cards.length > 1) {
+        strip.scrollBy({left:Number(arrow.dataset.step) * (cards[1].offsetLeft - cards[0].offsetLeft)});
+      }
+      return;
+    }
     const button = event.target.closest('[data-certificate]');
     const dialog = button?.closest('.milestones')?.querySelector('dialog');
     const sheet = button?.querySelector('.sheet');
@@ -58,12 +74,15 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
   .milestones{min-height:100%;display:flex;flex-direction:column;background:#edf3f3;color:#19374e;padding:26px 0 20px}
   .milestones header{margin:0 6%}.milestones header small,.issuer{font:13px 'Courier New',monospace}
   .milestones h1{font:italic 700 25px Georgia,serif;letter-spacing:normal;text-transform:none;margin:3px 0 0}
-  .timeline{flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-content:center;gap:60px 2.8%;list-style:none;margin:0;padding:48px 6%;position:relative}
+  .milestones header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .scroll-controls{display:flex;gap:5px}
+  .scroll-controls button{width:44px;height:44px;background:#f8fbfa;color:#2448a0;border:1px solid #95adc2;font-size:20px;cursor:pointer}
+  .strip{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-color:#819bc8 #e0ebed;margin:auto 0;max-width:100%}
+  .timeline{width:max-content;min-width:100%;display:grid;grid-auto-flow:column;grid-auto-columns:max(230px,25vw);align-items:center;gap:3vw;list-style:none;margin:0;padding:54px 6vw;position:relative;background:linear-gradient(90deg,#4567bf,#96afc9) center/94% 2px no-repeat}
   li{min-width:0;position:relative;align-self:center;padding:7px 6px 9px 8px;border-left:2px solid #365ac1;background:#edf3f3;transform:translateY(-30px)}
   li:nth-child(even){transform:translateY(30px)}
   @media(min-width:671px){
     .milestones{padding-top:19px}
-    .timeline{padding-right:5%;column-gap:3%;background:linear-gradient(90deg,#4567bf,#96afc9) 50% calc(50% + 8px)/90% 2px no-repeat}
     .issuer{font-size:12px}
   }
   [data-certificate]{position:relative;display:block;width:100%;padding:0;background:none;border:0;text-align:left;color:#19374e;cursor:pointer}
@@ -77,5 +96,5 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
   .sheet img{display:block;width:100%;aspect-ratio:1.42;object-fit:contain}
   strong,.issuer{display:block}strong{font:700 clamp(16px,1.8vw,23px)/1.18 Arial,sans-serif;margin:7px 2px 9px}.issuer{line-height:1.25;margin-left:2px}
   dialog{width:min(740px,92vw);border:1px solid #9aafbd;padding:16px;background:#f8fbfa}dialog::backdrop{background:#18354aaa}dialog form{text-align:right;margin-bottom:8px}dialog button{cursor:pointer;padding:5px 12px}
-  @media(max-width:670px){.timeline{display:block;margin:20px 6%;padding:0 0 0 16px;border-left:2px solid #6486c6}.timeline li{max-width:360px;transform:none;margin:0 0 20px}.timeline li:before{width:16px;top:50%}}
+  @media(max-width:670px){.timeline{grid-auto-columns:min(72vw,320px);gap:6vw}}
 </style>
