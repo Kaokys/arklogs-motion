@@ -42,7 +42,7 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="app-shell">
-      <header class="topbar">
+      <slot name="header"><header class="topbar">
         <a class="wordmark" href="/" aria-label="Arklogs home"><span class="wordmark-ark">ARK</span><span class="wordmark-logs">LOGS</span></a>
         <span class="topbar-caption">PERSONAL ARCHIVE <span>/</span> SYSTEM ONLINE</span>
         <nav class="top-nav" aria-label="Main navigation">
@@ -54,9 +54,9 @@ const isBlog = pathname === '/archive' || pathname === '/archive/' || /^\/blog(?
           ))}
         </nav>
         <span class="topbar-corner" aria-hidden="true">＋</span>
-      </header>
+      </header></slot>
       <main id="main" class:list={['app-main', { 'app-main-home': pathname === '/', 'app-main-blog': isBlog, 'app-main-about': isAbout }]}><slot /></main>
-      <footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer>
+      <slot name="footer"><footer class="statusbar"><span><b class="status-dot"></b> ARKLOGS / FIELD ARCHIVE</span><span class="statusbar-center">BUILD · INVESTIGATE · DOCUMENT</span><span>EST. 2026 <span class="status-slash">/</span> OPEN ACCESS</span></footer></slot>
     </div>
   </body>
 </html>
