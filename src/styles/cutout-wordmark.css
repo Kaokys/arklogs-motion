@@ -33,22 +33,29 @@
 }
 
 .home-screen .cutout .paper-lift {
-  filter: drop-shadow(1px 2px 1px #24406730) drop-shadow(2px 5px 5px #24406726);
+  position: relative;
+  isolation: isolate;
+}
+
+.home-screen .cutout .paper-lift::before {
+  content: '';
+  position: absolute;
+  inset: 6% 2%;
+  z-index: -1;
+  background: #859eb3;
+  transform: translate(1.5%, 3%) rotate(2deg);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .home-screen .cutout .paper-lift {
-    animation: cutout-paper-drift 2.75s infinite;
+    animation: cutout-paper-drift 2.75s step-end infinite;
   }
 }
 
-/* Four short moves around a closed path, sampled at 12 poses per second. */
 @keyframes cutout-paper-drift {
-  0%     { transform: translate(0, 0) rotate(0deg); animation-timing-function: steps(8, end); }
-  24.24% { transform: translate(1px, -2px) rotate(.45deg); animation-timing-function: steps(8, end); }
-  48.48% { transform: translate(0, -3px) rotate(.1deg); animation-timing-function: steps(8, end); }
-  72.73% { transform: translate(-1px, -1px) rotate(-.45deg); animation-timing-function: steps(9, end); }
-  100%   { transform: translate(0, 0) rotate(0deg); }
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33.333%  { transform: translate(1px, -2px) rotate(.45deg); }
+  66.667%  { transform: translate(-1px, -1px) rotate(-.45deg); }
 }
 
 .home-screen .cutout .paper {
