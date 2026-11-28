@@ -1,4 +1,74 @@
 ---
-import ArchiveSection from '../components/ArchiveSection.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Certificate {
+  title: string;
+  issuer: string;
+  issued: string;
+  image?: string;
+}
+const certificates: Certificate[] = [];
+const examples = [
+  { title: 'Blue Team Foundations', issuer: 'Security Academy', issued: '2026-10-01' },
+  { title: 'Embedded Systems', issuer: 'Hardware Studio', issued: '2026-06-01' },
+  { title: 'CTF Fundamentals', issuer: 'Cyber Lab', issued: '2026-04-01' }
+];
+const sample = certificates.length === 0;
+const records: Certificate[] = [...(sample ? examples : certificates)].sort((a,b) => b.issued.localeCompare(a.issued));
+const month = new Intl.DateTimeFormat('en', {month:'long', year:'numeric', timeZone:'UTC'});
 ---
-<ArchiveSection title="Achievements" description="Add your certificates and milestones here." empty="No achievements yet." />
+<BaseLayout title="Achievements" description="Kao’s certificate timeline, ordered by issue date.">
+  <section class="milestones">
+    <header><small>ARKLOGS / CERTIFICATE ARCHIVE</small><h1>Achievements</h1>
+      {sample && <p>Sample certificates</p>}
+    </header>
+    <ol class="timeline" aria-label="Certificates, newest first">
+      {records.map(record => <li>
+        <time datetime={record.issued}>{month.format(new Date(record.issued))}</time>
+        <button type="button" data-certificate aria-label={`View ${record.title} certificate`}>
+          <span class="sheet">{record.image ? <img src={record.image} alt={record.title} /> :
+            <span class="document"><small>{record.issuer}</small><b>Certificate</b><i>of completion</i><em>Kao</em><span>{record.title}</span><small>{sample && 'SAMPLE'}</small></span>}
+          </span>
+          <strong>{record.title}</strong><span class="issuer">{record.issuer} <span aria-hidden="true">↗</span></span>
+        </button>
+      </li>)}
+    </ol>
+    <dialog aria-label="Certificate preview"><form method="dialog"><button type="submit">Close ×</button></form><div data-preview></div></dialog>
+  </section>
+</BaseLayout>
+<script>
+  document.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest('[data-certificate]');
+    const dialog = button?.closest('.milestones')?.querySelector('dialog');
+    const sheet = button?.querySelector('.sheet');
+    if (!dialog || !sheet) return;
+    dialog.style.setProperty('--accent', getComputedStyle(sheet).getPropertyValue('--accent'));
+    dialog.querySelector('[data-preview]')?.replaceChildren(sheet.cloneNode(true));
+    dialog.showModal();
+  });
+</script>
+<style>
+  .milestones{margin:clamp(12px,2vw,32px);padding:clamp(18px,3vw,48px);color:#17324b;background-color:#eef5f6;background-image:linear-gradient(#a2bbc126 1px,transparent 1px),linear-gradient(90deg,#a2bbc126 1px,transparent 1px);background-size:30px 30px;border:1px solid #9cb3c0;overflow:auto;max-height:100%}
+  header small,.document small,time,.issuer{font:600 .8rem/1.4 monospace}
+  h1{margin:.18em 0;font:italic bold clamp(2.5rem,5vw,5rem)/1 Georgia,serif}
+  header p{margin:0;color:#43586b}
+  .timeline{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.5rem 0;margin:2rem 0 0;padding:0}
+  li{--accent:#2448a0;position:relative;padding:0 clamp(8px,1.6vw,24px)}
+  li:nth-child(3n+2){--accent:#25645c}li:nth-child(3n){--accent:#874055}
+  time{position:relative;display:block;padding-bottom:12px;color:#284683}
+  time:after{content:'';position:absolute;bottom:-4px;left:0;width:8px;height:8px;background:#365ac2;transform:rotate(45deg)}
+  li:before{content:'';position:absolute;top:calc(1.12rem + 11px);left:0;right:0;border-top:1px solid #819bc8}
+  [data-certificate]{position:relative;display:block;width:100%;margin-top:23px;text-align:left;color:inherit;background:#fffdf7;border:1px solid #a6b6bf;padding:10px;box-shadow:3px 4px #96aeba55;cursor:pointer}
+  [data-certificate]:before{content:'';position:absolute;left:0;bottom:100%;height:23px;border-left:1px solid #819bc8}
+  li:nth-child(3n+2) button{margin-top:48px}li:nth-child(3n+2) button:before{height:48px}
+  [data-certificate]:hover,[data-certificate]:focus-visible{outline:2px solid #4569bd}
+  .sheet{display:block;container-type:inline-size;background:#fffdf2;color:var(--accent,#2448a0)}
+  .document{display:flex;aspect-ratio:1.52;flex-direction:column;align-items:center;justify-content:center;border:5px double currentColor;outline:1px solid currentColor;outline-offset:-12px;text-align:center;font:5cqw Georgia;position:relative}
+  .document:after{content:'✦';position:absolute;right:7%;bottom:12%;border:3px double #a47b39;color:#936e34;border-radius:50%;padding:1% 2%}
+  .document small{font:4cqw monospace}.document b{font:italic 12cqw Georgia}.document em{font:italic 10cqw Georgia}.document small:last-child{margin-top:4%}
+  .sheet img{display:block;width:100%;aspect-ratio:1.52;object-fit:contain}
+  strong,.issuer{display:block}strong{margin-top:.65em;font:700 clamp(1.05rem,2vw,1.6rem) Georgia}.issuer{margin-top:.3em;color:#506474}
+  dialog{width:min(780px,92vw);border:1px solid #849aaa;background:#f2f6f5;padding:16px}dialog::backdrop{background:#142839b8}dialog form{text-align:right;margin-bottom:10px}dialog form button{padding:6px 14px;cursor:pointer}dialog img{aspect-ratio:auto;max-height:75vh}
+  @media(max-width:700px){.timeline{grid-template-columns:1fr;gap:0;border-left:1px solid #819bc8}.timeline li{padding:0 0 24px 18px}.timeline li:before,.timeline button:before{display:none}.timeline time{padding:0}.timeline time:after{left:-22px;bottom:.35em}.timeline li button{margin-top:8px}}
+</style>
