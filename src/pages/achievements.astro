@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-import { nav } from '../data/content';
-
 interface Certificate {
   title: string;
   issuer: string;
@@ -21,10 +19,6 @@ const records: Certificate[] = [...(sample ? examples : certificates)].sort((a,b
 const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
 ---
 <BaseLayout title="Achievements" description="Kao’s certificate timeline, ordered by issue date.">
-  <header slot="header" class="archive-bar">
-    <a class="brand" href="/" aria-label="Arklogs home"><b>ARK</b> LOGS</a>
-    <details><summary>Personal archive</summary><nav aria-label="Main navigation">{nav.map(item => <a href={item.href}>{item.label}</a>)}</nav></details>
-  </header>
   <footer slot="footer" class="archive-foot"><b>Milestone timeline</b><span>{sample ? 'Sample certificates' : 'Certificates'}</span></footer>
   <section class="milestones">
     <header><small>Certificates by issue date</small><h1>Achievements</h1></header>
@@ -58,21 +52,17 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
   });
 </script>
 <style>
-  :global(.app-shell:has(.archive-bar)){display:grid;grid-template-rows:60px minmax(0,1fr) 48px;height:100dvh;padding:0;background:#edf3f3;border:0}
   :global(.app-main:has(.milestones)){display:block;padding:0;margin:0;overflow:auto;background:#edf3f3}
-  .archive-bar,.archive-foot{display:flex;align-items:center;justify-content:space-between;background:#f8fbfa;padding:0 5%;color:#17344b;font:13px 'Courier New',monospace}
-  .archive-bar{position:relative;z-index:2;border-bottom:1px solid #acc2cc}.archive-foot{border-top:1px solid #acc2cc}
-  .brand{font:bold 26px Georgia,serif;color:#16334d;text-decoration:none}.brand b{display:inline-block;padding:4px 5px;background:#254bc8;color:white;font:900 24px Arial,sans-serif}
-  summary{cursor:pointer;list-style:none;padding:12px 0}summary::-webkit-details-marker{display:none}details nav{position:absolute;right:5%;background:#fff;border:1px solid #a7bac8;display:grid;padding:6px}nav a{padding:7px 14px;color:#17344b}
+  .archive-foot{display:flex;align-items:center;justify-content:space-between;background:#f8fbfa;padding:0 5%;color:#17344b;font:13px 'Courier New',monospace}
+  .archive-foot{border-top:1px solid #acc2cc}
   .milestones{min-height:100%;display:flex;flex-direction:column;background:#edf3f3;color:#19374e;padding:26px 0 20px}
   .milestones header{margin:0 6%}.milestones header small,.issuer{font:13px 'Courier New',monospace}
-  .milestones h1{font:italic bold clamp(38px,5.55vw,76px)/1.1 Georgia,serif;letter-spacing:normal;text-transform:none;margin:3px 0 0}
+  .milestones h1{font:italic 700 25px Georgia,serif;letter-spacing:normal;text-transform:none;margin:3px 0 0}
   .timeline{flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-content:center;gap:60px 2.8%;list-style:none;margin:0;padding:48px 6%;position:relative}
   li{min-width:0;position:relative;align-self:center;padding:7px 6px 9px 8px;border-left:2px solid #365ac1;background:#edf3f3;transform:translateY(-30px)}
   li:nth-child(even){transform:translateY(30px)}
   @media(min-width:671px){
     .milestones{padding-top:19px}
-    .milestones h1{font-size:clamp(38px,5.05vw,72px)}
     .timeline{padding-right:5%;column-gap:3%;background:linear-gradient(90deg,#4567bf,#96afc9) 50% calc(50% + 8px)/90% 2px no-repeat}
     .issuer{font-size:12px}
   }
@@ -87,5 +77,5 @@ const month = new Intl.DateTimeFormat('en', {month:'long', timeZone:'UTC'});
   .sheet img{display:block;width:100%;aspect-ratio:1.42;object-fit:contain}
   strong,.issuer{display:block}strong{font:700 clamp(16px,1.8vw,23px)/1.18 Arial,sans-serif;margin:7px 2px 9px}.issuer{line-height:1.25;margin-left:2px}
   dialog{width:min(740px,92vw);border:1px solid #9aafbd;padding:16px;background:#f8fbfa}dialog::backdrop{background:#18354aaa}dialog form{text-align:right;margin-bottom:8px}dialog button{cursor:pointer;padding:5px 12px}
-  @media(max-width:670px){.timeline{display:block;margin:20px 6%;padding:0 0 0 16px;border-left:2px solid #6486c6}.timeline li{max-width:360px;transform:none;margin:0 0 20px}.timeline li:before{width:16px;top:50%}.milestones h1{font-size:40px}}
+  @media(max-width:670px){.timeline{display:block;margin:20px 6%;padding:0 0 0 16px;border-left:2px solid #6486c6}.timeline li{max-width:360px;transform:none;margin:0 0 20px}.timeline li:before{width:16px;top:50%}}
 </style>
