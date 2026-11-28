@@ -54,8 +54,8 @@
 
 @keyframes cutout-paper-drift {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33.333%  { transform: translate(1px, -2px) rotate(3.5deg); }
-  66.667%  { transform: translate(-1px, -1px) rotate(-3.5deg); }
+  33.333%  { transform: translate(1px, -2px) rotate(1.5deg); }
+  66.667%  { transform: translate(-1px, -1px) rotate(-1.5deg); }
 }
 
 .home-screen .cutout .paper {
